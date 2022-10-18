@@ -7,7 +7,7 @@
 
 	<style>
 		#icon-background {
-			fill: #E9E9E0;
+			fill: white;
 			stroke: #c5050c;
 		}
 		#icon-body {
