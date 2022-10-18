@@ -64,4 +64,4 @@ Abe Megahed, Kyle Cranmer, Cris Carusi
 
 Abe Megahed - (mailto:amegahed@wisc.edu) - email
 
-Project Link: [https://github.com/AFIDSI/DSIWastewater](https://github.com/AFIDSI/DSIWastewater)
+Project Link: [https://github.com/AFIDSI/datascience-map](https://github.com/AFIDSI/datascience-map)
