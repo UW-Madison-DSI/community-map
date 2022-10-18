@@ -4,7 +4,7 @@
   </div>
 </p>
 
-# datscience @ uw
+# datascience @ uw
 
 Datascience @ uw is a an interactive web-based map that allows exploration of the data science community at the University of Wisconsin-Madison.  It allows for searching for people by name or by topic / area of expertise.
 
