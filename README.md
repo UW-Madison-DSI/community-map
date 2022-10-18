@@ -1,6 +1,6 @@
 <p align="center">
   <div align="center">
-    <img src="./images/datascience-map-logo.svg" alt="Logo" style="width:33%">
+    <img src="./images/datascience-map-logo.svg" alt="Logo" style="width:50%">
   </div>
 </p>
 
