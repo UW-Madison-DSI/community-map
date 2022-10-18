@@ -1,0 +1,86 @@
+/******************************************************************************\
+|                                                                              |
+|                                  people.less                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+.people {
+
+	> .person {
+		> .marker {
+			&:hover, &.selected {
+				image {
+					filter: sepia(50) hue-rotate(300deg);
+				}
+			}
+		}
+
+		&.selected {
+			.interests {
+				display: none;
+			}
+		}
+	}
+}
+
+.interests {
+	pointer-events: none;
+}
+
+.popover-content {
+	> .person {
+		display: flex;
+	}
+}
+
+//
+// color marker borders according to affiliation
+//
+
+.person {
+	circle.background {
+		stroke: @brand-primary;
+	}
+
+	&.dsi-staff {
+		circle.background {
+			stroke: black;
+		}
+	}
+
+	&.dsi-partner {
+		circle.background {
+			stroke: goldenrod !important;
+		}
+	}
+
+	&.data-science-practitioner {
+		circle.background {
+			stroke: grey !important;
+		}
+	}
+		
+	&.data-science-enthusiast {
+		circle.background {
+			stroke: green !important;
+		}
+	}
+}
+
+//
+// hiding styles
+//
+
+.hide-unselected-people {
+	.people {
+		> .person:not(.selected) {
+			display: none;
+		}
+	}
+}

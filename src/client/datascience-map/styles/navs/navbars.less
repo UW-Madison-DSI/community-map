@@ -1,0 +1,67 @@
+/******************************************************************************\
+|                                                                              |
+|                                 navbars.less                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+.navbar {
+	height: 40px;
+	min-height: 40px;
+	background-color: @brand-primary;
+	border-color: @brand-primary;
+
+	.navbar-nav {
+		margin: 0;
+	}
+
+	.container {
+		width: 100%;
+	}
+
+	.navbar-nav > li > a {
+		padding: 10px;
+		color: lightgrey;
+	}
+
+	.navbar-brand {
+		height: 40px;
+		padding: 10px;
+		color: white;
+
+		.logo {
+			height: 20px;
+			float: left;
+			margin-right: 5px;
+		}
+	}
+
+	.navbar-right {
+		display: flex;
+		margin: 0 !important;
+		padding: 0 !important;
+		border-color: #9b0000;
+		box-shadow: none;
+
+		button {
+			margin-top: 3px;
+
+			+ button {
+				margin-left: 5px;
+			}
+		}
+	}
+
+	#home {
+		margin-right: 10px;
+	}
+
+	li.active a {
+		background: @brand-dark !important;
+	}
+}

@@ -1,0 +1,87 @@
+/******************************************************************************\
+|                                                                              |
+|                               typeography.less                               |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@main-font: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+// @title-font: Arial Narrow, Ubuntu Condensed, sans-serif;
+@title-font: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+//
+// styles
+//
+
+body {
+	font-family: @main-font;
+	font-size: 16px;
+}
+
+#page .main {
+	font-size: 18px;
+
+	p {
+		font-size: 20px;
+	}
+}
+
+.welcome #title {
+	font-size: 36px;
+}
+
+//
+// headings
+//
+
+h1, h2, h3, #brand {
+	font-family: @title-font;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 24px;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+//
+// other
+//
+
+.fineprint {
+	font-size: 1em;
+}
+
+.tooltip {
+	font-family: @main-font;
+	font-size: 14px;
+}
+
+.popover {
+	font-family: @main-font;
+	font-size: 16px;
+}
+
+.btn {
+	font-size: 16px;
+}
+
+.btn-lg {
+	font-size: 20px;
+}
+
+.status-message {
+	margin: 0;
+}

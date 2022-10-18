@@ -1,0 +1,54 @@
+/******************************************************************************\
+|                                                                              |
+|                                  pages.less                                  |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+#page {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	padding-top: 40px;
+	line-height: 2em;
+
+	.buttons {
+		text-align: center;
+
+		&:not(:first-child) {
+			margin-top: 20px;
+		}
+	}
+
+	#footer {
+		bottom: 0;
+		width: 100%;
+		padding: 50px;
+		color: lightgrey;
+		background: #494949;
+		border-top: 5px solid @brand-primary;
+	
+		.footer {
+			text-align: center;
+
+			.logo {
+				height: 100px;
+				margin: 10px;
+			}
+
+			a {
+				color: lightgrey;
+
+				&:hover {
+					color: white;
+				}
+			}
+		}
+	}
+}

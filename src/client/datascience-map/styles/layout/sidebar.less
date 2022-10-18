@@ -1,0 +1,391 @@
+/******************************************************************************\
+|                                                                              |
+|                                 sidebar.less                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+//
+// sidebar colors
+//
+
+@sidebar-background-color: @steel-grey;
+@sidebar-text-color: #303030;
+@sidebar-subtitle-color: @brand-primary;
+@sidebar-label-color: #303030;
+
+@sidebar-panel-color: white;
+@sidebar-link-color: @brand-primary;
+
+@nested-sidebar-panel-color: black;
+@nested-sidebar-panel-background-color: transparent;
+@nested-sidebar-panel-link-color: grey;
+
+/*
+@welcome-panel-text-color: white;
+@welcome-panel-background-color: @brand-primary;
+*/
+
+@welcome-panel-text-color: #303030;
+// @welcome-panel-background-color: @steel-grey;
+
+//
+// sidebar attributes
+//
+
+@sidebar-panel-padding: 10px;
+
+//
+// sidebar styles
+//
+
+.sidebar {
+	overflow: auto;
+	color: @sidebar-text-color;
+	background-color: @sidebar-background-color;
+	word-break: break-word;
+
+	h1 {
+		font-family: @title-font;
+		font-weight: bold;
+		margin-top: 0;
+	}
+
+	.logo {
+		margin: 10px;
+	}
+
+	.message {
+		padding: 10px;
+	}
+
+	button {
+		background: white;
+
+		&:hover, &:active {
+			background: @very-light-grey;
+		}
+	}
+
+	.expander {
+		button {
+			background: none;
+			width: 25px;
+			padding: 0 2px;
+			border: none;
+
+			i {
+				margin-right: 0 !important;
+			}
+
+			&:hover {
+				// color: white;
+			}
+
+			&:active {
+				box-shadow: none;
+			}
+		}
+	}
+
+	label {
+		display: block;
+	}
+
+	.panel {
+		background: white;
+		border-radius: 5px;
+		padding: 10px;
+
+		+ .panel {
+			margin-top: 10px;
+		}
+	}
+
+	.tree {
+		.icon {
+			width: 15px;
+			color: @brand-primary;
+		}
+
+		.badge {
+			float: right;
+		}
+	}
+
+	.panel {
+		padding: @sidebar-panel-padding;
+		background: @sidebar-panel-color;
+		border-radius: 0;
+		margin: 0;
+
+		.heading {
+			font-family: @title-font;
+			text-align: center;
+			font-weight: bold;
+			font-size: 200%;
+			margin: 10px;
+		}
+
+		.title .name {
+			color: @brand-primary;
+		}
+
+		&:empty {
+			display: none;
+		}
+
+		button#close {
+			position: absolute;
+			right: 20px;
+			background: @brand-primary;
+			color: white;
+
+			&:hover {
+				color: lightgrey;
+			}
+		}
+	}
+
+	ol.panel {
+		padding: 0;
+	}
+
+	.welcome.panel {
+		text-align: center;
+		min-height: 100%;
+		color: @welcome-panel-text-color;
+		// background-color: @welcome-panel-background-color;
+
+		/*
+		a {
+			color: white;
+			text-decoration: underline;
+		}
+		*/
+
+		.logo {
+			height: 100px;
+			margin: 10px;
+		}
+
+		h1#title {
+			color: @brand-primary;
+			margin-bottom: 0;
+		}
+
+		.subheading {
+			margin: 25px 10px;
+		}
+
+		.panel {
+			color: black;
+			text-align: left;
+			border-radius: 5px;
+		}
+	}
+
+	div.profile {
+		padding: 10px;
+
+		> div:not(:first-child) {
+			label {
+				margin-top: 10px;
+			}
+		}
+
+		label {
+			display: block;
+			margin-top: 10px;
+			margin-bottom: 0;
+			font-size: 125%;
+			font-family: @title-font;
+			color: @sidebar-label-color;
+		}
+	}
+
+	.profile-photo {
+		max-height: 200px;
+		display: block;
+		margin: auto;
+		margin-bottom: 10px;
+	}
+
+	.details {
+		margin-top: 10px;
+		color: grey;
+
+		.expander {
+			margin-left: auto;
+		}
+
+		.panel {
+			padding: 0;
+
+			label {
+				color: black;
+			}
+		}
+	}
+
+	//
+	// fieldsets
+	//
+
+	fieldset {
+		legend {
+			margin: 0;
+		}
+	}
+
+	.radio-buttons {
+		padding: 10px;
+		text-align: center;
+	}
+
+	.info {
+
+		> .title {
+			font-size: 200%;
+			font-family: @title-font;
+			font-weight: bold;
+			text-align: center;
+			margin: 10px;
+
+			.icon {
+				display: block;
+			}
+
+			.subtitle {
+				font-size: 75%;
+				padding-bottom: 10px;
+				color: @sidebar-subtitle-color;
+			}
+
+			+ .items {
+				border-top: 2px solid @brand-primary;
+			}
+		}
+
+		.content {
+			background: white;
+			padding: 10px;
+			margin-top: 10px;
+			border-radius: 10px;
+		}
+	}
+
+	.activities {
+		> .info > .title {
+			font-size: 150%;
+			margin: 20px;
+		}
+	}
+
+	.items.panel {
+		padding: 0;
+	}
+
+	.thumbnail {
+		margin: auto;
+		padding: 0;
+		border: none;
+		border-radius: 0;
+		max-width: 250px;
+		cursor: pointer;
+	}
+
+	/*
+	.sorting {
+		border-bottom: 2px solid @brand-primary;
+		margin-bottom: 10px;
+	}
+	*/
+
+	//
+	// nested panels
+	//
+
+	.info.panel {
+		.info.panel {
+			color: @nested-sidebar-panel-color;
+			background-color: @nested-sidebar-panel-background-color;
+			box-shadow: none;
+			padding: 0;
+			margin: 0;
+
+			.header {	
+				text-align: center;
+				font-weight: bold;
+
+				+ .items {
+					margin-top: 10px;
+				}
+			}
+
+			.header:not(.empty) {
+				// display: none;
+
+				.icon {
+					display: none;
+				}
+				.count {
+					display: none;
+				}
+			}
+
+			a {
+				color: @nested-sidebar-panel-link-color;
+			}
+		}
+	}
+
+	//
+	// links
+	//
+
+	a {
+		color: @sidebar-link-color;
+		cursor: pointer;
+	}
+
+	//
+	// bottom buttons
+	//
+
+	.buttons {
+		margin: 10px;
+		text-align: center;
+
+		button {
+			border: none;
+		}
+	}
+
+	//
+	// trends sidebar
+	//
+
+	.trends {
+		padding: 10px;
+		padding-top: 20px;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		background: white;
+
+		label {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			margin-left: -10px;
+			padding: 5px;
+			top: 0;
+		}
+	}
+}
