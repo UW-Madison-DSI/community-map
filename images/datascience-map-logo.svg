@@ -15,21 +15,21 @@
 		}
 	</style>
 
-	<g transform="translate(256 256) scale(-1) translate(-256 -256)">
+	<g transform="translate(256 256) scale(1 -1) translate(-256 -256)">
 		<g transform="scale(22) translate(-0.35 -1028.5)">
-			<path d="m8 1030.4 8 1v19l -8 -1z" fill="#ecf0f1"/>
+			<path d="m8 1030.4 8 1v19l -8 -1z" fill="#b0b0c0"/>
 			<path d="m2 1031.4 6 -1v19l -6 1z" fill="#bdc3c7"/>
-			<path d="m16 1031.4 6 -1v19l -6 1z" fill="#bdc3c7"/>
-			<path d="m3 1032.4 5 -1v17l -5 1z" fill="#e0f0d0"/>
-			<path d="m8 1031.4 8 1v17l -8 -1z" fill="#f0ffe0"/>
-			<path d="m21 1048.4 -5 1v -17l5 -1z" fill="#e0f0d0"/>
+			<path d="m16 1031.4 6 -1.5v 19.5l -6 1 z" fill="#bdc3c7"/>
+			<path d="m3 1032.4 5 -1v17l -5 1z" fill="#f0ffe0"/>
+			<path d="m8 1031.4 8 1v17l -8 -1z" fill="#e0f0d0"/>
+			<path d="m21 1048.4 -5 1v -17l5 -1z" fill="#f0ffe0"/>
 			<path d="m5.6875 1031.8 -2.3125 0.5 4.625 4.9v -2.9l -2.3125 -2.5z" fill="lightgrey"/>
 			<path d="m21 1046.4 -5 1v -6l5 -3z" fill="lightgrey"/>
-			<path d="m21 1048.4 -5 1v -6l5 -3z" fill="#c0d0f0"/>
+			<path d="m21 1048.4 -5 1v -6l5 -3z" fill="#d0e0ff"/>
 			<path d="m8 1042.4 8 -1v6l -8 -1z" fill="lightgrey"/>
-			<path d="m8 1044.4 8 -1v6l -8 -1z" fill="#d0e0ff"/>
+			<path d="m8 1044.4 8 -1v6l -8 -1z" fill="#c0d0f0"/>
 			<path d="m3 1045.4 5 -3v4l -5 1z" fill="lightgrey"/>
-			<path d="m3 1047.4 5 -3v4l -5 1z" fill="#c0d0f0"/>
+			<path d="m3 1047.4 5 -3v4l -5 1z" fill="#d0e0ff"/>
 			<path d="m8 8.8008v -2.8985l4 8.6597h -1.469z" transform="translate(0 1028.4)" fill="lightgrey"/>
 		</g>
 	</g>
