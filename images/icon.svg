@@ -7,7 +7,7 @@
 
 	<style>
 		#icon-background {
-			fill: white;
+			fill: url(#white-to-grey);
 			stroke: #c5050c;
 		}
 		#icon-border {
@@ -16,9 +16,6 @@
 		}
 		#icon-body {
 			fill: black;
-		}
-		#icon-body2 {
-			fill: darkgrey;
 		}
 	</style>
 
@@ -41,17 +38,13 @@
 		</g>
 	</g>
 
-	<circle id="icon-body2" cx="256" cy="256" r="180" stroke-width="20" />
-	<svg width="512" height="300" transform="scale(1, -1)">
-		<circle id="icon-background" cx="256" cy="256" r="180" stroke-width="20" />
-	</svg>
+	<linearGradient id="white-to-grey" gradientTransform="rotate(90)">
+		<stop offset="0%" stop-color="white" />
+		<stop offset="100%" stop-color="lightgrey" />
+	</linearGradient>
 
-	<g id="icon-body2" transform="scale(6) translate(14.5,30) ">
-		<path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z" />
-	</g>
-	<g id="icon-body2" transform="scale(6) translate(47.5,30) ">
-		<path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z" />
-	</g>
+	<circle id="icon-background" cx="256" cy="256" r="180" stroke-width="20" />
+
 	<g id="icon-body" transform="scale(10) translate(14,12) ">
 		<path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z" />
 	</g>
