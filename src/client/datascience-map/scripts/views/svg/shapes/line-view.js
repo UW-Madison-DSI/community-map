@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import BaseView from '../../base-view.js';
-import SVGRenderable from '../../svg/behaviors/svg-renderable.js';
+import BaseView from '../../../views/base-view.js';
+import SVGRenderable from '../../../views/svg/behaviors/svg-renderable.js';
 
 export default BaseView.extend(_.extend({}, SVGRenderable, {
 

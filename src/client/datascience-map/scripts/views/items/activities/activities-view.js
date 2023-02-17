@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ItemsView from '../items-view.js';
+import ItemsView from '../../../views/items/items-view.js';
 
 export default ItemsView.extend({
 

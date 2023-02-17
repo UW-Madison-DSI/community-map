@@ -24,21 +24,21 @@ export default FormView.extend({
 	
 			<div class="form-group">
 				<label class="form-label">First name</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<%= first_name %>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="form-label">Middle name</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<%= middle_name %>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="form-label">Last name</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<%= last_name %>
 				</div>
 			</div>
@@ -49,14 +49,14 @@ export default FormView.extend({
 	
 			<div class="form-group">
 				<label class="form-label">Username</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<%= username %>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="form-label">Email address</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<a href="mailto:<%= email %>"><%= email %></a>
 				</div>
 			</div>
@@ -69,7 +69,7 @@ export default FormView.extend({
 			<% if (model.hasCreateDate()) { %>
 			<div class="form-group">
 				<label class="form-label">Creation date</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<%= create_date %>
 				</div>
 			</div>
@@ -78,7 +78,7 @@ export default FormView.extend({
 			<% if (model.hasUpdateDate()) { %>
 			<div class="form-group">
 				<label class="form-label">Last modified date</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<%= update_date %>
 				</div>
 			</div>

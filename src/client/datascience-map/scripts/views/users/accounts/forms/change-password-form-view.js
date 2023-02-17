@@ -29,7 +29,7 @@ export default FormView.extend({
 		
 		<div class="form-group">
 			<label class="required control-label">Current password</label>
-			<div class="col-sm-6 col-xs-12">
+			<div class="controls">
 				<div class="input-group">
 					<input type="password" class="required form-control" autocomplete="off" id="current-password" maxlength="200" />
 					<div class="input-group-addon">
@@ -41,7 +41,7 @@ export default FormView.extend({
 		
 		<div class="form-group">
 			<label class="required control-label">New password</label>
-			<div class="col-sm-6 col-xs-12">
+			<div class="controls">
 				<div class="input-group">
 					<input type="password" class="required form-control" autocomplete="off" name="password" id="new-password" maxlength="200" />
 					<div class="input-group-addon">
@@ -59,7 +59,7 @@ export default FormView.extend({
 		
 		<div class="form-group">
 			<label class="required control-label">Confirm new password</label>
-			<div class="col-sm-6 col-xs-12">
+			<div class="controls">
 				<div class="input-group">
 					<input type="password" class="form-control" autocomplete="off" name="confirm-password" id="confirm-password" maxlength="200" />
 					<div class="input-group-addon">
@@ -163,13 +163,17 @@ export default FormView.extend({
 	},
 
 	//
-	// event handling methods
+	// mouse event handling methods
 	//
 
 	onClickAlertClose: function() {
 		this.hideWarning();
 	},
-	
+
+	//
+	// keyboard event handling methods
+	//
+
 	onKeydownPassword: function(event) {
 		let maxlength = $(event.currentTarget).attr("maxlength");
 		if (maxlength) {

@@ -21,7 +21,7 @@ export default FormView.extend({
 	template: _.template(`
 		<div class="form-group">
 			<label class="control-label">Username</label>
-			<div class="col-sm-6 col-xs-12">
+			<div class="controls">
 				<div class="input-group">
 					<input type="text" class="form-control" id="username">
 					<div class="input-group-addon">
@@ -35,7 +35,7 @@ export default FormView.extend({
 
 		<div class="form-group">
 			<label class="control-label">Email address</label>
-			<div class="col-sm-6 col-xs-12">
+			<div class="controls">
 				<div class="input-group">
 					<input type="text" class="form-control" id="email-address">
 					<div class="input-group-addon">

@@ -1,10 +1,15 @@
 /******************************************************************************\
 |                                                                              |
-|                                  application.js                              |
+|                                application.js                                |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
-|        This defines the top level view of the application.                   |
+|        This defines the top level application.                               |
+|                                                                              |
+|        Author(s): Abe Megahed                                                |
+|                                                                              |
+|        This file is subject to the terms and conditions defined in           |
+|        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
@@ -13,6 +18,7 @@
 import Router from './router.js';
 import BaseModel from './models/base-model.js';
 import Session from './models/users/session.js';
+import AcademicPerson from './models/academic/academic-person.js';
 import BaseCollection from './collections/base-collection.js';
 import MainView from './views/layout/main-view.js';
 import PageView from './views/layout/page-view.js';
@@ -21,6 +27,10 @@ import ErrorDialogView from './views/dialogs/error-dialog-view.js';
 import NotifyDialogView from './views/dialogs/notify-dialog-view.js';
 import StatusDialogView from './views/dialogs/status-dialog-view.js';
 import ConfirmDialogView from './views/dialogs/confirm-dialog-view.js';
+import DownloadDialogView from './views/dialogs/download-dialog-view.js';
+import KnowledgeMapView from './views/maps/knowledge-map-view.js';
+import PersonMarkerView from './views/maps/overlays/people/person-marker-view.js';
+import Browser from './utilities/web/browser.js';
 import './utilities/time/date-format.js';
 import './utilities/scripting/string-utils.js';
 import './utilities/scripting/array-utils.js';
@@ -42,6 +52,13 @@ export default Marionette.Application.extend({
 	//
 
 	initialize: function() {
+
+		// add helpful class for mobile OS'es
+		//
+		$('body').attr('device', Browser.device);
+		if (Browser.device == 'phone' || Browser.device == 'tablet') {
+			$('body').addClass('mobile');
+		}
 
 		// create new session
 		//
@@ -94,6 +111,7 @@ export default Marionette.Application.extend({
 
 		// set ajax calls to display wait cursor while pending
 		//
+		/*
 		$(document).ajaxStart(() => {
 			$('html').attr('style', 'cursor: wait !important;');
 			$(document).trigger( $.Event('mousemove') );
@@ -103,6 +121,7 @@ export default Marionette.Application.extend({
 				$(document).trigger( $.Event('mousemove') );
 			}
 		});
+		*/
 
 		// store handle to application
 		//
@@ -270,11 +289,21 @@ export default Marionette.Application.extend({
 
 	update: function() {
 
+		// clear cache
+		//
+		this.reset();
+				
 		// update header
 		//
 		if (this.getView('body').getChildView('header').currentView) {
 			this.getView('body').getChildView('header').currentView.render();
 		}
+	},
+
+	reset: function() {
+		KnowledgeMapView.reset();
+		AcademicPerson.reset();
+		PersonMarkerView.reset();
 	},
 
 	//
@@ -298,23 +327,23 @@ export default Marionette.Application.extend({
 	},
 
 	showErrorDialog: function(options) {
-		this.hideDialogs();
-		this.show(new ErrorDialogView(options));
+		this.showDialog(new ErrorDialogView(options));
 	},
 
 	showNotifyDialog: function(options) {
-		this.hideDialogs();
 		this.showDialog(new NotifyDialogView(options));
 	},
 
 	showStatusDialog: function(options) {
-		this.hideDialogs();
 		this.showDialog(new StatusDialogView(options));
 	},
 
 	showConfirmDialog: function(options) {
-		this.hideDialogs();
 		this.showDialog(new ConfirmDialogView(options));
+	},
+
+	showDownloadDialog: function(options) {
+		this.showDialog(new DownloadDialogView(options));
 	},
 
 	destroyDialogs: function() {

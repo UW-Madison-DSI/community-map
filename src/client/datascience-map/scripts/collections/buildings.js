@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import BaseCollection from './base-collection.js';
+import BaseCollection from '../collections/base-collection.js';
 import Building from '../models/building.js';
 
 export default BaseCollection.extend({
@@ -60,5 +60,18 @@ export default BaseCollection.extend({
 			}	
 		}
 		return results;
+	},
+
+	findByNumber: function(number) {
+		for (let i = 0; i < this.length; i++) {
+			let building = this.at(i);
+			let buildingType = building? building.get('object_type') : undefined;
+			if (buildingType != 'parking_lot') {
+				let buildingNumber = parseInt(building.get('building_number'));
+				if (buildingNumber == number) {
+					return building;
+				}
+			}
+		}
 	}
 });

@@ -21,22 +21,23 @@ export default BaseView.extend({
 	//
 
 	template: _.template(`
-		<h1><i class="fa fa-file-text"></i>Acceptable Use Policy</h1>
-		
+		<h1><i class="fa fa-user-plus"></i>Add Me To The Map!</h1>
+
 		<ol class="breadcrumb">
 			<li><a href=""><i class="fa fa-home"></i>Home</a></li>
-			<li><i class="fa fa-file-text"></i>Acceptable Use Policy</li>
+			<li><i class="fa fa-user-plus"></i>Add Me</li>
 		</ol>
+
+		<p>If you are a UW data scientist or data science practitioner, you can add yourself to the map to connect with the UW data science community. Once you've added yourself to the map, you can update or delete your profile at any time. </p>
 		
-		<h2>Terms and Conditions</h2>
+		<hr />
+
+		<h2>Acceptable Use Policy</h1>
 		<ul>
 			<li>
 				<h3>Open To UW-Madison Affiliates Only</h3>
 				<p>To register to be included on the Affiliates Map, you will need a "wisc.edu" email address. You may only register using your own email account. </p>
 			</li>
-			<li>
-				<h3>Use Your Real Name</h3>
-				<p>When you create an account, you are required to provide your real / legal name in the "First name" / "Last name" form fields, not a pseudonym. You may choose a pseudonym for your username (the name that you use to log in), if you wish.</p>
 			<li>
 				<h3>Truthfulness</h3>
 				<p>When creating your profile, please represent yourself, your interests, and your skills honestly and accurately.</p>

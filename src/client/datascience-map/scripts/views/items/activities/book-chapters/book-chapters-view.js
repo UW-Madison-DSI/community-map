@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ActivitiesView from '../activities-view.js';
-import BookChaptersListView from './list/book-chapters-list-view.js';
+import ActivitiesView from '../../../../views/items/activities/activities-view.js';
+import BookChaptersListView from '../../../../views/items/activities/book-chapters/lists/book-chapters-list-view.js';
 
 export default ActivitiesView.extend({
 

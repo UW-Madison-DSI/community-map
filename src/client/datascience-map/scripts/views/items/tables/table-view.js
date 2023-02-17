@@ -16,8 +16,8 @@
 \******************************************************************************/
 
 import '../../../../vendor/jquery/tablesorter/js/jquery.tablesorter.min.js';
-import CollectionView from '../../collections/collection-view.js';
-import TableItemView from './table-item-view.js';
+import CollectionView from '../../../views/collections/collection-view.js';
+import TableItemView from '../../../views/collections/tables/table-item-view.js';
 
 export default CollectionView.extend({
 

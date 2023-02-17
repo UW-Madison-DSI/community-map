@@ -11,18 +11,18 @@
 \******************************************************************************/
 
 #page {
-	position: relative;
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
+	position: relative;
 	padding-top: 40px;
 	line-height: 2em;
+	min-height: 100%;
 
 	.buttons {
 		text-align: center;
 
-		&:not(:first-child) {
-			margin-top: 20px;
+		button {
+			margin-top: 10px;
 		}
 	}
 
@@ -34,7 +34,7 @@
 		background: #494949;
 		border-top: 5px solid @brand-primary;
 	
-		.footer {
+		.container {
 			text-align: center;
 
 			.logo {

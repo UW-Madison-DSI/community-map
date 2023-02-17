@@ -11,10 +11,7 @@
 \******************************************************************************/
 
 #search-bar {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	width: 75%;
+	margin: 10px;
 
 	input {
 		background: #e7eaee;
@@ -47,5 +44,15 @@
 		i {
 			margin-right: 5px;
 		}
+	}
+}
+
+//
+// desktop styles
+//
+
+@media (min-width: 768px) {
+	#search-bar {
+		width: 75%;
 	}
 }

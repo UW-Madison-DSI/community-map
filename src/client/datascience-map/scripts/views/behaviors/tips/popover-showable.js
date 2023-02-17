@@ -24,17 +24,9 @@ export default {
 	// attributes
 	//
 
-	popover_container: '.modal',
+	popover_container: 'body',
 	popover_trigger: 'hover',
 	popover_placement: 'top',
-
-	//
-	// querying methods
-	//
-
-	container: function() {
-		return this.$el.closest(this.popover_container)[0] || this.el;
-	},
 
 	//
 	// rendering methods
@@ -45,7 +37,7 @@ export default {
 		// show popovers on trigger
 		//
 		this.$el.find('[data-toggle="popover"]').addClass('popover-trigger').popover(_.extend({
-			container: _.result(this, 'container'),
+			container: this.popover_container,
 			trigger: this.popover_trigger,
 			placement: this.popover_placement
 		}, options));

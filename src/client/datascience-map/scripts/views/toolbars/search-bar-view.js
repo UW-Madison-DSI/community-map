@@ -85,16 +85,12 @@ export default ToolbarView.extend({
 		}
 	},
 
-	setQuery: function(query, options) {
+	setQuery: function(query) {
 
 		// set input
 		//
 		if (query && query != 'null') {
 			this.$el.find('input').val(query);
-		}
-
-		if (options) {
-			this.setQueryOptions(options);
 		}
 	},
 
@@ -207,19 +203,53 @@ export default ToolbarView.extend({
 			exact = true;
 		}
 
-		// set search options
-		//
-		options = {
-			exact: exact
-		}
-
 		// set address bar
 		//
 		this.pushQueryString(params.toString());
 
-		// perform search
-		//
-		this.searchPeople(query, options);
+		if (query.includes('building')) {
+
+			// string the word 'building' from search and trim whitespace
+			//
+			let search = query.replace(/building/g, '').replace(/^\s+|\s+$/gm, '');
+
+			this.searchPlaces(search, {
+
+				// callbacks
+				//
+				error: () => {
+					application.showStatusDialog({
+						title: 'Search Results',
+						icon: 'fa fa-search',
+						message: 'No buildings found.'
+					});
+				}
+			});
+		} else {
+
+			// perform search
+			//
+			this.searchPeople(query, {
+				exact: exact,
+
+				// callbacks
+				//
+				error: () => {
+					this.searchPlaces(query, {
+
+						// callbacks
+						//
+						error: () => {
+							application.showStatusDialog({
+								title: 'Search Results',
+								icon: 'fa fa-search',
+								message: "No people were found related to '" + query + "'."
+							});
+						}
+					});
+				}
+			});
+		}
 	},
 
 	searchPeople: function(query, options) {
@@ -291,6 +321,17 @@ export default ToolbarView.extend({
 				if (options && options.success) {
 					options.success(people);
 				}
+			},
+
+			error: () => {
+				if (options && options.error) {
+					options.error();
+				} else {
+					application.showStatusDialog({
+						icon: 'fa fa-search',
+						message: 'No people were found that match this topic.'
+					});
+				}
 			}
 		});
 	},
@@ -346,11 +387,14 @@ export default ToolbarView.extend({
 					}
 					*/
 				} else {
-					application.showStatusDialog({
-						title: 'Search Results',
-						icon: 'fa fa-search',
-						message: 'No people found.'
-					});
+					if (options && options.error) {
+						options.error();
+					} else {
+						application.showStatusDialog({
+							icon: 'fa fa-search',
+							message: 'No people were found by that name.'
+						});	
+					}
 					// this.getTopView().showDialog(new NoPeopleDialogView())
 				}
 			}
@@ -364,10 +408,14 @@ export default ToolbarView.extend({
 		if (buildings.length > 0) {
 			this.parent.showPlaces(buildings);
 		} else {
-			application.showStatusDialog({
-				icon: 'fa fa-search',
-				message: 'No places found.'
-			});
+			if (options && options.error) {
+				options.error();
+			} else {
+				application.showStatusDialog({
+					icon: 'fa fa-search',
+					message: 'No places found.'
+				});
+			}
 		}
 	},
 

@@ -142,6 +142,7 @@
 
 		button#close {
 			position: absolute;
+			top: 20px;
 			right: 20px;
 			background: @brand-primary;
 			color: white;
@@ -176,6 +177,7 @@
 
 		h1#title {
 			color: @brand-primary;
+			margin: 10px;
 			margin-bottom: 0;
 		}
 
@@ -210,6 +212,7 @@
 	}
 
 	.profile-photo {
+		max-width: 100%;
 		max-height: 200px;
 		display: block;
 		margin: auto;
@@ -386,6 +389,20 @@
 			margin-left: -10px;
 			padding: 5px;
 			top: 0;
+		}
+	}
+
+	//
+	// sidebar footers
+	//
+
+	#footer {
+		.container {
+			width: 100%;
+
+			.logo {
+				display: none;
+			}
 		}
 	}
 }

@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import DateRangeQueryable from './behaviors/date-range-queryable.js';
-import Person from './person.js';
+import Person from '../models/person.js';
+import DateRangeQueryable from '../models/behaviors/date-range-queryable.js';
 	
 export default Person.extend(_.extend({}, DateRangeQueryable, {
 

@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import BaseView from '../../base-view.js';
+import BaseView from '../../../views/base-view.js';
 import Collapsible from '../../behaviors/layout/collapsible.js';
 
 export default BaseView.extend(_.extend({}, Collapsible, {

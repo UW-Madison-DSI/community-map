@@ -58,6 +58,14 @@ function getDevice() {
 		return 'tablet';
 	} else if (/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(userAgent)) {
 		return $(window).width() < 480 || $(window).height() < 480? 'phone' : 'tablet';
+
+	// check for other mobile devices
+	//
+	} else if (/Mobile/.test(userAgent)) {
+		return $(window).width() < 480 || $(window).height() < 480? 'phone' : 'tablet';
+
+	// assume desktop
+	//
 	} else {
 		return 'desktop';
 	}

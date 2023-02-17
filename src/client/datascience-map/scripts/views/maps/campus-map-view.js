@@ -19,10 +19,10 @@ import Vector2 from '../../utilities/math/vector2.js';
 import Buildings from '../../collections/buildings.js';
 import Departments from '../../collections/departments.js';
 import AcademicInstitutionUnits from '../../collections/academic/academic-institution-units.js';
-import BaseMapView from './base-map-view.js';
-import DepartmentMarkerView from '../overlays/departments/department-marker-view.js';
-import BuildingsView from '../overlays/buildings/buildings-view.js';
-import LabelsView from '../overlays/labels/labels-view.js';
+import BaseMapView from '../../views/maps/base-map-view.js';
+import DepartmentMarkerView from '../../views/maps/overlays/departments/department-marker-view.js';
+import BuildingsView from '../../views/maps/overlays/buildings/buildings-view.js';
+import LabelsView from '../../views/maps/overlays/labels/labels-view.js';
 
 export default BaseMapView.extend({
 
@@ -166,6 +166,14 @@ export default BaseMapView.extend({
 		}
 	},
 
+	getBuildingLocation: function(buildingNumber) {
+		let building = this.buildings.findByNumber(buildingNumber);
+		if (building) {
+			let latlng = building.get('latlng');
+			return this.latLongToPoint(latlng[0], latlng[1]);
+		}	
+	},
+
 	getRGBColor: function(r, g, b, a) {
 		if (a == undefined) {
 			return 'rgb(' + r + ', ' + g + ', ' + b + ')';
@@ -293,7 +301,8 @@ export default BaseMapView.extend({
 		this.buildingsView = new BuildingsView({
 			collection: buildings,
 			offset: new Vector2(-this.map.longitude, this.map.latitude),
-			scale: new Vector2(11650, 15950).scaledBy(scale)	
+			scale: new Vector2(11650, 15950).scaledBy(scale),
+			parent: this
 		});
 
 		this.viewport.addLayerGroup('buildings', this.buildingsView.render());

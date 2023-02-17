@@ -16,11 +16,11 @@
 \******************************************************************************/
 
 import '../library/jquery/jquery-3.6.0.js';
-import '../library/jquery/jquery-ui/jquery-ui.js';
-import '../library/jquery/mouse-wheel/jquery.mousewheel.js';
 import '../library/lodash/lodash.js';
 import '../library/backbone/backbone.js';
 import '../library/backbone/marionette/backbone.marionette.js';
+import '../vendor/jquery/mouse-wheel/jquery.mousewheel.js';
+import '../vendor/jquery/jquery-ui/jquery-ui.js';
 
 // load configuration files
 //

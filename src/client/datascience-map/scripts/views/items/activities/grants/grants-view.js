@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ActivitiesView from '../activities-view.js';
-import GrantsListView from './list/grants-list-view.js';
+import ActivitiesView from '../../../../views/items/activities/activities-view.js';
+import GrantsListView from '../../../../views/items/activities/grants/lists/grants-list-view.js';
 
 export default ActivitiesView.extend({
 

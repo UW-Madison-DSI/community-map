@@ -11,8 +11,11 @@
 \******************************************************************************/
 
 import InstitutionUnits from '../../../../collections/academic/academic-institution-units.js';
+import Buildings from '../../../../collections/buildings.js';
 import BaseView from '../../../../views/base-view.js';
 import FullUserProfileFormView from '../../../../views/users/accounts/forms/full-user-profile-form-view.js';
+import PersonMarkerView from '../../../../views/maps/overlays/people/person-marker-view.js';
+import KnowledgeMapView from '../../../../views/maps/knowledge-map-view.js';
 
 export default BaseView.extend({
 
@@ -22,8 +25,6 @@ export default BaseView.extend({
 
 	template: _.template(`
 		<h1><div class="icon"><i class="fa fa-pencil"></i></div>Edit My Profile</h1>
-		
-		<br />
 		
 		<ol class="breadcrumb" style="display:none">
 			<li><a href="#home"><i class="fa fa-home"></i>Home</a></li>
@@ -78,7 +79,7 @@ export default BaseView.extend({
 
 			// callbacks
 			//
-			success: () => {
+			success: (model) => {
 
 				// update user name in header (if changed)
 				//
@@ -186,14 +187,22 @@ export default BaseView.extend({
 
 			// callbacks
 			//
-			success: (collection) => {
+			success: (departments) => {
+				new Buildings().fetch({
 
-				// show child views
-				//
-				this.showChildView('form', new FullUserProfileFormView({
-					model: this.model,
-					departments: collection
-				}));
+					// callbacks
+					//
+					success: (buildings) => {
+
+						// show child views
+						//
+						this.showChildView('form', new FullUserProfileFormView({
+							model: this.model,
+							departments: departments,
+							buildings: buildings
+						}));
+					}
+				});
 			}
 		});
 	},

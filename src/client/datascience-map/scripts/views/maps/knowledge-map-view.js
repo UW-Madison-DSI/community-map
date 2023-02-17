@@ -39,23 +39,33 @@ import CampusMapView from './campus-map-view.js';
 
 // collection views
 //
-import PeopleView from '../overlays/people/people-view.js';
-import ArticlesView from '../overlays/activities/articles/articles-view.js';
-import AwardsView from '../overlays/activities/awards/awards-view.js';
-import BookChaptersView from '../overlays/activities/book-chapters/book-chapters-view.js';
-import BooksView from '../overlays/activities/books/books-view.js';
-import ConferenceProceedingsView from '../overlays/activities/conference-proceedings/conference-proceedings-view.js';
-import GrantsView from '../overlays/activities/grants/grants-view.js';
-import PatentsView from '../overlays/activities/patents/patents-view.js';
-import TechnologiesView from '../overlays/activities/technologies/technologies-view.js';
+import PeopleView from '../../views/maps/overlays/people/people-view.js';
+import ArticlesView from '../../views/maps/overlays/activities/articles/articles-view.js';
+import AwardsView from '../../views/maps/overlays/activities/awards/awards-view.js';
+import BookChaptersView from '../../views/maps/overlays/activities/book-chapters/book-chapters-view.js';
+import BooksView from '../../views/maps/overlays/activities/books/books-view.js';
+import ConferenceProceedingsView from '../../views/maps/overlays/activities/conference-proceedings/conference-proceedings-view.js';
+import GrantsView from '../../views/maps/overlays/activities/grants/grants-view.js';
+import PatentsView from '../../views/maps/overlays/activities/patents/patents-view.js';
+import TechnologiesView from '../../views/maps/overlays/activities/technologies/technologies-view.js';
 
 // ui views
 //
-import SearchBarView from '../toolbars/search-bar-view.js';
-import ActivitiesBarView from '../toolbars/activities-bar-view.js';
-import ViewBarView from '../toolbars/view-bar-view.js';
-import MapBarView from '../toolbars/map-bar-view.js';
-import DateBarView from '../toolbars/date-bar-view.js';
+import SearchBarView from '../../views/toolbars/search-bar-view.js';
+import ActivitiesBarView from '../../views/toolbars/activities-bar-view.js';
+import ViewBarView from '../../views/toolbars/view-bar-view.js';
+import MapBarView from '../../views/toolbars/map-bar-view.js';
+import DateBarView from '../../views/toolbars/date-bar-view.js';
+
+// utilities
+//
+import Browser from '../../utilities/web/browser.js';
+
+//
+// local variables
+//
+
+let directory = [];
 
 export default CampusMapView.extend({
 
@@ -100,6 +110,7 @@ export default CampusMapView.extend({
 			<div id="map-bar"></div>
 			<div id="zoom-bar"></div>
 			<div id="date-bar"></div>
+			<div id="options-bar"></div>
 		</div>
 
 		<div id="footer" class="fineprint">
@@ -137,7 +148,11 @@ export default CampusMapView.extend({
 		date: {
 			el: '#date-bar',
 			replaceElement: true
-		}
+		},
+		options: {
+			el: '#options-bar',
+			replaceElement: true
+		},
 	},
 
 	events: {
@@ -299,7 +314,7 @@ export default CampusMapView.extend({
 
 		// update sidebar
 		//
-		this.parent.parent.showPerson(personView.model);
+		this.parent.showPerson(personView.model);
 
 		// update mainbar
 		//
@@ -380,7 +395,7 @@ export default CampusMapView.extend({
 		//
 		this.initPeople();
 		this.showToolbars();
-		this.parent.showSideBar();
+		// this.parent.showSideBar();
 
 		// set initial state
 		//
@@ -464,29 +479,38 @@ export default CampusMapView.extend({
 	},
 
 	showDepartmentPeople: function(source, department, options) {
-		this.getPeople(source).fetchByInstitutionUnit(department, {
+		if (!directory[department]) {
+			this.getPeople(source).fetchByInstitutionUnit(department, {
 
-			// callbacks
-			//
-			success: (collection) => {
-				let people = collection.models;
-
-				// add affilations
+				// callbacks
 				//
-				this.getPeople(source).fetchByInstitutionUnitAffiliation(department, {
+				success: (collection) => {
+					let people = collection.models;
 
-					// callbacks
+					// add affilations
 					//
-					success: (collection) => {
-						people = people.concat(collection.models);
+					this.getPeople(source).fetchByInstitutionUnitAffiliation(department, {
 
-						// show results
+						// callbacks
 						//
-						this.showPeople(people, options);
-					}
-				});
-			}
-		});
+						success: (collection) => {
+							people = people.concat(collection.models);
+							directory[department] = people;
+
+							// show results
+							//
+							this.showPeople(people, options);
+						}
+					});
+				}
+			});
+		} else {
+			let people = directory[department];
+
+			// show results
+			//
+			this.showPeople(people, options);
+		}
 	},
 
 	showPlaces(places) {
@@ -508,8 +532,8 @@ export default CampusMapView.extend({
 
 		// show places in sidebar
 		//
-		this.parent.parent.showSideBar();
-		this.parent.parent.showPlaces(places);
+		this.parent.showSideBar();
+		this.parent.showPlaces(places);
 	},
 
 	getActivitiesView: function(activity, params) {
@@ -669,7 +693,6 @@ export default CampusMapView.extend({
 	},
 
 	clear: function() {
-		// this.getTopView().hideMessage();
 		this.clearPeople();
 		this.clearActivities();
 		this.clearCollaborators();
@@ -677,7 +700,6 @@ export default CampusMapView.extend({
 		this.deselectAll();
 		this.showMarkerLabels();
 		this.reset();
-		this.resetView();
 	},
 
 	//
@@ -700,13 +722,23 @@ export default CampusMapView.extend({
 		this.viewport.$el.addClass('hide-marker-labels');
 	},
 
+	updateViewportMarkerLabels: function() {
+		if (this.autohideLabels || this.numMarkerLabels() > this.maxMarkerLabels) {
+			this.hideViewportMarkerLabels();
+		}
+	},
+
 	//
 	// selection methods
 	//
 
 	deselectAll: function() {
+		/*
 		this.deselectPeople();
 		this.deselectBuildings();
+		*/
+		this.$el.find('.selected').removeClass('selected');
+		// this.parent.clearSideBar();
 	},
 
 	deselectPeople: function() {
@@ -771,9 +803,9 @@ export default CampusMapView.extend({
 		//
 		CampusMapView.prototype.onZoomStart.call(this);
 
-		if (this.numMarkerLabels() > this.maxMarkerLabels) {
-			this.hideViewportMarkerLabels();
-		}
+		// update markers
+		//
+		this.updateViewportMarkerLabels();
 	},
 
 	onZoomEnd: function() {
@@ -782,26 +814,30 @@ export default CampusMapView.extend({
 		//
 		CampusMapView.prototype.onZoomEnd.call(this);
 
+		// update markers
+		//
 		this.showViewportMarkerLabels();
 	},
 
-	onDragStart: function() {
+	onDrag: function() {
 
 		// call superclass method
 		//
-		CampusMapView.prototype.onDragStart.call(this);
+		CampusMapView.prototype.onDrag.call(this);
 
-		if (this.numMarkerLabels() > this.maxMarkerLabels) {
-			this.hideViewportMarkerLabels();
-		}
+		// update markers
+		//
+		this.updateViewportMarkerLabels();
 	},
 
 	onDragEnd: function(dragx, dragy) {
 
 		// call superclass method
 		//
-		CampusMapView.prototype.onDragEnd.call(this, dragx, dragy);
+		CampusMapView.prototype.onDragEnd.call(this);
 
+		// update markers
+		//
 		this.showViewportMarkerLabels();
 	},
 
@@ -811,9 +847,9 @@ export default CampusMapView.extend({
 		//
 		CampusMapView.prototype.onWheelZoomStart.call(this);
 
-		if (this.numMarkerLabels() > this.maxMarkerLabels) {
-			this.hideViewportMarkerLabels();
-		}
+		// update markers
+		//
+		this.updateViewportMarkerLabels();
 	},
 
 	onWheelZoomEnd: function() {
@@ -822,6 +858,8 @@ export default CampusMapView.extend({
 		//
 		CampusMapView.prototype.onWheelZoomEnd.call(this);
 
+		// update markers
+		//
 		this.showViewportMarkerLabels();
 	},
 
@@ -829,15 +867,26 @@ export default CampusMapView.extend({
 	// mouse event handling methods
 	//
 
-	onClick: function() {
-		if (!this.selected) {
-			this.deselectPeople();
-		} else {
-			this.deselectMarkers();
+	onClick: function(event) {
+		if (event.target.nodeName == 'image') {
+			this.deselectAll();
+			/*
+			if (!this.selected) {
+				this.deselectPeople();
+			} else {
+				this.deselectMarkers();
+			}
+			*/
 		}
 
 		if (this.hasChildView('search')) {
 			this.getChildView('search').$el.find('input').blur();
+		}
+
+		// perform callback
+		//
+		if (this.options.onclick) {
+			this.options.onclick(event);
 		}
 	},
 
@@ -845,5 +894,14 @@ export default CampusMapView.extend({
 		this.getChildView('search').searchFor(labelView.options.fullname, {
 			category: 'people'
 		});
+	}
+}, {
+
+	//
+	// cache clearing method
+	//
+
+	reset: function() {
+		directory = [];
 	}
 });

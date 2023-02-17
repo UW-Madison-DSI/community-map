@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ItemsView from '../items-view.js';
-import PlacesListView from './places-list-view.js';
+import ItemsView from '../../../views/items/items-view.js';
+import PlacesListView from '../../../views/items/places/lists/places-list-view.js';
 
 export default ItemsView.extend({
 
@@ -92,7 +92,7 @@ export default ItemsView.extend({
 				// callbacks
 				//
 				done: () => {
-					buildingView.showPopover();
+					buildingView.showTooltips();
 				}
 			});
 		}

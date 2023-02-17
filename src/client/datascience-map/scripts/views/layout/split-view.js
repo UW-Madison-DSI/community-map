@@ -15,9 +15,10 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import '../../../vendor/split-js/split.js';
+import BaseView from '../../views/base-view.js';
+import Browser from '../../utilities/web/browser.js';
 import '../../utilities/scripting/array-utils.js';
-import BaseView from '../base-view.js';
+import '../../../vendor/split-js/split.js';
 
 export default BaseView.extend({
 
@@ -48,6 +49,8 @@ export default BaseView.extend({
 	// splitter sizes
 	//
 	sizes: [33, 67],
+	gutter_size: 10,
+	mobile_gutter_size: 20,
 	prevSizes: [],
 	minSizes: 0,
 	orientation: 'horizontal',
@@ -105,7 +108,7 @@ export default BaseView.extend({
 	//
 
 	getGutterSize: function() {
-		return 10;
+		return Browser.is_mobile? this.mobile_gutter_size : this.gutter_size;
 	},
 
 	getSizes: function() {
@@ -510,6 +513,12 @@ export default BaseView.extend({
 
 	onDoubleClickGutter: function() {
 		this.resetSideBar();
+	},
+
+	onTapGutter: function() {
+		if (Browser.is_mobile) {
+			this.toggleSideBar();
+		}
 	},
 
 	//

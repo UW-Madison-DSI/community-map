@@ -12,12 +12,12 @@
 |        'LICENSE.md', which is part of this source code distribution.         |
 |                                                                              |
 |******************************************************************************|
-|        Copyright (C) 2016-2022, Megahed Labs LLC, www.sharedigm.com          |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import TimeUtils from './time-utils.js';
-import '../math/math-utils.js';
-import '../time/date-format.js';
+import TimeUtils from '../../utilities/time-utils.js';
+import '../../utilities/math/math-utils.js';
+import '../../utilities/time/date-format.js';
 
 export default {
 

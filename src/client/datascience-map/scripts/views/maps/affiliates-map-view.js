@@ -15,7 +15,11 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import KnowledgeMapView from './knowledge-map-view.js';
+import KnowledgeMapView from '../../views/maps/knowledge-map-view.js';
+
+// ui views
+//
+import OptionsBarView from '../../views/toolbars/options-bar-view.js';
 
 export default KnowledgeMapView.extend({
 
@@ -28,7 +32,7 @@ export default KnowledgeMapView.extend({
 
 		// show all if no search
 		//
-		if (window.location.search == '') {
+		if (window.location.search == '' && window.location.hash != '#home') {
 			this.showAll();
 		}
 	},
@@ -36,6 +40,19 @@ export default KnowledgeMapView.extend({
 	//
 	// rendering methods
 	//
+
+	showToolbars: function() {
+
+		// call superclass method
+		//
+		KnowledgeMapView.prototype.showToolbars.call(this);
+
+		// show options toolbar
+		//
+		this.showChildView('options', new OptionsBarView({
+			parent: this
+		}));
+	},
 
 	showAll: function() {
 		let department = this.departments.findByName('Data Science');

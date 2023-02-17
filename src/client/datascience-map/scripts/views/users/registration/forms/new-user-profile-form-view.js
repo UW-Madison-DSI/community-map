@@ -31,7 +31,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="username">
 				<label class="required control-label">Username</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="required form-control" name="username" value="<%= username %>">
 						<div class="input-group-addon">
@@ -43,7 +43,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="password">
 				<label class="required control-label">Password</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="password" class="form-control" autocomplete="off" name="password" maxlength="200">
 						<div class="input-group-addon">
@@ -61,7 +61,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="confirm-password">
 				<label class="required control-label">Confirm password</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="password" class="required form-control" autocomplete="off" name="confirm-password" maxlength="200">
 						<div class="input-group-addon">
@@ -77,7 +77,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="email" >
 				<label class="required control-label">Email address</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="required email form-control" name="uw-email" value="<%= email %>">
 						<div class="input-group-addon">
@@ -89,7 +89,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="confirm-email">
 				<label class="required control-label">Confirm email address</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="required confirm-email form-control" name="confirm-email" value="<%= email %>">
 						<div class="input-group-addon">
@@ -109,8 +109,8 @@ export default FormView.extend({
 			<% let option = defaults.options[key]; %>
 			<div class="form-group option" id="<%= key %>">
 				<label class="control-label"><%= option.label %></label>
-				<div class="col-sm-6 col-xs-12">
-					<div class="checkbox">
+				<div class="controls">
+					<div class="checkbox input-group">
 						<label>
 							<input type="checkbox" />
 							<%= option.description %>

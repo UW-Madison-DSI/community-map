@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import CollectionView from '../../collections/collection-view.js';
-import ListItemView from './list-item-view.js';
+import CollectionView from '../../../views/collections/collection-view.js';
+import ListItemView from '../../../views/collections/lists/list-item-view.js';
 
 export default CollectionView.extend({
 

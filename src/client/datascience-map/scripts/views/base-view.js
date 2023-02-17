@@ -15,18 +15,11 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import '../../vendor/bootstrap/js/tooltip.js';
-import Hierarchical from './behaviors/layout/hierarchical.js';
+import Hierarchical from '../views/behaviors/layout/hierarchical.js';
+import TooltipShowable from '../views/behaviors/tips/tooltip-showable.js';
+import Browser from '../utilities/web/browser.js';
 
-export default Marionette.View.extend(_.extend({}, Hierarchical, {
-
-	//
-	// attributes
-	//
-
-	tooltip_trigger: 'hover',
-	tooltip_placement: undefined,
-	tooltip_container: 'body',
+export default Marionette.View.extend(_.extend({}, Hierarchical, TooltipShowable, {
 
 	//
 	// constructor
@@ -159,25 +152,6 @@ export default Marionette.View.extend(_.extend({}, Hierarchical, {
 
 	show: function() {
 		this.setVisible(true);
-	},
-
-	//
-	// tooltip meyhods
-	//
-
-	addTooltips: function(options) {
-
-		// show tooltips on trigger
-		//
-		this.$el.find('[data-toggle="tooltip"]').addClass('tooltip-trigger').tooltip(_.extend(this.options, {
-			trigger: this.tooltip_trigger,
-			placement: this.tooltip_placement,
-			container: this.tooltip_container
-		}, options));
-	},
-
-	removeTooltips: function() {
-		$('body').find('.tooltip').remove();
 	},
 
 	//

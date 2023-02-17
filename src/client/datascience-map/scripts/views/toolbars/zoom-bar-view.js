@@ -96,6 +96,11 @@ export default ToolbarView.extend({
 
 	zoomIn: function(options) {
 		let zoomLevel = Math.min(this.scaleToZoomLevel(this.viewport.scale), minZoomLevel);
+		
+		if (this.options.onzoomstart) {
+			this.options.onzoomstart();
+		}
+
 		return this.zoomTo(zoomLevel + 1, {
 			duration: options? options.duration : undefined,
 
@@ -111,6 +116,11 @@ export default ToolbarView.extend({
 
 	zoomOut: function(options) {
 		let zoomLevel = Math.min(this.scaleToZoomLevel(this.viewport.scale), maxZoomLevel);
+		
+		if (this.options.onzoomstart) {
+			this.options.onzoomstart();
+		}
+
 		return this.zoomTo(zoomLevel - 1, {
 			duration: options? options.duration : undefined,
 

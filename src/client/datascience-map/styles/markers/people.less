@@ -11,10 +11,10 @@
 \******************************************************************************/
 
 .people {
-
 	> .person {
+
 		> .marker {
-			&:hover, &.selected {
+			&.highlighted, &.selected {
 				image {
 					filter: sepia(50) hue-rotate(300deg);
 				}
@@ -24,6 +24,27 @@
 		&.selected {
 			.interests {
 				display: none;
+			}
+		}
+
+		&:hover {
+			.marker {
+				circle {
+					stroke: @highlight-color !important;
+					fill: @highlight-fill !important;
+				}
+
+				image {
+					filter: sepia(50) hue-rotate(300deg);
+				}
+
+				path, text {
+					fill: @select-color;
+				}
+			}
+
+			line {
+				stroke: @select-color;
 			}
 		}
 	}

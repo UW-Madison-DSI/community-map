@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ActivitiesView from '../activities-view.js';
-import ConferenceProceedingsListView from './list/conference-proceedings-list-view.js';
+import ActivitiesView from '../../../../views/items/activities/activities-view.js';
+import ConferenceProceedingsListView from '../../../../views/items/activities/conference-proceedings/lists/conference-proceedings-list-view.js';
 
 export default ActivitiesView.extend({
 

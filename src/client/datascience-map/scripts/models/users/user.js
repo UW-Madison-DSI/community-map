@@ -93,6 +93,20 @@ export default Timestamped.extend({
 	// status methods
 	//
 
+	getName: function() {
+		let names = [];
+		if (this.has('first_name')) {
+			names.push(this.get('first_name'));
+		}
+		if (this.has('middle_name')) {
+			names.push(this.get('middle_name'));
+		}
+		if (this.has('last_name')) {
+			names.push(this.get('last_name'));
+		}
+		return names.join(' ');
+	},
+
 	getStatus: function() {
 		let status;
 		if (this.isPending()) {

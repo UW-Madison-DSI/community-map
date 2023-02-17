@@ -22,24 +22,52 @@ export default BaseView.extend({
 		<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
 			<div class="container">
 
-				<a id="brand" class="active navbar-brand">
+				<a id="brand" href="#" id="brand" class="active navbar-brand">
 					<img class="logo" src="images/uw-crest.png" />
-					<%= defaults.application.heading %>
+					<%= defaults.application.title %>
 				</a>
 
 				<ul class="nav navbar-nav hidden-xs">
-					<li<% if (nav == 'about') {%> class="active" <% } %>><a id="about"><i class="fa fa-info-circle"></i>About</a></li>
-					<li<% if (nav == 'help') {%> class="active" <% } %>><a id="help"><i class="fa fa-question-circle"></i>Help</a></li>
-					<li<% if (nav == 'contact') {%> class="active" <% } %>><a id="contact"><i class="fa fa-envelope"></i>Contact</a></li>
+					<li<% if (nav == 'about') {%> class="active" <% } %>>
+						<a id="about"><i class="fa fa-info-circle"></i>About</a>
+					</li>
+					<li<% if (nav == 'help') {%> class="active" <% } %>>
+						<a id="help"><i class="fa fa-question-circle"></i>Help</a>
+					</li>
+					<li<% if (nav == 'contact') {%> class="active" <% } %>>
+						<a id="contact"><i class="fa fa-envelope"></i>Contact</a>
+					</li>
+				</ul>
+
+				<ul class="title-bar nav navbar-nav hidden-xs">
+					<li class="hidden-sm hidden-xs">
+						<a href="http://www.wisc.edu" target="_blank" style="padding:0">
+							<img src="images/uw-header.png" height="40px" />
+						</a>
+					</li>
 				</ul>
 	
 				<ul class="nav navbar-nav navbar-right">
 					<% if (user) { %>
-					<li <% if (nav == 'home') {%> class="active" <% } %>><a id="home"><i class="fa fa-user"></i><%= user.get('username') %></a></li>
-					<button id="sign-out" class="btn btn-primary"><i class="fa fa-sign-out-alt"></i>Sign Out</button>	
+					<li <% if (nav == 'home') {%> class="active" <% } %>>
+						<a id="home">
+							<i class="fa fa-user"></i>
+							<span class="hidden-xs"><%= user.get('username') %></span>
+						</a>
+					</li>
+					<button id="sign-out" class="btn btn-primary">
+						<i class="fa fa-sign-out-alt"></i>
+						<span>Sign Out</span>
+					</button>	
 					<% } else { %>
-					<button id="sign-in" class="btn btn-primary"><i class="fa fa-sign-in-alt"></i>Sign In</button>
-					<button id="sign-up" class="btn"><i class="fa fa-pencil"></i>Sign Up</button>
+					<button id="sign-in" class="btn btn-primary">
+						<i class="fa fa-sign-in-alt"></i>
+						<span class="hidden-xs">Sign In</span>
+					</button>
+					<button id="sign-up" class="btn">
+						<i class="fa fa-user-plus"></i>
+						<span class="hidden-xs">Add Me</span>
+					</button>
 					<% } %>
 				</ul>
 			</div>
@@ -48,6 +76,7 @@ export default BaseView.extend({
 
 	events: {
 		'click #brand': 'onClickBrand',
+		'click #map': 'onClickMap',
 		'click #about': 'onClickAbout',
 		'click #contact': 'onClickContact',
 		'click #help': 'onClickHelp',
@@ -76,6 +105,12 @@ export default BaseView.extend({
 
 		// go to welcome view
 		//
+		Backbone.history.navigate('#', {
+			trigger: true
+		});
+	},
+
+	onClickMap: function() {
 		Backbone.history.navigate('#', {
 			trigger: true
 		});

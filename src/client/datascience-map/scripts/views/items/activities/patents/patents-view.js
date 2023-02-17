@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ActivitiesView from '../activities-view.js';
-import PatentsListView from './list/patents-list-view.js';
+import ActivitiesView from '../../../../views/items/activities/activities-view.js';
+import PatentsListView from '../../../../views/items/activities/patents/lists/patents-list-view.js';
 
 export default ActivitiesView.extend({
 

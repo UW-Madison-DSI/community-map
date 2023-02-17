@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import KnowledgeMapView from './knowledge-map-view.js';
+import KnowledgeMapView from '../../views/maps/knowledge-map-view.js';
 
 export default KnowledgeMapView.extend({
 

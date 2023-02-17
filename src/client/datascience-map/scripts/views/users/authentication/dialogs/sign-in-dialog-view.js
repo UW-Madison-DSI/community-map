@@ -47,7 +47,7 @@ export default DialogView.extend({
 	events: {
 		'click #ok': 'onClickOk',
 		'click .alert .close': 'onClickAlertClose',
-		'keypress': 'onKeyPress'
+		'keydown': 'onKeyDown'
 	},
 
 	//
@@ -116,7 +116,11 @@ export default DialogView.extend({
 		});
 	},
 
-	onKeyPress: function(event) {
+	//
+	// keyboard event handling methods
+	//
+
+	onKeyDown: function(event) {
 
 		// respond to enter key press
 		//

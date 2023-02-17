@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import Person from '../person.js';
-import Article from './google-scholar-article.js';
+import Person from '../../models/person.js';
+import Article from '../../models/google-scholar/google-scholar-article.js';
 
 export default Person.extend({
 

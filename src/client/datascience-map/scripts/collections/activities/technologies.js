@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import Activities from './activities.js';
+import Activities from '../../collections/activities/activities.js';
 import Technology from '../../models/activities/technology.js';
 
 export default Activities.extend({

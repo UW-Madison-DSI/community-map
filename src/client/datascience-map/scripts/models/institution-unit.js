@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import BaseModel from './base-model.js';
+import BaseModel from '../models/base-model.js';
 
 export default BaseModel.extend({
 

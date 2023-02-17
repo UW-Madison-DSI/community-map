@@ -12,7 +12,7 @@
 |        'LICENSE.md', which is part of this source code distribution.         |
 |                                                                              |
 |******************************************************************************|
-|        Copyright (C) 2016-2022, Megahed Labs LLC, www.sharedigm.com          |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import CollectionView from '../../../views/collections/collection-view.js';
@@ -37,6 +37,7 @@ export default CollectionView.extend({
 			</div>
 			<span class="select"><input type="checkbox" checked /></span>
 			<span class="name"><%= name %></span>
+			<span class="count"><div class="badge"><%= count %></div></span>
 		</div>
 
 		<div class="children"></div>
@@ -53,6 +54,15 @@ export default CollectionView.extend({
 	//
 
 	initialize: function() {
+
+		// set attributes
+		//
+		if (!this.options) {
+			this.options = {};
+		}
+		if (!this.options.expanded) {
+			this.options.expanded = false;
+		}
 
 		// listen to model for changes
 		//
@@ -88,6 +98,35 @@ export default CollectionView.extend({
 			}
 		});
 		return names;
+	},
+
+	getCount: function(countFunction) {
+		let count = 0;
+		for (let i = 0; i < this.children.length; i++) {
+			let childView = this.children.findByIndex(i);
+			if (childView.getCount) {
+				count += childView.getCount(countFunction);
+			} else {
+				count += childView.model.get('count');
+			}
+		}
+		return count;
+	},
+
+	getUniqueModelCount: function(countFunction, countedModels) {
+		let count = 0;
+		if (!countedModels) {
+			countedModels = [];
+		}
+		for (let i = 0; i < this.children.length; i++) {
+			let childView = this.children.findByIndex(i);
+			if (childView.getUniqueModelCount) {
+				count += childView.getUniqueModelCount(countFunction, countedModels);
+			} else {
+				count += countFunction(childView.model.get('name'), countedModels);
+			}
+		}
+		return count;
 	},
 
 	//
@@ -176,14 +215,30 @@ export default CollectionView.extend({
 	},
 
 	onRender: function() {
+		let expand = false;
+
+		// handle tree roots
+		//
 		if (!this.options.parent) {
-			this.$el.addClass('expanded root');
+			this.$el.addClass('root');
 			this.$el.find('> .item:first-child').addClass('first');
+
+		}
+
+		// decide whether to expand tree
+		//
+		let category = this.options.parent? this.model.get('name') : 'All';
+		if (this.options.expanded) {
+			if (this.options.expanded.length > 0) {
+				expand = this.options.expanded.includes(category);
+			} else {
+				expand = this.options.expanded === true;
+			}
 		}
 
 		// set initial state
 		//
-		if (this.model && this.options.expanded.includes(this.model.get('name'))) {
+		if (expand) {
 			this.expand();
 		}
 	},
@@ -222,20 +277,25 @@ export default CollectionView.extend({
 	// counting mrthods
 	//
 
-	showChildCounts: function(collection) {
-		for (let i = 0; i < collection.length; i++) {
-			let model = collection.at(i);
-			model.set({
-				count: this.options.count(model.get('name'))
-			});
-			if (model.has('collection')) {
-				this.showChildCounts(model.get('collection'));
+	showChildCounts: function(countFunction) {
+		for (let i = 0; i < this.children.length; i++) {
+			let childView = this.children.findByIndex(i);
+			if (childView.showChildCounts) {
+				childView.showChildCounts(countFunction);
+			} else {
+				childView.model.set({
+					count: countFunction(childView.model.get('name'))
+				});
 			}
 		}
+
+		// show cumulative counts
+		//
+		this.$el.find('> .item .count .badge').text(this.getUniqueModelCount(countFunction));
 	},
 
 	showCounts: function() {
-		this.showChildCounts(this.collection);
+		this.showChildCounts(this.options.count);
 	},
 
 	//

@@ -42,17 +42,17 @@ export default ToolbarView.extend({
 				<i class="fa fa-diagram-project"></i>
 			</button>
 
-			<div class="divider"></div>
+			<div class="divider hidden-xs"></div>
 
-			<button id="show-departments" class="selected" data-toggle="tooltip" title="Show / Hide Departments" data-placement="left">
+			<button id="show-departments" class="selected hidden-xs" data-toggle="tooltip" title="Show / Hide Departments" data-placement="left">
 				<i class="fa fa-building"></i>
 			</button>
 
-			<button id="show-department-labels" class="selected" data-toggle="tooltip" title="Show / Hide Department Labels" data-placement="left">
+			<button id="show-department-labels" class="selected hidden-xs" data-toggle="tooltip" title="Show / Hide Department Labels" data-placement="left">
 				<i class="fa fa-font"></i>
 			</button>
 
-			<button id="show-map-labels" data-toggle="tooltip" title="Show / Hide Map Labels" data-placement="left">
+			<button id="show-map-labels" class="hidden-xs" data-toggle="tooltip" title="Show / Hide Map Labels" data-placement="left">
 				<i class="fa fa-map-marked-alt"></i>
 			</button>
 		</div>

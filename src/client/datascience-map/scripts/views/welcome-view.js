@@ -15,10 +15,14 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
+import Buildings from '../collections/buildings.js';
 import SplitView from '../views/layout/split-view.js';
 import InfoView from '../views/info/info-view.js';
 import PersonView from '../views/items/people/person-view.js';
+import PeopleView from '../views/items/people/people-view.js';
+import PlacesView from '../views/items/places/places-view.js';
 import AffiliatesMapView from '../views/maps/affiliates-map-view.js';
+import Browser from '../utilities/web/browser.js';
 
 export default SplitView.extend({
 
@@ -26,9 +30,63 @@ export default SplitView.extend({
 	// attributes
 	//
 
-	orientation: 'horizontal',
+	orientation: $(window).width() < 640? 'vertical': 'horizontal',
 	flipped: false,
-	sizes: [35, 65],
+	sizes: $(window).width() < 640? [0, 100] : [35, 65],
+
+	//
+	// querying methods
+	//
+
+	filter: function(terms, appointments) {
+		let mapView = this.parent.getChildView('content mainbar');
+		mapView.peopleView.filter(terms, appointments);
+	},
+
+	//
+	// getting methods
+	//
+
+	getPeople: function() {
+		let mainView = this.getChildView('mainbar');
+		if (mainView && mainView.people) {
+			return mainView.people.models;
+		}
+	},
+
+	getSelectedInterests: function() {
+		return this.getChildView('sidebar').getSelectedInterests();
+	},
+
+	getSelectedTools: function() {
+		return this.getChildView('sidebar').getSelectedTools();
+	},
+
+	getMainBarView: function() {
+		return new AffiliatesMapView({
+			el: this.$el.find('.mainbar')[0],
+			latitude: 43.0740,
+			longitude: 89.406,
+			zoom_level: 16,
+			grid: null,
+			map_kind: 'map',
+			parent: this,
+
+			// callbacks
+			//
+			onstart: () => this.onStart(),
+			onclick: (event) => this.onClick(event)
+		});
+	},
+
+	getSideBarView: function() {
+		return new InfoView({
+
+			// callbacks
+			//
+			onclick: (filters) => this.onClickCheckbox(filters)
+		});
+	},
 
 	//
 	// setting methods
@@ -72,44 +130,9 @@ export default SplitView.extend({
 		});
 	},
 
-	getMainBarView: function() {
-		return new AffiliatesMapView({
-			el: this.$el.find('.mainbar')[0],
-			latitude: 43.0740,
-			longitude: 89.406,
-			zoom_level: 16,
-			grid: null,
-			map_kind: 'map',
-			parent: this,
-
-			// callbacks
-			//
-			onstart: () => this.onStart()
-		});
-	},
-
-	getSideBarView: function() {
-		return new InfoView({
-
-			// callbacks
-			//
-			onclick: (filters) => this.onClick(filters)
-		});
-	},
-
-	getPeople: function() {
-		let mainView = this.getChildView('mainbar');
-		if (mainView && mainView.people) {
-			return mainView.people.models;
-		}
-	},
-
-	getSelectedInterests: function() {
-		return this.getChildView('sidebar').getSelectedInterests();
-	},
-
-	getSelectedTools: function() {
-		return this.getChildView('sidebar').getSelectedTools();
+	clearSearch: function() {
+		this.getChildView('mainbar search').clear();
+		this.getChildView('mainbar').resetView();
 	},
 
 	//
@@ -119,9 +142,22 @@ export default SplitView.extend({
 	showPerson: function(person, options) {
 		let mapView = this.getChildView('mainbar');
 
+		// open sidebar if mobile
+		//
+		if (Browser.device == 'phone' || $(window).width() < 768) {
+
+			// open sidebar
+			//
+			this.setSideBarSize(100);
+		}
+
 		// save collection
 		//
 		this.savedPeople = mapView.people.models;
+
+		// save view
+		//
+		mapView.pushView();
 
 		// show person in mainbar
 		//
@@ -146,6 +182,15 @@ export default SplitView.extend({
 
 	showPeople: function(people, options) {
 
+		// open sidebar if mobile
+		//
+		if (Browser.device == 'phone' || $(window).width() < 768) {
+
+			// open sidebar
+			//
+			this.setSideBarSize(0);
+		}
+
 		// save collection
 		//
 		this.savedPeople = this.getPeople();
@@ -153,16 +198,39 @@ export default SplitView.extend({
 		// show people in mainbar
 		//
 		this.getChildView('mainbar').showPeople(people, options);
+
+		// show sidebar
+		//
 		this.getChildView('sidebar').showPeopleCounts(people);
+		/*
+		if (options && options.query) {
+			this.showSelectedPeople(people, options);
+		} else {
+			this.getChildView('sidebar').showPeopleCounts(people);
+		}
+		*/
 	},
 
-	filterByTerms: function(terms) {
-		let mapView = this.parent.getChildView('content mainbar');
-		mapView.peopleView.filterByTerms(terms);
+	showSelectedPeople: function(people, options) {
+		this.showChildView('sidebar', new PeopleView(_.extend({
+			collection: people
+		}, options)));
+	},
+
+	showPlace: function(place, options) {
+		this.showPlaces([place], options);
+	},
+
+	showPlaces: function(places, options) {
+		this.showChildView('sidebar', new PlacesView(_.extend({
+			collection: new Buildings(places)
+		}, options)));
 	},
 
 	clearSideBar: function() {
-		this.showChildView('sidebar', this.getSideBarView());
+		if (this.hasChildView('sidebar')) {
+			this.showChildView('sidebar', this.getSideBarView());
+		}
 	},
 
 	//
@@ -170,7 +238,9 @@ export default SplitView.extend({
 	//
 
 	onStart: function() {
-		this.getChildView('sidebar').showPeopleCounts(this.getPeople());
+		if (this.hasChildView('sidebar')) {
+			this.getChildView('sidebar').showPeopleCounts(this.getPeople());
+		}
 
 		// perform callback
 		//
@@ -183,10 +253,23 @@ export default SplitView.extend({
 	// mouse event handling methods
 	//
 
-	onClick: function(options) {
+	onClick: function(event) {
+		if (event.originalEvent.target.nodeName == 'image') {
+
+			// clear sidebar if showing places
+			//
+			if (this.getChildView('sidebar') instanceof PlacesView) {
+				this.clearSearch();
+			}
+		}
+	},
+
+	onClickCheckbox: function(options) {
 		let mapView = this.parent.getChildView('content mainbar');
 		mapView.peopleView.unfilter();
-		this.filterByTerms(options.terms);
+		// this.filterByTerms(options.terms);
+		// this.filterByAppointments(options.appointments);
+		this.filter(options.terms, options.appointments);
 	},
 
 	//

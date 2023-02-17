@@ -10,8 +10,8 @@
 |                Opticosm - Copyright (c) 2015, Abe Megahed                    |
 \******************************************************************************/
 
-import Vector2 from '../math/vector2.js';
-import Bounds from '../bounds/bounds.js';
+import Vector2 from '../../utilities/math/vector2.js';
+import Bounds from '../../utilities/bounds/bounds.js';
 
 export default class Bounds2 {
 

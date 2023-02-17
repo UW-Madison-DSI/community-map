@@ -33,11 +33,11 @@ export default DialogView.extend({
 		<div class="modal-body">
 			<p>Please enter your email address below.  By clicking the request username button, your username will be sent via email to the account you supplied provided you are a registered user.  If you are not already a user, please register via the sign up link on the welcome page. </p>
 			<br />
-		
-			<div class="form-horizontal">
+
+			<form class="form-horizontal">
 				<div class="form-group">
 					<label class="control-label">Email address</label>
-					<div class="col-sm-6 col-xs-12">
+					<div class="controls">
 						<div class="input-group">
 							<input type="text" class="form-control" id="email-address">
 							<div class="input-group-addon">
@@ -46,7 +46,7 @@ export default DialogView.extend({
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 		
 		<div class="modal-footer">
@@ -58,7 +58,7 @@ export default DialogView.extend({
 	events: {
 		'click #request-username': 'onClickRequestUsername',
 		'click #cancel': 'onClickCancel',
-		'keypress': 'onKeyPress'
+		'keydown': 'onKeyDown'
 	},
 
 	//
@@ -102,7 +102,7 @@ export default DialogView.extend({
 	},
 
 	//
-	// event handling methods
+	// mouse event handling methods
 	//
 
 	onClickRequestUsername: function() {
@@ -137,6 +137,10 @@ export default DialogView.extend({
 			this.options.reject();
 		}
 	},
+
+	//
+	// keyboard event handling methods
+	//
 
 	onKeyPress: function(event) {
 

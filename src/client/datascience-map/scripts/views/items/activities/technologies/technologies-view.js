@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ActivitiesView from '../activities-view.js';
-import TechnologiesListView from './list/technologies-list-view.js';
+import ActivitiesView from '../../../../views/items/activities/activities-view.js';
+import TechnologiesListView from '../../../../views/items/activities/technologies/lists/technologies-list-view.js';
 
 export default ActivitiesView.extend({
 

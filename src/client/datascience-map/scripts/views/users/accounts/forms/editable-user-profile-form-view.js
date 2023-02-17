@@ -23,37 +23,13 @@ export default FormView.extend({
 		<fieldset>
 			<legend>Personal info</legend>
 
-			<div class="form-group" id="first-name">
-				<label class="required control-label">First name</label>
-				<div class="col-sm-6 col-xs-12">
+			<div class="form-group" id="name">
+				<label class="required control-label">Name</label>
+				<div class="controls">
 					<div class="input-group">
-						<input type="text" class="required form-control" name="first-name" value="<%= first_name %>" />
+						<input type="text" class="required form-control" name="name" value="<%= name %>" />
 						<div class="input-group-addon">
-							<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="First name" data-content="This is the informal name or given name that you are called by."></i>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group" id="middle-name">
-				<label class="control-label">Middle name</label>
-				<div class="col-sm-6 col-xs-12">
-					<div class="input-group">
-						<input type="text" class="form-control" name="middle-name" value="<%= middle_name %>" />
-						<div class="input-group-addon">
-							<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="Middle name" data-content="This is your middle name (or names)."></i>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group" id="last-name">
-				<label class="required control-label">Last name</label>
-				<div class="col-sm-6 col-xs-12">
-					<div class="input-group">
-						<input type="text" class="required form-control" name="last-name" value="<%= last_name %>" />
-						<div class="input-group-addon">
-							<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="Last name" data-content="This is your family name or surname."></i>
+							<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="Name" data-content="This is the name that you choose to be called by."></i>
 						</div>
 					</div>
 				</div>
@@ -65,19 +41,9 @@ export default FormView.extend({
 		</div>
 	`),
 
-	regions: {
-		selector: '#country-selector'
-	},
-
 	messages: {
-		'first-name': {
-			required: "Enter your given / first name"
-		},
-		'middle-name': {
-			required: "Enter your middle name (or names)"
-		},
-		'last-name': {
-			required: "Enter your family / last name"
+		'name': {
+			required: "Enter your name"
 		}
 	},
 
@@ -87,7 +53,7 @@ export default FormView.extend({
 
 	templateContext: function() {
 		return {
-			model: this.model
+			name: this.model.getName()
 		};
 	},
 
@@ -97,20 +63,30 @@ export default FormView.extend({
 
 	getValue: function(key) {
 		switch (key) {
-			case 'first_name':
-				return this.$el.find('#first-name input').val();
-			case 'middle_name':
-				return this.$el.find('#middle-name input').val();
-			case 'last_name':
-				return this.$el.find('#last-name input').val();
+			case 'name':
+				return this.$el.find('#name input').val();
 		}
 	},
 
 	getValues: function() {
-		return {
-			first_name: this.getValue('first_name'),
-			middle_name: this.getValue('middle_name'),
-			last_name: this.getValue('last_name')
-		};
+		let name = this.getValue('name');
+		let names = name.split(' ');
+
+		if (names.length == 1) {
+			return {
+				last_name: names[length]
+			};
+		} else if (names.length == 2) {
+			return {
+				first_name: names[0],
+				last_name: names[1]
+			}
+		} else {
+			return {
+				first_name: names[0],
+				middle_name: names.slice(1, -1).join(' '),
+				last_name: names[names.length - 1]
+			}
+		}
 	}
 });

@@ -10,10 +10,10 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
+import BaseView from '../../../views/base-view.js';
 import Vector2 from '../../../utilities/math/vector2.js';
 import Bounds from '../../../utilities/bounds/bounds.js';
 import Bounds2 from '../../../utilities/bounds/bounds2.js';
-import BaseView from '../../base-view.js';
 
 export default BaseView.extend({
 
@@ -318,7 +318,7 @@ export default BaseView.extend({
 	//
 	
 	rescale: function() {
-		let elements = $(this.el).find('.unscaled:visible');
+		let elements = $(this.el).find('.unscaled');
 		for (let i = 0; i < elements.length; i++) {
 			this.unscale(elements[i]);
 		}

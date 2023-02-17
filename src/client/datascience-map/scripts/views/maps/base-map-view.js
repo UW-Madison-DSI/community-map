@@ -27,6 +27,7 @@ import BingMap from '../../views/maps/tiles/bing-map.js';
 import MapTiles from '../../views/maps/tiles/map-tiles.js';
 import ZoomBarView from '../../views/toolbars/zoom-bar-view.js';
 import FullScreenable from '../../views/behaviors/layout/full-screenable.js';
+import Browser from '../../utilities/web/browser.js';
 
 export default BaseView.extend(_.extend({}, FullScreenable, {
 
@@ -65,6 +66,9 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 			replaceElement: true
 		}
 	},
+
+	autohideLabels: Browser.is_mobile,
+	duration: 500,
 
 	//
 	// constructor
@@ -109,7 +113,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	//
 
 	panTo: function(location, options) {
-		let duration = options && options.duration? options.duration : 1000;
+		let duration = options && options.duration? options.duration : this.duration;
 
 		// start animation
 		//
@@ -143,7 +147,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	},
 
 	zoomTo: function(zoomLevel, options) {
-		let duration = options && options.duration? options.duration : 1000;
+		let duration = options && options.duration? options.duration : this.duration;
 
 		// start animation
 		//
@@ -177,7 +181,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	},
 
 	panAndZoomTo: function(location, zoomLevel, options) {
-		let duration = options && options.duration? options.duration : 1000;
+		let duration = options && options.duration? options.duration : this.duration;
 
 		// start animation
 		//
@@ -213,7 +217,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	},
 
 	zoomAndPanTo: function(location, zoomLevel, options) {
-		let duration = options && options.duration? options.duration : 1000;
+		let duration = options && options.duration? options.duration : this.duration;
 
 		// start animation
 		//
@@ -249,10 +253,16 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	},
 
 	goTo: function(location, zoomLevel, options) {
-		if (this.getZoomLevel() > zoomLevel) {
-			this.zoomAndPanTo(location, zoomLevel, options);
-		} else {
-			this.panAndZoomTo(location, zoomLevel, options);
+		if (location && zoomLevel != undefined) {
+			if (this.getZoomLevel() < zoomLevel) {
+				this.panAndZoomTo(location, zoomLevel, options);
+			} else {
+				this.zoomAndPanTo(location, zoomLevel, options);
+			}
+		} else if (location) {
+			this.panTo(location);
+		} else if (zoomLevel != undefined) {
+			this.zoomTo(zoomLevel, options);
 		}
 	},
 
@@ -283,17 +293,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 			zoomLevel = undefined;
 		}
 
-		if (center && zoomLevel != undefined) {
-			if (this.getZoomLevel() < zoomLevel) {
-				this.panAndZoomTo(center, zoomLevel, options);
-			} else {
-				this.zoomAndPanTo(center, zoomLevel, options);
-			}
-		} else if (center) {
-			this.panTo(center);
-		} else if (zoomLevel != undefined) {
-			this.zoomTo(zoomLevel, options);
-		}
+		this.goTo(center, zoomLevel, options);
 	},
 
 	pushView: function() {
@@ -356,7 +356,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 		window.timeout = window.setTimeout(() => {
 			this.update();
 			this.timeout = null;
-		}, 500);
+		}, 100);
 	},
 
 	//
@@ -379,7 +379,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 			x: -location.x,
 			y: location.y
 		}, {
-			duration: 1000,
+			duration: this.duration,
 			step: () => { 
 				this.viewport.setOffset(new Vector2(this.x, this.y));
 			},
@@ -453,19 +453,16 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	},
 
 	showZoomBar: function() {
-
-		// add zoom bar
-		//
 		this.showChildView('zoom', new ZoomBarView({
 			parent: this,
 
 			// callbacks
 			//
-			ondragend: (dragx, dragy) => {
-				this.onDragEnd(dragx, dragy);
+			onzoomstart: () => {
+				this.onZoomStart();
 			},
 			onzoomend: () => {
-				this.update();
+				this.onZoomEnd();
 			}	
 		}));
 	},
@@ -511,12 +508,25 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 			ondragstart: (startx, starty) => {
 				this.onDragStart(startx, starty);
 			},
+			ondrag: (startx, starty) => {
+				this.onDrag(startx, starty);
+			},
 			ondragend: (dragx, dragy) => {
 				this.onDragEnd(dragx, dragy);
 			}
 		});
+
 		this.zoomBehavior = new MouseDragZoomBehavior(this.viewport, {
-			button: 2
+			button: 2,
+
+			// callbacks
+			//
+			onzoomstart: () => {
+				this.onZoomStart();
+			},
+			onzoomend: () => {
+				this.onZoomEnd();
+			}
 		});
 		this.zoomBehavior2 = new MouseWheelZoomBehavior(this.viewport, {
 
@@ -526,6 +536,10 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 				this.onWheelZoomStart();
 			}
 		});
+	},
+
+	clearOverlays: function() {
+		$('.tooltip').remove();
 	},
 
 	//
@@ -553,9 +567,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	//
 
 	onPanStart: function() {
-
-		// do nothing
-		//
+		this.clearOverlays();
 	},
 
 	onPanEnd: function() {
@@ -566,13 +578,14 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	},
 
 	onZoomStart: function() {
-		if (this.labelsView) {
+		this.clearOverlays();
+		if (this.autohideLabels && this.labelsView) {
 			this.labelsView.hide();
 		}
 	},
 
 	onZoomEnd: function() {
-		if (this.labelsView) {
+		if (this.autohideLabels && this.labelsView) {
 			this.labelsView.show();
 		}
 	},
@@ -582,10 +595,23 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	//
 
 	onDragStart: function() {
-		$('.popover').remove();
+
+		// clear tooltips / popups
+		//
+		this.clearOverlays();
+	},
+
+	onDrag: function() {
+		if (this.autohideLabels && this.labelsView) {
+			this.labelsView.hide();
+		}
 	},
 
 	onDragEnd: function(dragx, dragy) {
+		if (this.autohideLabels && this.labelsView) {
+			this.labelsView.show();
+		}
+
 		if (dragx != 0 || dragy != 0) {
 			if (this.tiles) {
 				this.tiles.render();
@@ -601,7 +627,7 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 		this.timeout = setTimeout(() => {
 			this.onWheelZoomEnd();
 		}, 100);
-		$('.popover').remove();
+		this.clearOverlays();
 	},
 
 	onWheelZoomEnd: function() {

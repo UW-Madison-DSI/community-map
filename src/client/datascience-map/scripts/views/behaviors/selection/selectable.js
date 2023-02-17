@@ -30,7 +30,8 @@ export default {
 		// mouse events
 		//
 		'mousedown': 'onMouseDown',
-			
+		'dblclick': 'onDoubleClick',
+
 		// selection events
 		//
 		'select': 'onSelect',
@@ -48,7 +49,7 @@ export default {
 	isSelected: function() {
 		return this.$el && this.$el.hasClass('selected');
 	},
-	
+
 	//
 	// selecting methods
 	//
@@ -68,6 +69,12 @@ export default {
 	deselect: function(options) {
 		if (this.isSelected()) {
 			this.$el.removeClass('selected');
+
+			// also unhighlight, if possible
+			//
+			if (this.isHighlighted && this.isHighlighted()) {
+				this.unhighlight();
+			}
 
 			// handle event
 			//
@@ -97,7 +104,7 @@ export default {
 
 		// perform selection
 		//
-		if (this.options.selectable != false) {
+		if (this.selectable != false) {
 
 			// check for shift clicking or multi-select
 			//
@@ -148,9 +155,11 @@ export default {
 
 		// skip mouse events if touch enabled
 		//
+		/*
 		if (Browser.is_touch_enabled) {
 			return;
 		}
+		*/
 
 		// skip clicks on selectable item buttons
 		//
@@ -175,6 +184,7 @@ export default {
 		}
 	},
 
+	/*
 	onDoubleClick: function(event) {
 
 		// skip mouse events if touch enabled
@@ -193,12 +203,19 @@ export default {
 			this.block(event);
 		}
 	},
+	*/
 
 	//
 	// selection event handling methods
 	//
 
 	onSelect: function(item) {
+
+		// trigger listeners
+		//
+		if (this.model) {
+			this.model.trigger('select');
+		}
 
 		// perform callback
 		//
@@ -209,12 +226,12 @@ export default {
 
 	onDeselect: function(item) {
 
-		// also unhighlight, if possible
+		// trigger listeners
 		//
-		if (this.isHighlighted && this.isHighlighted()) {
-			this.unhighlight();
+		if (this.model) {
+			this.model.trigger('deselect');
 		}
-		
+
 		// perform callback
 		//
 		if (this.options.ondeselect) {

@@ -19,15 +19,15 @@ import '../../utilities/scripting/string-utils.js';
 
 // models
 //
-import Person from '../person.js';
-import Article from './activities/academic-article.js';
-import Award from './activities/academic-award.js';
-import BookChapter from './activities/academic-book-chapter.js';
-import Book from './activities/academic-book.js';
-import ConferenceProceeding from './activities/academic-conference-proceeding.js';
-import Grant from './activities/academic-grant.js';
-import Patent from './activities/academic-patent.js';
-import Technology from './activities/academic-technology.js';
+import Person from '../../models/person.js';
+import Article from '../../models/academic/activities/academic-article.js';
+import Award from '../../models/academic/activities/academic-award.js';
+import BookChapter from '../../models/academic/activities/academic-book-chapter.js';
+import Book from '../../models/academic/activities/academic-book.js';
+import ConferenceProceeding from '../../models/academic/activities/academic-conference-proceeding.js';
+import Grant from '../../models/academic/activities/academic-grant.js';
+import Patent from '../../models/academic/activities/academic-patent.js';
+import Technology from '../../models/academic/activities/academic-technology.js';
 
 // collections
 //
@@ -40,6 +40,14 @@ import Grants from '../../collections/academic/activities/academic-grants.js';
 import Patents from '../../collections/academic/activities/academic-patents.js';
 import Technologies from '../../collections/academic/activities/academic-technologies.js';
 import Collaborators from '../../collections/academic/academic-collaborators.js';
+
+//
+// local variables
+//
+
+// directory of previously referenced people
+//
+let directory = {};
 
 export default Person.extend({
 
@@ -98,11 +106,20 @@ export default Person.extend({
 	//
 
 	parsePrimaryAffiliation(response) {
-		if (response.unitName) {
-			return response.unitName;
-		}
 		if (response.primaryUnitAffiliation) {
-			return response.primaryUnitAffiliation.baseName;
+
+			// check if primary unit affiliation in an object
+			//
+			if (response.primaryUnitAffiliation.baseName) {
+				return response.primaryUnitAffiliation.baseName;
+
+			// primary unit affiliation is a string (other)
+			//
+			} else {
+				return response.primaryUnitAffiliation;
+			}
+		} else if (response.unitName) {
+			return response.unitName;
 		}
 	},
 
@@ -139,16 +156,17 @@ export default Person.extend({
 
 			// name info
 			//
-			title: response.title? response.title.toTitleCase() : undefined,
-			first_name: response.firstName? response.firstName.toTitleCase() : undefined,
-			last_name: response.lastName? response.lastName.toTitleCase() : undefined,
-			middle_name: response.middleName? response.middleName.toTitleCase() : undefined,
+			title: response.title? response.title : undefined,
+			first_name: response.firstName? response.firstName : undefined,
+			last_name: response.lastName? response.lastName : undefined,
+			middle_name: response.middleName? response.middleName : undefined,
 
 			// professional info
 			//
 			primary_affiliation: this.parsePrimaryAffiliation(response),
 			affiliations: this.parseAffiliations(response),
 			appointment_type: response.appointmentType,
+			building_number: response.buildingNumber,
 
 			// research info
 			//
@@ -200,24 +218,28 @@ export default Person.extend({
 	}
 }, {
 
-	// directory of previously referenced people
-	//
-	directory: {},
-
 	//
 	// static methods
 	//
 
 	has: function(person) {
-		return this.directory[person.get('id')] != undefined;
+		return directory[person.get('id')] != undefined;
 	},
 
 	get: function(person) {
-		return this.directory[person.get('id')];
+		return directory[person.get('id')];
 	},
 
 	set: function(person) {
-		this.directory[person.get('id')] = person;
+		directory[person.get('id')] = person;
 		return person;
+	},
+
+	//
+	// cache clearing method
+	//
+
+	reset: function() {
+		directory = {};
 	}
 });

@@ -15,11 +15,11 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
+import BaseModel from '../../models/base-model.js';
+import DateQueryable from '../../models/behaviors/date-queryable.js';
+import Collaborative from '../../models/behaviors/collaborative.js';
 import '../../utilities/scripting/string-utils.js';
 import '../../utilities/time/date-format.js';
-import BaseModel from '../base-model.js';
-import DateQueryable from '../behaviors/date-queryable.js';
-import Collaborative from '../behaviors/collaborative.js';
 	
 export default BaseModel.extend(_.extend({}, DateQueryable, Collaborative, {
 

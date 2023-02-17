@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import Activities from './activities.js';
+import Activities from '../../collections/activities/activities.js';
 import BookChapter from '../../models/activities/book-chapter.js';
 
 export default Activities.extend({

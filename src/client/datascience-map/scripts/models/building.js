@@ -15,9 +15,9 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
+import BaseModel from '../models/base-model.js';
 import Vector2 from '../utilities/math/vector2.js';
 import Bounds2 from '../utilities/bounds/bounds2.js';
-import BaseModel from './base-model.js';
 
 export default BaseModel.extend({
 
@@ -25,10 +25,10 @@ export default BaseModel.extend({
 	// ajax attributes
 	//
 
-	urlRoot: 'api/public/buildings',
+	urlRoot: '/buildings',
 
-	url: () => {
-		return this.urlRoot + '/' + this.id
+	url: function() {
+		return config.servers.campus_map + this.urlRoot + '/' + this.id
 	},
 
 	//

@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import DialogView from './dialog-view.js';
+import DialogView from '../../views/dialogs/dialog-view.js';
 
 export default DialogView.extend({
 
@@ -24,26 +24,33 @@ export default DialogView.extend({
 	//
 
 	template: _.template(`
-		<div id="download" class="dialog">
-			<div class="title">Download</div>
-			<button class="close"><i class="fa fa-close"></i></button>
-
-			<div class="content">
-				<label>Please select a file format:</label>
-				<div class="format">
-					<div class="radio-inline">
-						<label><input type="radio" name="<%= items %>" value="csv"<% if (format == 'csv') { %>checked<% } %>>CSV</label>
-					</div>
-
-					<div class="radio-inline">
-						<label><input type="radio" name="<%= items %>" value="json"<% if (format == 'json') { %>checked<% } %>>JSON</label>
-					</div>
+		<div class="modal-header error">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				<i class="fa fa-close"></i>
+			</button>
+			<h1 id="modal-header-text">
+				<i class="fa fa-download"></i>
+				Download
+			</h1>
+		</div>
+		
+		<div class="modal-body">
+			<label>Please select a file format:</label>
+			<div class="format">
+				<div class="radio-inline">
+					<label><input type="radio" name="<%= items %>" value="csv"<% if (format == 'csv') { %>checked<% } %>>CSV</label>
 				</div>
 
-				<a download='<%= items %>.<%= format %>' type='text/csv'>
-					<button><i class="fa fa-download"></i>Download</button>
-				</a>
+				<div class="radio-inline">
+					<label><input type="radio" name="<%= items %>" value="json"<% if (format == 'json') { %>checked<% } %>>JSON</label>
+				</div>
 			</div>
+		</div>
+		
+		<div class="modal-footer">
+			<a download='<%= items %>.<%= format %>' type='text/csv'>
+			<button id="download" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-download"></i>Download</button> 
+			</a>
 		</div>
 	`),
 

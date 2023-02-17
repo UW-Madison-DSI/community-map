@@ -40,7 +40,7 @@ export default DialogView.extend({
 
 	events: {
 		'submit': 'onSubmit',
-		'keypress': 'onKeyPress',
+		'keydown': 'onKeyDown',
 		'click #resend': 'onClickResend'
 	},
 
@@ -62,21 +62,9 @@ export default DialogView.extend({
 		return false;
 	},
 
-	onKeyPress: function(event) {
-
-		// respond to enter key press
-		//
-		if (event.keyCode === 13) {
-			
-			// close modal dialog
-			//
-			this.dialog.hide();
-
-			// perform callback
-			//
-			this.onSubmit();
-		}
-	},
+	//
+	// mouse event handling methods
+	//
 
 	onClickResend: function() {
 		let emailVerification = new EmailVerification();
@@ -96,5 +84,25 @@ export default DialogView.extend({
 				});
 			}
 		});
+	},
+
+	//
+	// keyboard event handling methods
+	//
+
+	onKeyDown: function(event) {
+
+		// respond to enter key press
+		//
+		if (event.keyCode === 13) {
+			
+			// close modal dialog
+			//
+			this.dialog.hide();
+
+			// perform callback
+			//
+			this.onSubmit();
+		}
 	}
 });

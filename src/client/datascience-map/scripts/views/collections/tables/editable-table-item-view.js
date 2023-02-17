@@ -12,7 +12,7 @@
 |        'LICENSE.md', which is part of this source code distribution.         |
 |                                                                              |
 |******************************************************************************|
-|        Copyright (C) 2016-2022, Megahed Labs LLC, www.sharedigm.com          |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import SelectableTableItemView from '../../../views/collections/tables/selectable-table-item-view.js';

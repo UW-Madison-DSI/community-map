@@ -46,22 +46,8 @@
 			background: transparent;
 			padding: 0;
 
-			&.close, &.clear {
-				&:hover {
-					color: crimson;
-				}
-			}
-
-			&:hover {
-				color: @toolbar-button-hover-color;
-			}
-
 			&.selected {
 				color: @toolbar-button-selected-color;
-
-				&:hover {
-					color: @toolbar-button-hover-color;
-				}
 			}
 
 			&:active {
@@ -126,6 +112,43 @@
 			width: 100%;
 			margin-top: 5px;
 			margin-bottom: 10px;
+		}
+	}
+}
+
+//
+// desktop styles
+//
+
+body[device="desktop"] {
+
+	.toolbar {
+
+		//
+		// toolbar buttons
+		//
+
+		.buttons {
+
+			button {
+
+				&.close, &.clear {
+					&:hover {
+						color: crimson;
+					}
+				}
+
+				&:hover {
+					color: @toolbar-button-hover-color;
+				}
+
+				&.selected {
+
+					&:hover {
+						color: @toolbar-button-hover-color;
+					}
+				}
+			}
 		}
 	}
 }

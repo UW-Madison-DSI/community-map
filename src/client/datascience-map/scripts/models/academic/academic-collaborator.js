@@ -50,14 +50,14 @@ export default Collaborator.extend(_.extend({}, DateRangeQueryable, {
 
 			// personal info
 			//
-			first_name: response.firstName? response.firstName.toTitleCase() : undefined,
-			last_name: response.lastName? response.lastName.toTitleCase() : undefined,
-			middle_name: response.middleName? response.middleName.toTitleCase() : undefined,
+			first_name: response.firstName? response.firstName : undefined,
+			last_name: response.lastName? response.lastName : undefined,
+			middle_name: response.middleName? response.middleName : undefined,
 			image: undefined,
 
 			// professional info
 			//
-			title: response.title? response.title.toTitleCase() : undefined,
+			title: response.title? response.title : undefined,
 			primary_affiliation: this.parsePrimaryAffiliation(response),
 			affiliations: this.parseAffiliations(response),
 

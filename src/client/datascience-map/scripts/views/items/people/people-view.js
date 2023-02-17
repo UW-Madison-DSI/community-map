@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ItemsView from '../items-view.js';
-import PeopleListView from './list/people-list-view.js';
+import ItemsView from '../../../views/items/items-view.js';
+import PeopleListView from '../../../views/items/people/lists/people-list-view.js';
 
 export default ItemsView.extend({
 
@@ -56,6 +56,10 @@ export default ItemsView.extend({
 		</div>
 		<% } %>
 	`),
+
+	regions: {
+		'items': '.items'
+	},
 
 	//
 	// querying methods

@@ -10,42 +10,53 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import MouseWheelBehavior from '../../../../mouse/mouse-wheel-behavior.js';
+import MouseWheelBehavior from '../../../../../views/behaviors/mouse/mouse-wheel-behavior.js';
 
-export default function MouseWheelZoomBehavior(viewport, options) {
+//
+// attributes
+//
+
+let defaultZoomFactor = 1.05;
+
+//
+// constructor
+//
+
+function MouseWheelZoomBehavior(viewport, options) {
+	
+	// call "superclass" constructor
+	//
+	MouseWheelBehavior.call(this, options.el || (viewport? viewport.el : null), _.extend(options || {}, {
+		
+		// callbacks
+		//
+		onmousewheel: (event) => {
+
+			// zoom based upon direction of wheel movement
+			//
+			if (event.deltaY > 0) {
+				this.onZoom(this.zoomFactor);
+			} else {
+				this.onZoom(1 / this.zoomFactor);
+			}
+		}
+	}));
 
 	// set attributes
 	//
-	this.options = options || {};
 	this.viewport = viewport;
-
-	// call "superclass" constructor
-	//
-	MouseWheelBehavior.call(this, viewport.el, (deltaY) => {
-
-		// zoom based upon direction of wheel movement
-		//
-		if (deltaY > 0) {
-			this.onZoom(this.zoomFactor);
-		} else {
-			this.onZoom(1 / this.zoomFactor);
-		}
-	});
+	this.zoomFactor = options.zoomFactor || defaultZoomFactor;
+	this.minScale = options.minScale;
+	this.maxScale = options.maxScale;
 
 	return this;
 }
 
+//
 // extend prototype from "superclass"
 //
-MouseWheelZoomBehavior.prototype = _.extend(Object.create(MouseWheelBehavior.prototype), {
 
-	//
-	// attributes
-	//
-
-	zoomFactor: 1.05,
-	minScale: 0.2,
-	maxScale: 100,
+MouseWheelZoomBehavior.prototype = _.extend({}, MouseWheelBehavior.prototype, {
 
 	//
 	// event handling methods
@@ -56,15 +67,14 @@ MouseWheelZoomBehavior.prototype = _.extend(Object.create(MouseWheelBehavior.pro
 
 		// check bounds on scale
 		//
-		if ((!this.minScale || scale > this.minScale) && 
-			(!this.maxScale || scale < this.maxScale)) {
-			this.viewport.setScale(scale);
+		if (this.minScale && scale < this.minScale) {
+			scale = this.minScale;
 		}
-
-		// perform callback
-		//
-		if (this.options.onzoom) {
-			this.options.onzoom(zoom);
+		if (this.maxScale && scale > this.maxScale) {
+			scale = this.maxScale;
 		}
+		this.viewport.setScale(scale);
 	}
 });
+
+export default MouseWheelZoomBehavior;

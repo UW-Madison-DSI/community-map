@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import PeopleView from '../people/people-view.js';
-import CollaboratorsListView from './list/collaborators-list-view.js';
+import PeopleView from '../../../views/items/people/people-view.js';
+import CollaboratorsListView from '../../../views/items/collaborators/lists/collaborators-list-view.js';
 
 export default PeopleView.extend({
 

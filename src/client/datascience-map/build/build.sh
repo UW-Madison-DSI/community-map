@@ -19,7 +19,7 @@ make_copy() {
 bundle_scripts() {
 	rm -rf $1
 	mkdir $1
-	rollup --config rollup.config.js
+	rollup --config rollup.config.js --bundleConfigAsCjs
 }
 
 compress_scripts() {

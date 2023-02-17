@@ -16,20 +16,20 @@
 \******************************************************************************/
 
 import '../../../../vendor/bootstrap/js/tab.js';
-import BaseView from '../../base-view.js';
-import ProfileView from './profile/profile-view.js';
-import CollaboratorsView from '../collaborators/collaborators-view.js';
+import BaseView from '../../../views/base-view.js';
+import ProfileView from '../../../views/items/people/profile/profile-view.js';
+import CollaboratorsView from '../../../views/items/collaborators/collaborators-view.js';
 
 // activity views
 //
-import GrantsView from '../activities/grants/grants-view.js';
-import ArticlesView from '../activities/articles/articles-view.js';
-import AwardsView from '../activities/awards/awards-view.js';
-import BookChaptersView from '../activities/book-chapters/book-chapters-view.js';
-import BooksView from '../activities/books/books-view.js';
-import ConferenceProceedingsView from '../activities/conference-proceedings/conference-proceedings-view.js';
-import PatentsView from '../activities/patents/patents-view.js';
-import TechnologiesView from '../activities/technologies/technologies-view.js';
+import GrantsView from '../../../views/items/activities/grants/grants-view.js';
+import ArticlesView from '../../../views/items/activities/articles/articles-view.js';
+import AwardsView from '../../../views/items/activities/awards/awards-view.js';
+import BookChaptersView from '../../../views/items/activities/book-chapters/book-chapters-view.js';
+import BooksView from '../../../views/items/activities/books/books-view.js';
+import ConferenceProceedingsView from '../../../views/items/activities/conference-proceedings/conference-proceedings-view.js';
+import PatentsView from '../../../views/items/activities/patents/patents-view.js';
+import TechnologiesView from '../../../views/items/activities/technologies/technologies-view.js';
 
 export default BaseView.extend({
 
@@ -249,7 +249,7 @@ export default BaseView.extend({
 			profile_photo_url: this.model.getProfilePhotoUrl(),
 			other_affiliations: this.model.getSecondaryAffiliations(),
 			editable: this.options.editable,
-			closable: mainView.savedPeople && mainView.savedPeople.length > 1
+			closable: !mainView.savedPeople != undefined && !this.options.editable
 		};
 	},
 
@@ -543,12 +543,24 @@ export default BaseView.extend({
 		let mainView = topView.getChildView('content');
 		let mapView = mainView.getChildView('mainbar');
 
-		mainView.clearSideBar();
-		mainView.showPeople(mainView.savedPeople, {
-			zoom_to: true
-		});
-		mapView.hideDateBar();
-		mapView.hideActivitiesBar();
+		if (mainView.savedPeople && mainView.savedPeople.length > 1) {
+			mainView.clearSideBar();
+			/*
+			mainView.showPeople(mainView.savedPeople, {
+				zoom_to: true
+			});
+			*/
+			mainView.showPeople(mainView.savedPeople);
+
+			// restore view from before person was clicked
+			//
+			mapView.popView();
+
+			mapView.hideDateBar();
+			mapView.hideActivitiesBar();
+		} else {
+			mainView.clearSearch();
+		}
 
 		/*
 		// clear query string

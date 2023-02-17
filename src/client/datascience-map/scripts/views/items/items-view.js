@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import BaseView from '../base-view.js';
+import BaseView from '../../views/base-view.js';
 
 export default BaseView.extend({
 
@@ -34,9 +34,15 @@ export default BaseView.extend({
 			<%= items.replace(/_/g, ' ').toTitleCase() %>
 		</div>
 
+		<% if (closable) { %>
+		<button class="btn" id="close" data-toggle="tooltip" title="Close" data-placement="right">
+			<i class="fa fa-close"></i>
+		</button>
+		<% } %>
+
 		<div class="items"></div>
 
-		<% if (length > 0) { %>
+		<% if (downloadable && length > 0) { %>
 		<div class="buttons">
 			<button>
 				<i class="fa fa-download" data-toggle="tooltip" title="Download File"></i>
@@ -51,6 +57,7 @@ export default BaseView.extend({
 	},
 
 	events: {
+		'click #close': 'onClickClose',
 		'click .sorting input': 'onClickSorting',
 		'click .buttons button': 'onClickDownloadButton'
 	},
@@ -165,7 +172,9 @@ export default BaseView.extend({
 			items: this.getItemsName(),
 			format: this.format,
 			length: this.collection? this.collection.length : 0,
-			nested: this.options.nested
+			nested: this.options.nested,
+			closable: true,
+			downloadable: false
 		};
 	},
 
@@ -206,9 +215,19 @@ export default BaseView.extend({
 		this.$el.find('.buttons button .fa-spinner').hide();
 	},
 
+	close: function() {
+		let topView = this.getTopView();
+		let mainView = topView.getChildView('content');
+		mainView.clearSearch();
+	},
+
 	//
 	// mouse event handling methods
 	//
+
+	onClickClose: function() {
+		this.close();
+	},
 
 	onClickSorting: function() {
 		this.showItems();
@@ -230,7 +249,7 @@ export default BaseView.extend({
 
 					// show download dialog
 					//
-					this.getTopView().showDownloadDialog({
+					application.showDownloadDialog({
 						items: this.getItemsName(),
 						view: this
 					});
@@ -240,7 +259,7 @@ export default BaseView.extend({
 
 			// show download dialog
 			//
-			this.getTopView().showDownloadDialog({
+			application.showDownloadDialog({
 				items: this.getItemsName(),
 				view: this
 			});

@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import People from './people.js';
+import People from '../collections/people.js';
 import Collaborator from '../models/collaborator.js';
 
 export default People.extend({

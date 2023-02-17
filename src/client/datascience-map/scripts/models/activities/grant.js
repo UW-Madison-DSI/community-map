@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import Activity from './activity.js';
-import DateRangeQueryable from '../behaviors/date-range-queryable.js';
+import Activity from '../../models/activities/activity.js';
+import DateRangeQueryable from '../../models/behaviors/date-range-queryable.js';
 import WordUtils from '../../utilities/scripting/word-utils.js';
 
 export default Activity.extend(_.extend({}, DateRangeQueryable, {

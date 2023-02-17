@@ -24,7 +24,7 @@ export default ToolbarView.extend({
 	//
 
 	id: 'view-bar',
-	className: 'vertical toolbar',
+	className: 'vertical toolbar hidden-xs',
 
 	template: _.template(`
 		<div class="title">View</div>

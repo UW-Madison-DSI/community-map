@@ -17,6 +17,7 @@
 
 import BaseView from '../../views/base-view.js';
 import TreeView from '../../views/items/trees/tree-view.js';
+import FooterView from '../../views/layout/footer-view.js';
 
 export default BaseView.extend({
 
@@ -27,7 +28,7 @@ export default BaseView.extend({
 	className: 'welcome panel',
 
 	template: _.template(`
-		<img class="logo" src="images/uw-crest.png" />
+		<img class="logo hidden-xs" src="images/uw-crest.png" />
 
 		<h1 id="title"><%= defaults.application.title %></h1>
 		<h1 id="subtitle"><%= defaults.application.subtitle %></h1>
@@ -41,17 +42,22 @@ export default BaseView.extend({
 			<br /><br />
 			<div id="terms"></div>
 		</div>
+
+		<div class="panel">
+			Select the appointment types of interest to you:
+			<br /><br />
+			<div id="appointments"></div>
+		</div>
+
+		<hr />
+		<div id="footer"></div>
 	`),
 
 	regions: {
-		'terms': '#terms'
+		'terms': '#terms',
+		'appointments': '#appointments',
+		'footer': '#footer'
 	},
-
-	/*
-	events: {
-		'click input[type="checkbox"]': 'onClickCheckbox'
-	},
-	*/
 
 	//
 	// constructor
@@ -62,54 +68,40 @@ export default BaseView.extend({
 		// create filter collections
 		//
 		this.terms = application.getCollection(defaults.terms);
-		/*
-		this.applications = application.getCollection(defaults.applications);
-		this.interests = application.getCollection(defaults.interests);
-		this.tools = application.getCollection(defaults.tools);
-		*/
+		this.appointments = application.getCollection(defaults.appointment_types);
 	},
 
 	//
 	// querying methods
 	//
 
-	/*
-	numPeopleInApplication: function(application) {
+	numPeopleWithTerm: function(term, except) {
 		let count = 0;
 		for (let i = 0; i < this.people.length; i++) {
-			if (this.people[i].isInApplication(application) == true) {
-				count++;
+			let person = this.people[i];
+			if (person.hasTerm(term) == true) {
+				if (!except) {
+					count++;
+				} else if (!except.includes(person)) {
+					count++;
+					except.push(person);
+				}
 			}
 		}
 		return count;
 	},
 
-	numPeopleInterestedIn: function(interest) {
+	numPeopleWithAppointment: function(appointment, except) {
 		let count = 0;
 		for (let i = 0; i < this.people.length; i++) {
-			if (this.people[i].isInterestedIn(interest) == true) {
-				count++;
-			}
-		}
-		return count;
-	},
-
-	numPeopleUsing: function(tool) {
-		let count = 0;
-		for (let i = 0; i < this.people.length; i++) {
-			if (this.people[i].isUsing(tool) == true) {
-				count++;
-			}
-		}
-		return count;
-	},
-	*/
-
-	numPeopleWithTerm: function(term) {
-		let count = 0;
-		for (let i = 0; i < this.people.length; i++) {
-			if (this.people[i].hasTerm(term) == true) {
-				count++;
+			let person = this.people[i];
+			if (person.hasAppointment(appointment) == true) {
+				if (!except) {
+					count++;
+				} else if (!except.includes(person)) {
+					count++;
+					except.push(person);
+				}
 			}
 		}
 		return count;
@@ -119,29 +111,15 @@ export default BaseView.extend({
 	// getting methods
 	//
 
-	/*
-	getSelectedApplications: function() {
-		if (!this.getChildView('applications').isAllSelected()) {
-			return this.getChildView('applications').getValues();
-		}
-	},
-
-	getSelectedInterests: function() {
-		if (!this.getChildView('interests').isAllSelected()) {
-			return this.getChildView('interests').getValues();
-		}
-	},
-
-	getSelectedTools: function() {
-		if (!this.getChildView('tools').isAllSelected()) {
-			return this.getChildView('tools').getValues();
-		}
-	},
-	*/
-
 	getSelectedTerms: function() {
 		if (!this.getChildView('terms').isAllSelected()) {
 			return this.getChildView('terms').getValues();
+		}
+	},
+
+	getSelectedAppointments: function() {
+		if (!this.getChildView('appointments').isAllSelected()) {
+			return this.getChildView('appointments').getValues();
 		}
 	},
 
@@ -151,76 +129,51 @@ export default BaseView.extend({
 
 	onRender: function() {
 		this.showTerms();
-		/*
-		this.showApplications();
-		this.showInterests();
-		this.showTools();
-		*/
+		this.showAppointmentTypes();
+		this.showFooter();
 	},
 
 	showTerms: function() {
 		this.showChildView('terms', new TreeView({
 			collection: this.terms,
 			sortWithCollection: false,
-			expanded: defaults.expanded,
+			expanded: defaults.expanded.terms,
 
 			// callbacks
 			//
-			count: (term) => this.numPeopleWithTerm(term),
-			// count: (application) => this.numPeopleInApplication(application),
+			count: (term, except) => this.numPeopleWithTerm(term, except),
 			onclick: () => this.onClickCheckbox()
 		}));
 	},
 
-	/*
-	showApplications: function() {
-		this.showChildView('applications', new TreeView({
-			collection: this.applications,
+	showAppointmentTypes: function() {
+		this.showChildView('appointments', new TreeView({
+			collection: this.appointments,
 			sortWithCollection: false,
+			expanded: defaults.expanded.appointment_types,
 
 			// callbacks
 			//
-			count: (term) => this.numPeopleWithTerm(term),
-			// count: (application) => this.numPeopleInApplication(application),
+			count: (appointment) => this.numPeopleWithAppointment(appointment),
 			onclick: () => this.onClickCheckbox()
 		}));
 	},
-
-	showInterests: function() {
-		this.showChildView('interests', new TreeView({
-			collection: this.interests,
-			sortWithCollection: false,
-
-			// callbacks
-			//
-			count: (term) => this.numPeopleWithTerm(term),
-			// count: (interest) => this.numPeopleInterestedIn(interest),
-			onclick: () => this.onClickCheckbox()
-		}));
-	},
-
-	showTools: function() {
-		this.showChildView('tools', new TreeView({
-			collection: this.tools,
-			sortWithCollection: false,
-
-			// callbacks
-			//
-			count: (term) => this.numPeopleWithTerm(term),
-			// count: (tool) => this.numPeopleUsing(tool),
-			onclick: () => this.onClickCheckbox()
-		}));
-	},
-	*/
 
 	showPeopleCounts: function(people) {
 		this.people = people;
-		/*
-		this.getChildView('applications').showCounts();
-		this.getChildView('interests').showCounts();
-		this.getChildView('tools').showCounts();
-		*/
-		this.getChildView('terms').showCounts();
+
+		// show term counts
+		//
+		if (this.hasChildView('terms')) {
+			this.getChildView('terms').showCounts();
+		}
+		if (this.hasChildView('appointments')) {
+			this.getChildView('appointments').showCounts();
+		}
+	},
+
+	showFooter: function() {
+		this.showChildView('footer', new FooterView());
 	},
 
 	//
@@ -233,12 +186,8 @@ export default BaseView.extend({
 		//
 		if (this.options.onclick) {
 			this.options.onclick({
-				terms: this.getSelectedTerms()
-				/*
-				applications: this.getSelectedApplications(),
-				interests: this.getSelectedInterests(),
-				tools: this.getSelectedTools()
-				*/
+				terms: this.getSelectedTerms(),
+				appointments: this.getSelectedAppointments()
 			});
 		}
 	}

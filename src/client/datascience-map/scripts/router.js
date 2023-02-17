@@ -50,6 +50,11 @@ export default Backbone.Router.extend({
 		'overview': 'showSystemOverview',
 		'accounts/review(?*query_string)': 'showReviewAccounts',
 
+		// privacy routes
+		//
+		'privacy': 'showPrivacyPolicy',
+		'cookies': 'showCookieConsent',
+
 		// user account routes
 		//
 		'accounts/:id(/:nav)': 'showUserAccount'
@@ -112,6 +117,16 @@ export default Backbone.Router.extend({
 	},
 
 	showHome: function() {
+		if (!application.session.user) {
+
+			// go to welcome view
+			//
+			Backbone.history.navigate('', {
+				trigger: true
+			});
+			return;
+		}
+
 		import(
 			'./views/home-view.js'
 		).then((HomeView) => {
@@ -290,6 +305,36 @@ export default Backbone.Router.extend({
 			//
 			application.show(new EditMyProfileView.default(), {
 				nav: 'home'
+			});
+		});
+	},
+
+	//
+	// privacy route handlers
+	//
+
+	showPrivacyPolicy: function() {
+		import(
+			'./views/policies/privacy-policy-view.js'
+		).then((PrivacyPolicyView) => {
+
+			// show edit my profile view
+			//
+			application.show(new PrivacyPolicyView.default(), {
+				nav: 'privacy'
+			});
+		});
+	},
+
+	showCookieConsent: function() {
+		import(
+			'./views/policies/cookie-consent-view.js'
+		).then((CookieConsentView) => {
+
+			// show edit my profile view
+			//
+			application.show(new CookieConsentView.default(), {
+				nav: 'cookies'
 			});
 		});
 	}

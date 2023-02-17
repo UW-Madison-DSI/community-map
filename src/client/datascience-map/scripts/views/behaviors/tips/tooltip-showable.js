@@ -10,6 +10,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
+import Browser from '../../../utilities/web/browser.js';
 import '../../../../vendor/bootstrap/js/tooltip.js';
 
 export default {
@@ -17,23 +18,23 @@ export default {
 	// tooltip attributes
 	//
 	tooltip_title: 'Tooltip',
-	tooltip_trigger: 'manual',
-	tooltip_placement: undefined,
+	tooltip_trigger: 'hover',
+	tooltip_placement: 'top',
 	tooltip_container: 'body',
 
 	//
 	// methods
 	//
 
-	showTooltip: function() {
-		if (this.tooltip) {
-			this.tooltip.tooltip('show');
+	showTooltips: function() {
+		if (this.tooltips) {
+			this.tooltips.tooltip('show');
 		}
 	},
 
-	hideTooltip: function() {
-		if (this.tooltip) {
-			this.tooltip.tooltip('hide');
+	hideTooltips: function() {
+		if (this.tooltips) {
+			this.tooltips.tooltip('hide');
 		}
 	},
 
@@ -41,21 +42,18 @@ export default {
 	// rendering methods
 	//
 
-	addTooltip: function(options) {
+	addTooltips: function(options) {
+		if (Browser.is_mobile) {
+			return;
+		}
+
 		let $el = this.tooltip_target? this.$el.find(this.tooltip_target) : this.$el;
 
-		// add tooltip data
-		//
-		if (this.tooltip_title) {
-			$el.attr({
-				'title': this.tooltip_title.toTitleCase(),
-				'data-toggle': 'tooltip'
-			});
-		}
+		this.tooltips = $el.find('[data-toggle="tooltip"]');
 
 		// show tooltips on trigger
 		//
-		this.tooltip = $el.addClass('tooltip-trigger').tooltip(_.extend(this.options, {
+		this.tooltips.addClass('tooltip-trigger').tooltip(_.extend(this.options, {
 			trigger: this.tooltip_trigger,
 			placement: this.tooltip_placement,
 			container: this.tooltip_container

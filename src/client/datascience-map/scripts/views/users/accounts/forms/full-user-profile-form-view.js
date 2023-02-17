@@ -33,7 +33,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="title" style="display:none">
 				<label class="control-label">Title</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<select>
 							<option value="">None</option>
@@ -44,37 +44,13 @@ export default FormView.extend({
 				</div>
 			</div>
 
-			<div class="form-group" id="first-name">
-				<label class="required control-label">First name</label>
-				<div class="col-sm-6 col-xs-12">
+			<div class="form-group" id="name">
+				<label class="required control-label">Name</label>
+				<div class="controls">
 					<div class="input-group">
-						<input type="text" class="required form-control" name="first-name" value="<%= first_name %>" />
+						<input type="text" class="required form-control" name="name" value="<%= name %>" />
 						<div class="input-group-addon">
-							<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="First name" data-content="This is the informal name or given name that you are called by."></i>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group" id="middle-name">
-				<label class="control-label">Middle name</label>
-				<div class="col-sm-6 col-xs-12">
-					<div class="input-group">
-						<input type="text" class="form-control" name="middle-name" value="<%= middle_name %>" />
-						<div class="input-group-addon">
-							<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="Middle name" data-content="This is your middle name (or names)."></i>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group" id="last-name">
-				<label class="required control-label">Last name</label>
-				<div class="col-sm-6 col-xs-12">
-					<div class="input-group">
-						<input type="text" class="required form-control" name="last-name" value="<%= last_name %>" />
-						<div class="input-group-addon">
-							<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="Last name" data-content="This is your family name or surname."></i>
+							<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="Name" data-content="This is the name that you choose to be called by."></i>
 						</div>
 					</div>
 				</div>
@@ -86,10 +62,11 @@ export default FormView.extend({
 
 			<div class="form-group" id="department">
 				<label class="control-label">Department / Primary Affiliation</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<select>
 							<option value="">None</option>
+							<option value="other">Other</option>
 							<% if (departments) { %>
 							<% for (let i = 0; i < departments.length; i++) { %>
 							<% let department = departments.at(i); %>
@@ -101,9 +78,21 @@ export default FormView.extend({
 				</div>
 			</div>
 
+			<div class="form-group" id="other-department" style="display:none">
+				<label class="control-label">Other Department / Primary Affiliation</label>
+				<div class="controls">
+					<div class="input-group">
+						<input type="text" class="form-control">
+						<div class="input-group-addon">
+							<i class="active fa fa-question-circle" data-toggle="popover" title="Other Department / Primary Affiliation" data-content="This is your primary affiliation / department."></i>
+						</div>	
+					</div>
+				</div>
+			</div>
+
 			<div class="form-group" id="appointment-type">
 				<label class="control-label">Appointment Type</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<select>
 							<option value="">None</option>
@@ -118,9 +107,33 @@ export default FormView.extend({
 				</div>
 			</div>
 
+			<div class="form-group" id="building">
+				<label class="control-label">Building</label>
+				<div class="controls">
+					<div class="input-group">
+						<select>
+							<option value="">Default (Your Department Building)</option>
+							<% if (buildings) { %>
+							<% for (let i = 0; i < buildings.length; i++) { %>
+							<% let building = buildings.at(i); %>
+							<% let buildingKind = building.get('object_type'); %>
+							<% if (buildingKind == 'building') { %>
+							<% let building_name = building.get('name'); %>
+							<% let building_number = building.get('building_number'); %>
+							<% if (!building_name.startsWith('Lot')) { %>
+							<option value="<%= building_number %>"><%= building_name %></option>
+							<% } %>
+							<% } %>
+							<% } %>
+							<% } %>
+						</select>
+					</div>
+				</div>
+			</div>
+
 			<div class="form-group" id="research-summary">
 				<label class="control-label">Research Summary</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 					<textarea rows="5"></textarea>
 						<div class="input-group-addon">
@@ -142,7 +155,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="research-interests">
 				<label class="control-label">Other Attributes</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="form-control">
 						<div class="input-group-addon">
@@ -158,7 +171,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="degree-institution-name">
 				<label class="control-label">Degree Institution</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="form-control">
 						<div class="input-group-addon">
@@ -170,7 +183,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="degree-year">
 				<label class="control-label">Degree Year</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="form-control">
 						<div class="input-group-addon">
@@ -182,7 +195,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="orcid-id">
 				<label class="control-label">ORCID</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="form-control" name="orcid">
 						<div class="input-group-addon">
@@ -198,7 +211,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="profile-photo">
 				<label class="control-label">Profile Photo</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="file" id="file" class="form-control" style="display:none" />
 						<button class="select-photo btn"><label for="file"><%= has_profile_photo? 'Change photo' : 'Select photo' %></label></button>
@@ -208,7 +221,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="homepage">
 				<label class="control-label">Homepage</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="form-control">
 						<div class="input-group-addon">
@@ -220,7 +233,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="social-url">
 				<label class="control-label">Social URL</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="form-control">
 						<div class="input-group-addon">
@@ -232,7 +245,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="github-url">
 				<label class="control-label">GitHub URL</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="form-control">
 						<div class="input-group-addon">
@@ -252,7 +265,7 @@ export default FormView.extend({
 			<% let option = defaults.options[key]; %>
 			<div class="form-group option" id="<%= key %>">
 				<label class="control-label"><%= option.label %></label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="checkbox">
 						<label>
 							<input type="checkbox" />
@@ -274,6 +287,7 @@ export default FormView.extend({
 	},
 
 	events: {
+		'change #department select': 'onChangeDepartment',
 		'click #all input[type="checkbox"]': 'onClickAll',
 		'click .topic input[type="checkbox"]': 'onClickTopic',
 		'change input[type="file"]': 'onChangeFile',
@@ -362,19 +376,30 @@ export default FormView.extend({
 			//
 			case 'title':
 				return this.$el.find('#title select').val();
-			case 'first_name':
-				return this.$el.find('#first-name input').val();
-			case 'middle_name':
-				return this.$el.find('#middle-name input').val();
-			case 'last_name':
-				return this.$el.find('#last-name input').val();
+			case 'name':
+				return this.$el.find('#name input').val();
 
 			// professional
 			//
+			case 'department_id': {
+				let value = this.$el.find('#department select').val();
+				if (value != 'other') {
+					return parseInt(value);
+				} else {
+					return 0;
+				}
+				break;
+			}
 			case 'department':
-				return this.$el.find('#department select').val();
+				if (!this.getValue('department_id')) {
+					return this.$el.find('#other-department input').val();
+				} else {
+					return null;
+				}
 			case 'appointment_type':
 				return this.$el.find('#appointment-type select').val();
+			case 'building_number':
+				return parseInt(this.$el.find('#building select').val());
 
 			// research
 			//
@@ -413,20 +438,37 @@ export default FormView.extend({
 	},
 
 	getValues: function() {
+		let name = this.getValue('name');
+		let names = name.split(' ');
+		let first_name, middle_name, last_name;
+
+		if (names.length == 1) {
+			last_name = names[length];
+		} else if (names.length == 2) {
+			first_name = names[0];
+			last_name = names[1];
+		} else {
+			first_name = names[0];
+			middle_name = names.slice(1, -1).join(' ');
+			last_name = names[names.length - 1];
+		}
+
 		return {
 
 			// name
 			//
 			title: this.getValue('title'),
-			first_name: this.getValue('first_name'),
-			middle_name: this.getValue('middle_name'),
-			last_name: this.getValue('last_name'),
+			first_name: first_name,
+			middle_name: middle_name,
+			last_name: last_name,
 
 			// professional
 			//
-			primary_unit_affiliation_id: this.getValue('department'),
+			primary_unit_affiliation_id: this.getValue('department_id'),
+			primary_unit_affiliation: this.getValue('department'),
 			non_primary_unit_affiliation_ids: [this.getDepartmentId('Data Science')],
 			appointment_type: this.getValue('appointment_type'),
+			building_number: this.getValue('building_number'),
 
 			// research
 			//
@@ -482,6 +524,7 @@ export default FormView.extend({
 			// save model
 			//
 			this.model.save(this.getValues(), options);
+
 			return this.model;
 		}
 	},
@@ -543,11 +586,24 @@ export default FormView.extend({
 
 			// professional
 			//
-			case 'department':
+			case 'department_id': {
 				this.$el.find('#department select').val(value);
+				if (value) {
+					this.$el.find('#other-department').hide();
+				}
 				break;
+			}
+			case 'department': {
+				if (value && typeof(value) == 'string') {
+					this.$el.find('#department select').val('other');
+					this.$el.find('#other-department input').val(value);
+				}
+			}
 			case 'appointment_type':
 				this.$el.find('#appointment-type select').val(value);
+				break;
+			case 'building_number':
+				this.$el.find('#building select').val(value);
 				break;
 
 			// research
@@ -612,9 +668,11 @@ export default FormView.extend({
 
 	templateContext: function() {
 		return {
+			name: this.model.getName(),
 			has_profile_photo: this.model.get('has_profile_photo'),
 			departments: this.options.departments,
 			appointment_types: defaults.appointment_types,
+			buildings: this.options.buildings,
 			interests: defaults.interests
 		}
 	},
@@ -630,7 +688,7 @@ export default FormView.extend({
 		this.showChildView('terms', new TreeView({
 			collection: this.terms,
 			sortWithCollection: false,
-			expanded: defaults.expanded
+			expanded: defaults.expanded.terms
 		}));
 		this.$el.find('input[type="checkbox"]').prop('checked', false);
 
@@ -647,8 +705,10 @@ export default FormView.extend({
 
 			// professional
 			//
-			department: this.model.get('primary_unit_affiliation_id'),
+			department_id: this.model.get('primary_unit_affiliation_id'),
+			department: this.model.get('primary_unit_affiliation'),
 			appointment_type: this.model.get('appointment_type'),
+			building_number: this.model.get('building_number'),
 
 			// research
 			//
@@ -675,9 +735,25 @@ export default FormView.extend({
 		});
 	},
 
+	showOtherDepartment: function() {
+		this.$el.find('#other-department').show();
+	},
+
+	hideOtherDepartment: function() {
+		this.$el.find('#other-department').hide();
+	},
+
 	//
 	// mouse event handling methods
 	//
+
+	onChangeDepartment: function() {
+		if (this.$el.find('#department select').val() == 'other') {
+			this.showOtherDepartment();
+		} else {
+			this.hideOtherDepartment();
+		}
+	},
 
 	onClickAll: function(event) {
 		if ($(event.target).is(':checked')) {

@@ -44,7 +44,7 @@ export default DialogView.extend({
 
 	events: {
 		'submit': 'onSubmit',
-		'keypress': 'onKeyPress'
+		'keydown': 'onKeyDown'
 	},
 
 	//
@@ -59,7 +59,7 @@ export default DialogView.extend({
 	},
 
 	//
-	// event handling methods
+	// form event handling methods
 	//
 
 	onSubmit: function() {
@@ -76,7 +76,11 @@ export default DialogView.extend({
 		return false;
 	},
 
-	onKeyPress: function(event) {
+	//
+	// keyboard event handling methods
+	//
+
+	onKeyDown: function(event) {
 
 		// respond to enter key press
 		//

@@ -329,7 +329,7 @@ var Split = function (ids, options) {
 
         // Don't actually drag the element. We emulate that in the drag function.
         if (e.cancelable) {
-            e.preventDefault();
+            // e.preventDefault();
         }
 
         // Set the dragging property of the pair object.

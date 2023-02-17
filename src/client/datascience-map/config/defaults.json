@@ -1,12 +1,12 @@
 {
 	"application": {
-		"heading": "data science @ uw",
+		"heading": "University of Wisconsin-Madison",
 		"title": "data science @ uw",
 		"subtitle": "community map",
-		"subheading": "Brought to you by the <a href=\"https://datascience.wisc.edu\" target=\"_blank\">Data Science Institute</a> at UW-Madison",
+		"subheading": "<b><a href=\"#register\">Add yourself to the map!</a></b> <br /> Brought to you by the <a href=\"https://datascience.wisc.edu\" target=\"_blank\">American Family Insurance Data Science Institute</a> at UW-Madison",
 		"year": "2022",
 		"department": {
-			"name": "Data Science Institute",
+			"name": "American Family Insurance Data Science Institute",
 			"url": "http://datascience.wisc.edu"
 		},
 		"organization": {
@@ -332,9 +332,10 @@
 		]
 	},
 
-	"expanded": [
-		"Data Science Focus"
-	],
+	"expanded": {
+		"terms": ["All", "Data Science Focus"],
+		"appointment_types": true
+	},
 
 	"options": {
 		"receive-newsletter": {
@@ -360,5 +361,11 @@
 			"Bug Report",
 			"Other"
 		]
+	},
+
+	"credits": {
+		"Conception": "Kyle Cranmer",
+		"Design / Implementation": "Abe Megahed",
+		"Editing": "Cris Carusi"
 	}
 }

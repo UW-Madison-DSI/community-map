@@ -10,67 +10,120 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import MouseDragBehavior from '../../../../mouse/mouse-drag-behavior.js';
+import MouseDragBehavior from '../../../../../views/svg/viewports/behaviors/mouse/mouse-drag-behavior.js';
 
-export default function MouseDragZoomBehavior(viewport, options) {
-	
-	// set attributes
-	//
-	this.viewport = viewport;
+//
+// attributes
+//
+let defaultZoomFactor = 5;
+
+//
+// constructor
+//
+
+function MouseDragZoomBehavior(viewport, options) {
 
 	// call "superclass" constructor
 	//
-	MouseDragBehavior.call(this, viewport.el, _.extend(options || {}, {
-		cursor: 'ns-resize'
-	}));
+	MouseDragBehavior.call(this, viewport, options);
+
+	// set attributes
+	//
+	this.zoomFactor = options.zoomFactor || defaultZoomFactor;
+	this.minScale = options.minScale;
+	this.maxScale = options.maxScale;
+
+	// set optional attributes 
+	//
+	if (options.mode) {
+		this.mode = this.options.mode;
+	}
 
 	return this;
 }
 
+//
 // extend prototype from "superclass"
 //
-MouseDragZoomBehavior.prototype = _.extend(Object.create(MouseDragBehavior.prototype), {
+
+MouseDragZoomBehavior.prototype = _.extend({}, MouseDragBehavior.prototype, {
+
+	//
+	// attributes
+	//
+
+	cursor: 'ns-resize',
 
 	//
 	// event handling methods
 	//
 
-	onMouseDown: function(mouseX, mouseY) {
+	onMouseDown: function(event) {
 
 		// call superclass method
 		//
-		MouseDragBehavior.prototype.onMouseDown.call(this, mouseX, mouseY);
+		MouseDragBehavior.prototype.onMouseDown.call(this, event);
 
-		// reset prev drag
+		// reset drag
 		//
-		this.prevDragX = 0;
-		this.prevDragY = 0;
+		this.drag = this.getOffset(this.start, this.current);
+		this.sign = Math.sign(this.drag.top) || 1;
+
+		// perform callback
+		//
+		if (this.options.onzoomstart) {
+			this.options.onzoomstart();
+		}
 	},
 
-	onMouseDrag: function(mouseX, mouseY) {
-		let dragX = mouseX - this.startX;
-		let dragY = mouseY - this.startY;
+	onMouseDrag: function(event) {
 
 		// find change in drag
 		//
-		let dy = this.prevDragY - dragY;
-		this.prevDragX = dragX;
-		this.prevDragY = dragY;
+		let drag = this.getOffset(this.start, this.current);
+		let delta = (this.drag.top - drag.top) * this.sign;
+
+		// call superclass method
+		//
+		MouseDragBehavior.prototype.onMouseDrag.call(this, event);
 
 		// compute zoom and new scale
 		//
-		let zoom = 1 - (dy / this.viewport.height) * MouseDragZoomBehavior.zoomFactor;
+		let zoom = 1 - (delta / this.viewport.height) * MouseDragZoomBehavior.zoomFactor;
 		let scale = this.viewport.scale * zoom;
 
 		// check bounds on scale
 		//
-		if (scale > MouseDragZoomBehavior.minScale && scale < MouseDragZoomBehavior.maxScale) {
-			this.viewport.setScale(scale);
+		if (scale < this.minScale) {
+			scale = this.minScale;
+		} else if (scale > this.maxScale) {
+			scale = this.maxScale;
 		}
+
+		// set scale
+		//
+		this.viewport.setScale(scale);
+
+		// save drag
+		//
+		this.drag = drag;
+	},
+
+	onMouseUp: function(event) {
 
 		// call superclass method
 		//
-		MouseDragBehavior.prototype.onMouseDrag.call(this, dragX, dragY);
+		MouseDragBehavior.prototype.onMouseUp.call(this, event);
+
+		// reset drag
+		//
+		this.drag = undefined;
+
+		// perform callback
+		//
+		if (this.options.onzoomend) {
+			this.options.onzoomend();
+		}
 	}
 });
 
@@ -79,7 +132,7 @@ MouseDragZoomBehavior.prototype = _.extend(Object.create(MouseDragBehavior.proto
 //
 
 _.extend(MouseDragZoomBehavior, {
-	zoomFactor: 5,
-	minScale: 1.0e-3,
-	maxScale: 1.0e3
+	zoomFactor: 5
 });
+
+export default MouseDragZoomBehavior;

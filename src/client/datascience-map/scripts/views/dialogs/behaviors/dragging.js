@@ -43,12 +43,14 @@ export default {
 
 			// callbacks
 			//
+			/*
 			start: (event) => {
 				this.onDragStart(event);
 			},
 			stop: (event) => {
 				this.onDragStop(event);
 			}
+			*/
 		});
 	},
 

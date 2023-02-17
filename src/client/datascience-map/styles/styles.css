@@ -733,6 +733,7 @@
 }
 .modal .modal-dialog {
   display: flex;
+  max-width: 100%;
   margin: auto;
 }
 .modal .modal-dialog .modal-content {
@@ -873,6 +874,18 @@ body[device="desktop"] .modal.in .modal-dialog {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
+}
+body[device="phone"] .modal-dialog {
+  width: 100%;
+  margin: 0 !important;
+}
+body[device="phone"] .modal-dialog .modal-content {
+  height: 100%;
+  border-width: 0;
+  border-radius: 0;
+}
+body[device="phone"] .modal-dialog .modal-content .modal-footer {
+  text-align: center;
 }
 /******************************************************************************\
 |                                                                              |
@@ -1078,12 +1091,6 @@ select {
 label input[type="checkbox"] {
   margin-top: 10px;
 }
-.form-label,
-.control-label {
-  float: left;
-  width: 25%;
-  margin-right: 10px;
-}
 .form-label i,
 .control-label i {
   margin-right: 5px;
@@ -1146,6 +1153,47 @@ label.error.valid {
 .popover {
   max-width: 360px;
   width: auto;
+}
+@media (min-width: 480px) {
+  form.form-horizontal .form-group > label {
+    width: 25%;
+    float: left;
+    margin-right: 15px;
+  }
+  form.form-horizontal .form-group > .controls,
+  form.form-horizontal .form-group > .static-controls,
+  form.form-horizontal .form-group > .form-control,
+  form.form-horizontal .form-group > .form-control-static {
+    float: left;
+    width: 50%;
+  }
+}
+@media (max-width: 991px) {
+  #page form.form-horizontal .form-group {
+    width: 80%;
+    margin-left: 10%;
+  }
+  #page form.form-horizontal .form-group > label {
+    text-align: left;
+    width: 100%;
+  }
+  #page form.form-horizontal .form-group > .controls,
+  #page form.form-horizontal .form-group > .static-controls,
+  #page form.form-horizontal .form-group > .form-control,
+  #page form.form-horizontal .form-group > .form-control-static {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  #page form.form-horizontal .form-group,
+  form.form-horizontal .form-group {
+    width: 100%;
+    margin-left: 0%;
+  }
+}
+body[device="phone"] .form-group > div {
+  padding: 0;
+  overflow: hidden;
 }
 /******************************************************************************\
 |                                                                              |
@@ -1547,7 +1595,7 @@ label.error.valid {
 }
 #messages #info .content .text,
 #messages #message .content .text {
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Display", sans-serif;
   font-weight: bold;
 }
 #messages #message {
@@ -1675,12 +1723,26 @@ table tr.children {
 .tree.expanded > .item .expander .collapse {
   display: inline-block;
 }
-.root.tree > .item > .name {
+.tree > .item > .name {
   font-weight: bold;
 }
-.root.tree > .children > .tree > .item > .name {
-  font-weight: bold;
+/*
+//
+// highlight top level of tree
+//
+
+.root.tree > {
+	> .item > .name {
+		font-weight: bold;
+	}
+
+	> .children {
+		> .tree > .item > .name {
+			font-weight: bold;
+		}
+	}
 }
+*/
 /******************************************************************************\
 |                                                                              |
 |                                   styles.less                                |
@@ -1728,6 +1790,7 @@ body {
   bottom: 0;
   padding-top: 40px;
   overflow: hidden;
+  touch-action: none;
 }
 .main.container {
   flex-grow: 1;
@@ -1847,7 +1910,6 @@ fieldset {
   margin-top: 20px;
 }
 fieldset legend {
-  font-size: 150%;
   font-weight: bold;
   color: #c5050c;
 }
@@ -1865,6 +1927,19 @@ fieldset legend {
 }
 .collapsed .details {
   display: none;
+}
+.credits .credit {
+  font-style: italic;
+}
+.credits .credit + .name {
+  font-weight: bold;
+  float: right;
+}
+@media (min-width: 480px) {
+  .credits {
+    width: 75%;
+    margin: auto;
+  }
 }
 /******************************************************************************\
 |                                                                              |
@@ -1921,7 +1996,7 @@ table.tablesorter-default {
   stroke-width: 2px;
   stroke-linecap: butt;
   stroke-linejoin: miter;
-  font-weight: 800;
+  font-weight: bold;
 }
 #viewport.hide-map #tiles,
 #viewport.hide-map #departments,
@@ -1940,18 +2015,18 @@ table.tablesorter-default {
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 #page {
-  position: relative;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  position: relative;
   padding-top: 40px;
   line-height: 2em;
+  min-height: 100%;
 }
 #page .buttons {
   text-align: center;
 }
-#page .buttons:not(:first-child) {
-  margin-top: 20px;
+#page .buttons button {
+  margin-top: 10px;
 }
 #page #footer {
   bottom: 0;
@@ -1961,17 +2036,17 @@ table.tablesorter-default {
   background: #494949;
   border-top: 5px solid #c5050c;
 }
-#page #footer .footer {
+#page #footer .container {
   text-align: center;
 }
-#page #footer .footer .logo {
+#page #footer .container .logo {
   height: 100px;
   margin: 10px;
 }
-#page #footer .footer a {
+#page #footer .container a {
   color: lightgrey;
 }
-#page #footer .footer a:hover {
+#page #footer .container a:hover {
   color: white;
 }
 /******************************************************************************\
@@ -2002,7 +2077,7 @@ table.tablesorter-default {
 	*/
 }
 .sidebar h1 {
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Display", sans-serif;
   font-weight: bold;
   margin-top: 0;
 }
@@ -2056,7 +2131,7 @@ table.tablesorter-default {
   margin: 0;
 }
 .sidebar .panel .heading {
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Display", sans-serif;
   text-align: center;
   font-weight: bold;
   font-size: 200%;
@@ -2070,6 +2145,7 @@ table.tablesorter-default {
 }
 .sidebar .panel button#close {
   position: absolute;
+  top: 20px;
   right: 20px;
   background: #c5050c;
   color: white;
@@ -2097,6 +2173,7 @@ table.tablesorter-default {
 }
 .sidebar .welcome.panel h1#title {
   color: #c5050c;
+  margin: 10px;
   margin-bottom: 0;
 }
 .sidebar .welcome.panel .subheading {
@@ -2118,10 +2195,11 @@ table.tablesorter-default {
   margin-top: 10px;
   margin-bottom: 0;
   font-size: 125%;
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Display", sans-serif;
   color: #303030;
 }
 .sidebar .profile-photo {
+  max-width: 100%;
   max-height: 200px;
   display: block;
   margin: auto;
@@ -2149,7 +2227,7 @@ table.tablesorter-default {
 }
 .sidebar .info > .title {
   font-size: 200%;
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Display", sans-serif;
   font-weight: bold;
   text-align: center;
   margin: 10px;
@@ -2235,6 +2313,12 @@ table.tablesorter-default {
   margin-left: -10px;
   padding: 5px;
   top: 0;
+}
+.sidebar #footer .container {
+  width: 100%;
+}
+.sidebar #footer .container .logo {
+  display: none;
 }
 /******************************************************************************\
 |                                                                              |
@@ -2336,43 +2420,24 @@ body[device="phone"] {
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 body {
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Text", sans-serif;
   font-size: 16px;
-}
-#page .main {
-  font-size: 18px;
-}
-#page .main p {
-  font-size: 20px;
-}
-.welcome #title {
-  font-size: 36px;
 }
 h1,
 h2,
-h3,
-#brand {
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: bold;
-}
-h1 {
-  font-size: 32px;
-}
-h2 {
-  font-size: 24px;
-}
 h3 {
-  font-size: 18px;
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: bold;
 }
 .fineprint {
   font-size: 1em;
 }
 .tooltip {
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Text", sans-serif;
   font-size: 14px;
 }
 .popover {
-  font-family: Verlag, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Red Hat Text", sans-serif;
   font-size: 16px;
 }
 .btn {
@@ -2383,6 +2448,33 @@ h3 {
 }
 .status-message {
   margin: 0;
+}
+body[device="desktop"] #page .main {
+  font-size: 18px;
+}
+body[device="desktop"] #page .main h1 {
+  font-size: 32px;
+}
+body[device="desktop"] #page .main h2 {
+  font-size: 28px;
+}
+body[device="desktop"] #page .main h3 {
+  font-size: 24px;
+}
+body[device="desktop"] #page .main p {
+  font-size: 18px;
+}
+body[device="desktop"] .welcome #title {
+  font-size: 36px;
+}
+body[device="phone"] h1 {
+  font-size: 1.5em;
+}
+body[device="phone"] h2 {
+  font-size: 1.25em;
+}
+body[device="phone"] h3 {
+  font-size: 1em;
 }
 /******************************************************************************\
 |                                                                              |
@@ -2428,18 +2520,6 @@ h3 {
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
-.building {
-  /*
-	&.selected, &:hover {
-		.polygon {
-			stroke: lighten(crimson, 10%);
-			fill: lighten(crimson, 10%);
-			fill-opacity: 0.5;
-			stroke-opacity: 0.5;
-		}
-	}
-	*/
-}
 .building .polygon {
   stroke: darkgrey;
   fill: darkgrey;
@@ -2449,6 +2529,13 @@ h3 {
 .building.parking-lot .polygon {
   stroke: lightgrey;
   fill: lightgrey;
+}
+.building.selected .polygon,
+.building:hover .polygon {
+  stroke: #ed365b;
+  fill: #ed365b;
+  fill-opacity: 0.5;
+  stroke-opacity: 0.5;
 }
 .popover .building .icon {
   width: 200px !important;
@@ -2519,31 +2606,16 @@ h3 {
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 .marker.selected circle,
-.marker:hover circle,
 .marker.highlighted circle {
   stroke: #f7060f !important;
   fill: #fda8ac !important;
 }
 .marker.selected path,
-.marker:hover path,
 .marker.highlighted path,
 .marker.selected text,
-.marker:hover text,
 .marker.highlighted text {
   fill: #f7060f !important;
 }
-.highlighted .marker circle {
-  stroke: #f7060f !important;
-  fill: #fda8ac !important;
-}
-.highlighted .marker path,
-.highlighted .marker text {
-  fill: #f7060f;
-}
-.highlighted line {
-  stroke: #f7060f;
-}
-.grant > .marker:hover circle,
 .grant > .marker.highlighted circle {
   fill: #f7060f;
 }
@@ -2561,12 +2633,26 @@ h3 {
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
-.people > .person > .marker:hover image,
+.people > .person > .marker.highlighted image,
 .people > .person > .marker.selected image {
   filter: sepia(50) hue-rotate(300deg);
 }
 .people > .person.selected .interests {
   display: none;
+}
+.people > .person:hover .marker circle {
+  stroke: #f7060f !important;
+  fill: #fda8ac !important;
+}
+.people > .person:hover .marker image {
+  filter: sepia(50) hue-rotate(300deg);
+}
+.people > .person:hover .marker path,
+.people > .person:hover .marker text {
+  fill: #f7060f;
+}
+.people > .person:hover line {
+  stroke: #f7060f;
 }
 .interests {
   pointer-events: none;
@@ -2678,17 +2764,6 @@ button label {
 }
 /******************************************************************************\
 |                                                                              |
-|                                   colors.less                                |
-|                                                                              |
-|******************************************************************************|
-|                                                                              |
-|        This defines the dom and svg visual styles for this application.      |
-|                                                                              |
-|******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
-\******************************************************************************/
-/******************************************************************************\
-|                                                                              |
 |                                 navbars.less                                 |
 |                                                                              |
 |******************************************************************************|
@@ -2703,45 +2778,81 @@ button label {
   min-height: 40px;
   background-color: #c5050c;
   border-color: #c5050c;
-}
-.navbar .navbar-nav {
-  margin: 0;
+  white-space: nowrap;
 }
 .navbar .container {
+  display: flex;
   width: 100%;
+  height: 40px;
+  overflow: hidden;
 }
-.navbar .navbar-nav > li > a {
-  padding: 10px;
-  color: lightgrey;
-}
-.navbar .navbar-brand {
+.navbar .container .navbar-brand {
   height: 40px;
   padding: 10px;
   color: white;
 }
-.navbar .navbar-brand .logo {
+.navbar .container .navbar-brand .logo {
   height: 20px;
   float: left;
   margin-right: 5px;
 }
-.navbar .navbar-right {
+.navbar .container .navbar-nav {
   display: flex;
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+}
+.navbar .container .navbar-nav > li > a {
+  padding: 10px;
+  color: lightgrey;
+  cursor: pointer;
+}
+.navbar .container .navbar-nav > li > a:hover {
+  color: white;
+}
+.navbar .container .navbar-nav > li.active > a {
+  color: white;
+  background-color: #9b0000;
+}
+.navbar .container .title-bar {
+  flex-grow: 1;
+}
+.navbar .container .title-bar > li {
+  width: 100%;
+  text-align: center;
+}
+.navbar .container .navbar-right {
+  display: flex;
+  float: right;
+  margin: 0;
   border-color: #9b0000;
   box-shadow: none;
 }
-.navbar .navbar-right button {
-  margin-top: 3px;
+.navbar .container .navbar-right button {
+  margin: 2px;
 }
-.navbar .navbar-right button + button {
+.navbar .container .navbar-right button + button {
   margin-left: 5px;
 }
-.navbar #home {
-  margin-right: 10px;
+@media (min-width: 768px) {
+  #home {
+    margin-right: 10px;
+  }
+  .navbar .container .navbar-right {
+    margin-left: 125px;
+  }
 }
-.navbar li.active a {
-  background: #9b0000 !important;
+@media (max-width: 768px) {
+  .navbar .container .navbar-right {
+    margin-left: auto;
+  }
+}
+@media (max-width: 480px) {
+  .navbar .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .navbar .container .navbar-brand {
+    padding: 10px 0;
+  }
 }
 /******************************************************************************\
 |                                                                              |
@@ -2772,6 +2883,9 @@ a:hover {
 .doi a,
 .url a {
   word-break: break-all;
+}
+body[device="phone"] .breadcrumb {
+  display: none;
 }
 /******************************************************************************\
 |                                                                              |
@@ -2854,10 +2968,12 @@ svg.marker path {
   stroke: white;
 }
 svg.marker text {
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
   text-anchor: middle;
   cursor: default;
   pointer-events: none;
-  font-weight: bold;
 }
 svg.marker .icon {
   pointer-events: none;
@@ -3118,6 +3234,22 @@ line {
 }
 /******************************************************************************\
 |                                                                              |
+|                                options-bar.js                                |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+#options-bar {
+  position: absolute;
+  top: 65px;
+  left: 10px;
+}
+/******************************************************************************\
+|                                                                              |
 |                                search-bar.less                               |
 |                                                                              |
 |******************************************************************************|
@@ -3128,10 +3260,7 @@ line {
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 #search-bar {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 75%;
+  margin: 10px;
 }
 #search-bar input {
   background: #e7eaee;
@@ -3160,6 +3289,11 @@ line {
 }
 #source-selector .title i {
   margin-right: 5px;
+}
+@media (min-width: 768px) {
+  #search-bar {
+    width: 75%;
+  }
 }
 /******************************************************************************\
 |                                                                              |
@@ -3197,18 +3331,8 @@ line {
   background: transparent;
   padding: 0;
 }
-.toolbar .buttons button.close:hover,
-.toolbar .buttons button.clear:hover {
-  color: crimson;
-}
-.toolbar .buttons button:hover {
-  color: #9b0000;
-}
 .toolbar .buttons button.selected {
   color: #c5050c;
-}
-.toolbar .buttons button.selected:hover {
-  color: #9b0000;
 }
 .toolbar .buttons button:active {
   background: #d9d9d9;
@@ -3247,6 +3371,16 @@ line {
   width: 100%;
   margin-top: 5px;
   margin-bottom: 10px;
+}
+body[device="desktop"] .toolbar .buttons button.close:hover,
+body[device="desktop"] .toolbar .buttons button.clear:hover {
+  color: crimson;
+}
+body[device="desktop"] .toolbar .buttons button:hover {
+  color: #9b0000;
+}
+body[device="desktop"] .toolbar .buttons button.selected:hover {
+  color: #9b0000;
 }
 /******************************************************************************\
 |                                                                              |

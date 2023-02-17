@@ -15,9 +15,9 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import BaseCollection from './base-collection.js';
+import BaseCollection from '../collections/base-collection.js';
 import Person from '../models/person.js';
-import Departments from './departments.js';
+import Departments from '../collections/departments.js';
 
 export default BaseCollection.extend({
 

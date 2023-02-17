@@ -11,7 +11,7 @@
 \******************************************************************************/
 
 .marker {
-	&.selected, &:hover, &.highlighted {
+	&.selected, &.highlighted {
 		circle {
 			stroke: @select-color !important;
 			fill: @select-fill !important;
@@ -23,30 +23,13 @@
 	}
 }
 
-.highlighted {
-	.marker {
-		circle {
-			stroke: @highlight-color !important;
-			fill: @highlight-fill !important;
-		}
-
-		path, text {
-			fill: @select-color;
-		}
-	}
-
-	line {
-		stroke: @select-color;
-	}
-}
-
 //
 // grant markers
 //
 
 .grant {
 	> .marker {
-		&:hover, &.highlighted {
+		&.highlighted {
 			circle {
 				fill: @select-color;
 			}

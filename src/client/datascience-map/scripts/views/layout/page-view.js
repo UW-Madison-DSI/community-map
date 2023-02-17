@@ -30,7 +30,9 @@ export default BaseView.extend({
 			</div>
 		</div>
 		
-		<div id="footer"></div>
+		<div class="footer">
+			<div id="footer"></div>
+		</div>
 	`),
 
 	regions: {

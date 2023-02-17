@@ -21,9 +21,9 @@ export default FormView.extend({
 	template: _.template(`
 		<div class="username form-group">
 			<label class="control-label">Username</label>
-			<div class="col-sm-6 col-xs-12">
+			<div class="controls">
 				<div class="input-group">
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" spellcheck="false">
 					<div class="input-group-addon">
 						<i class="active fa fa-question-circle" data-toggle="popover" data-placement="top" data-container="body" title="Username" data-content="This is the username that you specified when you registered."></i>
 					</div>
@@ -33,7 +33,7 @@ export default FormView.extend({
 		
 		<div class="password form-group">
 			<label class="control-label">Password</label>
-			<div class="col-sm-6 col-xs-12">
+			<div class="controls">
 				<div class="input-group">
 					<input type="password" class="form-control" maxlength="200">
 					<div class="input-group-addon">
@@ -50,19 +50,31 @@ export default FormView.extend({
 		</button>
 		<label>Error: </label><span class="message">User name and password are not correct.  Please try again.</span>
 		</div>
-		
+
 		<hr>
-		
-		<a id="reset-password" class="fineprint">Reset my password</a>
-		<br />
-		<a id="request-username" class="fineprint">Request my username</a>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<a id="reset-password" class="fineprint">Reset my password</a>
+				<br />
+				<a id="request-username" class="fineprint">Request my username</a>
+				<br /><br />
+			</div>
+			<div class="col-sm-6">
+				<div class="well" style="margin-bottom:0">
+					No Account?
+					<br />
+					<a id="register">Add yourself to the map!</a>
+				</div>
+			</div>
+		</div>
 	`),
 
 	events: {
 		'click .alert .close': 'onClickAlertClose',
 		'click #reset-password': 'onClickResetPassword',
 		'click #request-username': 'onClickRequestUsername',
-		'keypress': 'onKeyPress'
+		'click #register': 'onClickRegister'
 	},
 
 	//
@@ -193,5 +205,15 @@ export default FormView.extend({
 	onClickRequestUsername: function() {
 		this.showRequestUsernameDialog();
 		this.parent.close();
+	},
+
+	onClickRegister: function() {
+		this.parent.close();
+
+		// go to welcome view
+		//
+		Backbone.history.navigate('#register', {
+			trigger: true
+		});
 	}
 });

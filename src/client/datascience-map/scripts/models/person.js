@@ -15,9 +15,9 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
+import BaseModel from '../models/base-model.js';
 import '../utilities/scripting/string-utils.js';
-import BaseModel from './base-model.js';
-	
+
 export default BaseModel.extend({
 
 	defaults: {
@@ -89,7 +89,9 @@ export default BaseModel.extend({
 	//
 
 	hasTerm: function(term) {
-		return this.get('research_terms').includes(term);
+		if (this.has('research_terms')) {
+			return this.get('research_terms').includes(term);
+		}
 	},
 
 	hasTerms: function(terms) {
@@ -98,6 +100,24 @@ export default BaseModel.extend({
 		}
 		for (let i = 0; i < terms.length; i++) {
 			if (this.hasTerm(terms[i])) {
+				return true;
+			}
+		}
+		return false;
+	},
+
+	hasAppointment: function(appointment) {
+		if (this.has('appointment_type')) {
+			return this.get('appointment_type').includes(appointment.toLowerCase());
+		}
+	},
+
+	hasAppointments: function(appointments) {
+		if (!appointments) {
+			return undefined;
+		}
+		for (let i = 0; i < appointments.length; i++) {
+			if (this.hasAppointment(appointments[i])) {
 				return true;
 			}
 		}

@@ -15,7 +15,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import Activity from './activity.js';
+import Activity from '../../models/activities/activity.js';
 import WordUtils from '../../utilities/scripting/word-utils.js';
 	
 export default Activity.extend({

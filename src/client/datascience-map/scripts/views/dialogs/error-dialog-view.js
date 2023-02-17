@@ -19,8 +19,6 @@ export default DialogView.extend({
 	// attributes
 	//
 
-	className: 'focused modal error-dialog',
-
 	template: _.template(`
 		<div class="modal-header error">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -52,7 +50,7 @@ export default DialogView.extend({
 
 	events: {
 		'click #ok': 'onClickOk',
-		'keypress': 'onKeyPress'
+		'keydown': 'onKeyDown'
 	},
 
 	//
@@ -68,7 +66,7 @@ export default DialogView.extend({
 	},
 
 	//
-	// event handling methods
+	// mouse event handling methods
 	//
 
 	onClickOk: function() {
@@ -80,7 +78,11 @@ export default DialogView.extend({
 		}
 	},
 
-	onKeyPress: function(event) {
+	//
+	// keyboard event handling methods
+	//
+
+	onKeyDown: function(event) {
 
 		// respond to enter key press
 		//

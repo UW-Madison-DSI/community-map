@@ -304,9 +304,17 @@ export default BaseView.extend(_.extend(Positioning, Dragging, Resizing, {
 		}
 	},
 
+	//
+	// mouse event handling methods
+	//
+
 	onDoubleClickHandle: function() {
 		this.resetPosition();
 	},
+
+	//
+	// keyboard event handling methods
+	//
 
 	onKeyDown: function(event) {
 

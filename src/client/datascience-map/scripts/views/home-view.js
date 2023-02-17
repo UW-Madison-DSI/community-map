@@ -15,9 +15,11 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import WelcomeView from './welcome-view.js';
-import KnowledgeMapView from './maps/knowledge-map-view.js';
 import Person from '../models/academic/academic-person.js';
+import WelcomeView from '../views/welcome-view.js';
+import PersonMarkerView from '../views/maps/overlays/people/person-marker-view.js';
+import AffiliatesMapView from '../views/maps/affiliates-map-view.js';
+import KnowledgeMapView from '../views/maps/knowledge-map-view.js';
 
 export default WelcomeView.extend({
 
@@ -26,7 +28,7 @@ export default WelcomeView.extend({
 	//
 
 	getMainBarView: function() {
-		return new KnowledgeMapView({
+		return new AffiliatesMapView({
 			el: this.$el.find('.mainbar')[0],
 			latitude: 43.0740,
 			longitude: 89.406,
@@ -48,6 +50,13 @@ export default WelcomeView.extend({
 	},
 
 	onStart: function() {
+
+		// clear cache
+		//
+		application.reset();
+
+		// show current user
+		//
 		new Person({
 			id: application.session.user.get('id')
 		}).fetch({
@@ -56,7 +65,8 @@ export default WelcomeView.extend({
 			//
 			success: (model) => {
 				this.showPerson(model, {
-					editable: true
+					editable: true,
+					zoom_to: true
 				});
 			}
 		})

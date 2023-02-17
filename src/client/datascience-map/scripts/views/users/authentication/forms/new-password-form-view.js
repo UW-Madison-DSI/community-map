@@ -24,7 +24,7 @@ export default FormView.extend({
 		<fieldset>
 			<div class="form-group" id="password">
 				<label class="required control-label">Password</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="password" class="form-control" autocomplete="off" name="password" maxlength="200">
 						<div class="input-group-addon">
@@ -42,7 +42,7 @@ export default FormView.extend({
 
 			<div class="form-group" id="confirm-password">
 				<label class="required control-label">Confirm password</label>
-				<div class="col-sm-6 col-xs-12">
+				<div class="controls">
 					<div class="input-group">
 						<input type="password" class="required form-control" autocomplete="off" name="confirm-password" maxlength="200">
 						<div class="input-group-addon">
