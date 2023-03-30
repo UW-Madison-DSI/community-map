@@ -24,6 +24,7 @@ use App\Http\Controllers\Users\UserInvitationController;
 use App\Http\Controllers\UserAccounts\EmailVerificationController;
 use App\Http\Controllers\UserAccounts\PasswordResetController;
 use App\Http\Controllers\Utilities\ContactController;
+use App\Http\Controllers\Utilities\ContactInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,7 @@ Route::put('password-resets/{id}/reset', [PasswordResetController::class, 'updat
 
 // public user routes
 //
+Route::get('users/current', [UserController::class, 'getCurrent']);
 Route::get('users/{id}', [UserController::class, 'getIndex']);
 Route::post('users', [UserController::class, 'postCreate']);
 Route::post('users/email/request-username', [UserAccountController::class, 'requestUsername']);
@@ -105,4 +107,8 @@ Route::get('users/email/{email}', [UserController::class, 'getByEmail']);
 	// contact form routes
 	//
 	Route::post('contacts', [ContactController::class, 'postCreate']);
+
+	// contact info routes
+	//
+	Route::get('contact-info', [ContactInfoController::class, 'getContactInfo']);
 // });

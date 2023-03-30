@@ -14,8 +14,6 @@ import InstitutionUnits from '../../../../collections/academic/academic-institut
 import Buildings from '../../../../collections/buildings.js';
 import BaseView from '../../../../views/base-view.js';
 import FullUserProfileFormView from '../../../../views/users/accounts/forms/full-user-profile-form-view.js';
-import PersonMarkerView from '../../../../views/maps/overlays/people/person-marker-view.js';
-import KnowledgeMapView from '../../../../views/maps/knowledge-map-view.js';
 
 export default BaseView.extend({
 
@@ -79,7 +77,7 @@ export default BaseView.extend({
 
 			// callbacks
 			//
-			success: (model) => {
+			success: () => {
 
 				// update user name in header (if changed)
 				//

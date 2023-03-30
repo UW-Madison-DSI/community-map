@@ -112,7 +112,7 @@ export default Person.extend({
 	},
 
 	parseArticle: function(element) {
-		return new GoogleScholarArticle({
+		return new Article({
 			title: $(element).find('.gsc_a_at')
 		});
 	},

@@ -72,12 +72,18 @@ class UserController extends Controller
 			'middleName' => $request->input('middle_name'),
 			'lastName' => $request->input('last_name'),
 
-			// professional info
+			// affiliation info
 			//
 			'primaryUnitAffiliationId' => $request->input('primary_unit_affiliation_id'),
+			'otherPrimaryUnitAffiliation' => $request->input('primary_unit_affiliation'),
 			'nonPrimaryUnitAffiliationIds' => $request->input('non_primary_unit_affiliation_ids'),
-			'primaryInstitutionId' => $request->input('primary_nstitution_id'),
+			'isAffiliate' => $request->input('is_affiliate') != true,
+
+			// institution info
+			//
+			'primaryInstitutionId' => $request->input('primary_institution_id'),
 			'appointmentType' => $request->input('appointment_type'),
+			'buildingNumber' => $request->input('building_number'),
 
 			// research info
 			//
@@ -118,6 +124,24 @@ class UserController extends Controller
 	//
 	// querying methods
 	//
+
+	/**
+	 * Get the current user.
+	 *
+	 * @param string $id - the id of the user to get
+	 * @return App\Models\Users\User
+	 */
+	public function getCurrent() {
+		
+		// find user by id
+		//
+		$user = User::find(Session::get('user_id'));
+		if (!$user) {
+			return response('No session.', 200);
+		}
+
+		return $user;
+	}
 
 	/**
 	 * Get a user.
@@ -306,12 +330,18 @@ class UserController extends Controller
 			'middleName' => $request->input('middle_name'),
 			'lastName' => $request->input('last_name'),
 
-			// professional info
+			// affiliation info
 			//
 			'primaryUnitAffiliationId' => $request->input('primary_unit_affiliation_id'),
+			'otherPrimaryUnitAffiliation' => $request->input('primary_unit_affiliation'),
 			'nonPrimaryUnitAffiliationIds' => $request->input('non_primary_unit_affiliation_ids'),
-			'primaryInstitutionId' => $request->input('primary_nstitution_id'),
+			'isAffiliate' => $request->input('is_affiliate'),
+
+			// institution info
+			//
+			'primaryInstitutionId' => $request->input('primary_institution_id'),
 			'appointmentType' => $request->input('appointment_type'),
+			'buildingNumber' => $request->input('building_number'),
 
 			// research info
 			//

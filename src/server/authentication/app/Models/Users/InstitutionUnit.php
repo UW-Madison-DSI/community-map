@@ -16,10 +16,10 @@
 |            Copyright (C) 2016-2020, Sharedigm, www.sharedigm.com             |
 \******************************************************************************/
 
-namespace App\Models;
+namespace App\Models\Users;
 
 use App\Models\BaseModel;
-use App\Models\Person;
+use App\Models\Users\Person;
 
 class InstitutionUnit extends BaseModel
 {

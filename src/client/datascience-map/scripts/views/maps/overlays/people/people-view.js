@@ -78,11 +78,12 @@ export default CollectionView.extend(_.extend({}, SVGCollectionRenderable, {
 	// filtering methods
 	//
 
-	filter: function(terms, appointments) {
+	filter: function(terms, appointments, affiliates) {
 		for (let i = 0; i < this.children.length; i++) {
 			let childView = this.children.findByIndex(i);
 			if ((childView.model.hasTerms(terms) !== false) && 
-				(childView.model.hasAppointments(appointments) !== false)) {
+				(childView.model.hasAppointments(appointments) !== false) && 
+				(affiliates? childView.model.get('is_affiliate') : true)) {
 				childView.$el.show();
 			} else {
 				childView.$el.hide();

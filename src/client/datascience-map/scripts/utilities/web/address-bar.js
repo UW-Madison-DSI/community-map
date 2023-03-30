@@ -16,32 +16,32 @@
 |         Copyright (C) 2016-2022, Megahed Labs LLC, www.sharedigm.com         |
 \******************************************************************************/
 
-function base(location) {
+function base(address) {
 	let index;
 
-	// get location before question mark symbol
+	// get address before question mark symbol
 	//
-	index = location.indexOf('?');
+	index = address.indexOf('?');
 	if (index != -1) {
-		location = location.substr(0, index);
+		address = address.substr(0, index);
 	}
 
 	// get location before hash symbol
 	//
-	index = location.indexOf('#');
+	index = address.indexOf('#');
 	if (index != -1) {
-		location = location.substr(0, index);
+		address = address.substr(0, index);
 	}
 
-	return location;
+	return address;
 }
 
-function fragment(location) {
+function fragment(address) {
 
-	// get location after hash mark symbol
+	// get address after hash mark symbol
 	//
-	if (location) {
-		let strings = location.split('#');
+	if (address) {
+		let strings = address.split('#');
 		return strings[1];
 	}
 }
@@ -85,11 +85,23 @@ export default {
 	// setting methods
 	//
 
-	set: function(location, options) {
-		if (options && options.quiet) {
-			window.history.replaceState('', '', location);
+	set: function(address) {
+		window.history.replaceState(null, '', address);
+	},
+
+	push: function(address) {
+		window.history.pushState(null, '', address);
+	},
+
+	goto: function(address) {
+		window.top.location.href = address;
+	},
+
+	clear: function(options) {
+		if (options && options.silent) {
+			this.set('#');
 		} else {
-			window.top.location.href = location;
+			this.goto('#');
 		}
 	}
 };

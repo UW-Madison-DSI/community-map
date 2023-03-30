@@ -192,10 +192,8 @@ export default BaseView.extend({
 	},
 
 	highlight: function(keyword, options) {
-		/*
 		this.$el.children().each((index, element) => {
 			this.highlightHtml(element, keyword, options);
 		});
-		*/
 	}
 });

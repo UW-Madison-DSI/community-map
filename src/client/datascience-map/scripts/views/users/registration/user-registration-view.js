@@ -94,7 +94,7 @@ export default BaseView.extend({
 
 				// show error dialog
 				//
-				application.showError({
+				application.showErrorDialog({
 					message: "Could not save email verification."
 				});
 			}

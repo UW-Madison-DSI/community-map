@@ -59,7 +59,7 @@ import DateBarView from '../../views/toolbars/date-bar-view.js';
 
 // utilities
 //
-import Browser from '../../utilities/web/browser.js';
+import QueryString from '../../utilities/web/query-string.js';
 
 //
 // local variables
@@ -155,9 +155,11 @@ export default CampusMapView.extend({
 		},
 	},
 
+	/*
 	events: {
 		'click': 'onClick'
 	},
+	*/
 
 	maxMarkerLabels: 250,
 
@@ -204,28 +206,7 @@ export default CampusMapView.extend({
 					case 'technologies':
 						return new AcademicTechnologies();
 				}
-
-			/*
-			case 'google_scholar':
-				switch (activity) {
-					case 'articles':
-						return new GoogleScholarArticles();
-					case 'awards':
-						return new GoogleScholarAwards();
-					case 'book_chapters':
-						return new GoogleScholarBookChapters();
-					case 'books':
-						return new GoogleScholarBooks();
-					case 'conference_proceedings':
-						return new GoogleScholarConferenceProceedings();
-					case 'grants':
-						return new GoogleScholarGrants();
-					case 'patents':
-						return new GoogleScholarPatents();
-					case 'technologies':
-						return new GoogleScholarTechnologies();
-				}
-			*/
+				break;
 		}
 	},
 
@@ -305,6 +286,17 @@ export default CampusMapView.extend({
 		}
 	},
 
+	setMapMode: function(mapMode) {
+
+		// update map
+		//
+		CampusMapView.prototype.setMapMode.call(this, mapMode);
+
+		// update maps toolbar
+		//
+		this.getChildView('map').setMapMode(mapMode);
+	},
+
 	//
 	// selection methods
 	//
@@ -323,18 +315,6 @@ export default CampusMapView.extend({
 
 	deselectPerson: function() {
 		this.selected = null;
-
-		// update sidebar
-		//
-		/*
-		if (this.people.length > 1) {
-			this.parent.parent.showPeople(this.people);
-		} else if (this.people.length == 1) {
-			this.parent.parent.showPerson(this.people.at(0));
-		} else {
-			this.parent.parent.clearSideBar();
-		}
-		*/
 
 		// update mainbar
 		//
@@ -373,9 +353,7 @@ export default CampusMapView.extend({
 				// callbacks
 				//
 				onchange: () => {
-					if (this.hasChildView('search')) {
-						this.getChildView('search').updateQueryString();
-					}
+					this.updateQueryString();
 				}
 			}));
 		}
@@ -395,7 +373,6 @@ export default CampusMapView.extend({
 		//
 		this.initPeople();
 		this.showToolbars();
-		// this.parent.showSideBar();
 
 		// set initial state
 		//
@@ -421,12 +398,11 @@ export default CampusMapView.extend({
 
 	showPerson: function(person, options) {
 
-		// hide status message
-		//
-		// this.getTopView().hideMessage();
-
 		// show people on map
 		//
+		if (!this.people) {
+			this.initPeople();
+		}
 		this.people.reset([person]);
 		if (this.peopleView) {
 			this.peopleView.$el.remove();
@@ -436,10 +412,6 @@ export default CampusMapView.extend({
 			parent: this.viewport
 		});
 		this.viewport.el.append(this.peopleView.render());
-
-		// show person in sidebar
-		//
-		// this.parent.parent.showPerson(person);
 
 		// fit people to view
 		//
@@ -452,6 +424,9 @@ export default CampusMapView.extend({
 
 		// show people on map
 		//
+		if (!this.people) {
+			this.initPeople();
+		}
 		this.people.reset(people);
 		if (this.peopleView) {
 			this.peopleView.$el.remove();
@@ -469,6 +444,12 @@ export default CampusMapView.extend({
 			if (this.people.length > 0) {
 				this.zoomToLocations(this.peopleView.getLocations());
 			}
+		}
+
+		// apply affiliates filter
+		//
+		if (QueryString.hasParam('affiliates') && QueryString.getParam('affiliates')) {
+			this.peopleView.filter(null, null, true);
 		}
 
 		// perform callback
@@ -514,6 +495,7 @@ export default CampusMapView.extend({
 	},
 
 	showPlaces(places) {
+		this.buildingsView.deselectAll();
 		this.buildingsView.select(places);
 		let locations = this.buildingsView.getLocationsOf(places, this);
 
@@ -581,6 +563,16 @@ export default CampusMapView.extend({
 		this.showDateBar();
 
 		return this.activitiesView;
+	},
+
+	//
+	// updating methods
+	//
+
+	updateQueryString: function() {
+		if (this.hasChildView('search')) {
+			this.getChildView('search').updateQueryString();
+		}
 	},
 
 	//
@@ -733,11 +725,10 @@ export default CampusMapView.extend({
 	//
 
 	deselectAll: function() {
-		/*
 		this.deselectPeople();
 		this.deselectBuildings();
-		*/
-		this.$el.find('.selected').removeClass('selected');
+
+		// this.$el.find('.selected').removeClass('selected');
 		// this.parent.clearSideBar();
 	},
 
@@ -834,7 +825,7 @@ export default CampusMapView.extend({
 
 		// call superclass method
 		//
-		CampusMapView.prototype.onDragEnd.call(this);
+		CampusMapView.prototype.onDragEnd.call(this, dragx, dragy);
 
 		// update markers
 		//
@@ -868,16 +859,11 @@ export default CampusMapView.extend({
 	//
 
 	onClick: function(event) {
+		/*
 		if (event.target.nodeName == 'image') {
 			this.deselectAll();
-			/*
-			if (!this.selected) {
-				this.deselectPeople();
-			} else {
-				this.deselectMarkers();
-			}
-			*/
 		}
+		*/
 
 		if (this.hasChildView('search')) {
 			this.getChildView('search').$el.find('input').blur();

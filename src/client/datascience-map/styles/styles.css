@@ -1074,7 +1074,7 @@ textarea {
 select {
   -webkit-appearance: none;
   border-radius: 0;
-  padding: 5px;
+  padding: 0 10px;
   border-width: 1px;
   border-style: solid;
   border-color: lightgrey;
@@ -2137,6 +2137,9 @@ table.tablesorter-default {
   font-size: 200%;
   margin: 10px;
 }
+.sidebar .panel li .title {
+  display: inline;
+}
 .sidebar .panel .title .name {
   color: #c5050c;
 }
@@ -2653,9 +2656,6 @@ body[device="phone"] h3 {
 }
 .people > .person:hover line {
   stroke: #f7060f;
-}
-.interests {
-  pointer-events: none;
 }
 .popover-content > .person {
   display: flex;

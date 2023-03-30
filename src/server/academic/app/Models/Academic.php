@@ -53,12 +53,17 @@ class Academic extends Scholar
 		'middleName',
 		'lastName',
 
-		// professional info
+		// affiliation info
 		//
 		'primaryUnitAffiliation',
 		'nonPrimaryUnitAffiliations',
+		'isAffiliate',
+
+		// institution info
+		//		
 		'primaryInstitution',
 		'appointmentType',
+		'buildingNumber',
 
 		// research info
 		//

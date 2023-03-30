@@ -18,6 +18,7 @@
 import BaseView from '../../views/base-view.js';
 import TreeView from '../../views/items/trees/tree-view.js';
 import FooterView from '../../views/layout/footer-view.js';
+import QueryString from '../../utilities/web/query-string.js';
 
 export default BaseView.extend({
 
@@ -37,19 +38,32 @@ export default BaseView.extend({
 			<%= defaults.application.subheading %>
 		</div>
 
-		<div class="panel">
+		<div class="interests panel">
 			Select the items of interest to you:
 			<br /><br />
 			<div id="terms"></div>
 		</div>
 
-		<div class="panel">
+		<div class="appointments panel">
 			Select the appointment types of interest to you:
 			<br /><br />
 			<div id="appointments"></div>
 		</div>
 
+		<div class="affiliates panel">
+			<input type="checkbox"<% if (affiliates) { %> checked<% } %>/>
+			<span class="count" style="float:right"><div class="badge">0</div></span>
+			<span style="margin-left:10px">Show members of the <a href="https://datascience.wisc.edu/dsi-affiliates" target="_blank">Data Science Institute Affiliates</a> program.</span>
+		</div>
+
 		<hr />
+
+		<div class="collaboration panel">
+			Would you like collaborate on your data science project?  Connect with us through our <a href="https://datascience.wisc.edu/institute/pathways-to-collaboration/" target="_blank">Data Science Services</a> program.
+		</div>
+
+		<hr />
+
 		<div id="footer"></div>
 	`),
 
@@ -57,6 +71,10 @@ export default BaseView.extend({
 		'terms': '#terms',
 		'appointments': '#appointments',
 		'footer': '#footer'
+	},
+
+	events: {
+		'click .affiliates input': 'onClickCheckbox'
 	},
 
 	//
@@ -107,6 +125,17 @@ export default BaseView.extend({
 		return count;
 	},
 
+	numAffiliates: function() {
+		let count = 0;
+		for (let i = 0; i < this.people.length; i++) {
+			let person = this.people[i];
+			if (person.isAffiliate()) {
+				count++;
+			}
+		}
+		return count;
+	},
+
 	//
 	// getting methods
 	//
@@ -123,9 +152,19 @@ export default BaseView.extend({
 		}
 	},
 
+	getShowAffiliates: function() {
+		return this.$el.find('.affiliates input').is(':checked');
+	},
+
 	//
 	// rendering methods
 	//
+
+	templateContext: function() {
+		return {
+			affiliates: QueryString.getParam('affiliates')
+		}
+	},
 
 	onRender: function() {
 		this.showTerms();
@@ -170,6 +209,7 @@ export default BaseView.extend({
 		if (this.hasChildView('appointments')) {
 			this.getChildView('appointments').showCounts();
 		}
+		this.$el.find('.affiliates .count .badge').text(this.numAffiliates());
 	},
 
 	showFooter: function() {
@@ -181,13 +221,18 @@ export default BaseView.extend({
 	//
 
 	onClickCheckbox: function() {
+		let showAffiliates = this.getShowAffiliates();
+		let params = QueryString.toObject();
+		params['affiliates'] = showAffiliates;
+		QueryString.set(QueryString.encode(params));
 
 		// perform callback
 		//
 		if (this.options.onclick) {
 			this.options.onclick({
 				terms: this.getSelectedTerms(),
-				appointments: this.getSelectedAppointments()
+				appointments: this.getSelectedAppointments(),
+				affiliates: showAffiliates
 			});
 		}
 	}

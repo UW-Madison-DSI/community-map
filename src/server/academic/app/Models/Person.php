@@ -75,12 +75,17 @@ class Person extends BaseModel
 		'middleName',
 		'lastName',
 
-		// professional info
+		// affiliation info
 		//
 		'primaryUnitAffiliationId',
 		'nonPrimaryUnitAffiliationIds',
+		'isAffiliate',
+
+		// institution info
+		//
 		'primaryInstitutionId',
 		'appointmentType',
+		'buildingNumber',
 
 		// research info
 		//
@@ -113,17 +118,22 @@ class Person extends BaseModel
 
 		// name info
 		//
+		'title',
 		'firstName',
 		'lastName',
 		'middleName',
 
 		// professional info
 		//
-		'title',
 		'primaryUnitAffiliation',
 		'nonPrimaryUnitAffiliations',
+		'isAffiliate',
+
+		// institution info
+		//
 		'primaryInstitution',
 		'appointmentType',
+		'buildingNumber',
 
 		// research info
 		//
@@ -175,8 +185,7 @@ class Person extends BaseModel
 	 *
 	 * @return object
 	 */
-	public function getHasProfilePhotoAttribute() {
-		// return $this->profilePhoto;
+	public function getHasProfilePhotoAttribute(): bool {
 		return $this->profilePhoto != null;
 	}
 
@@ -185,7 +194,7 @@ class Person extends BaseModel
 	 *
 	 * @return object
 	 */
-	public function getPrimaryUnitAffiliationAttribute() {
+	public function getPrimaryUnitAffiliationAttribute(): ?object {
 		return InstitutionUnit::find($this->primaryUnitAffiliationId);
 	}
 
@@ -262,7 +271,7 @@ class Person extends BaseModel
 	 *
 	 * @return string
 	 */
-	public function getProfileThumbnail() {
+	public function getProfileThumbnail(&$error) {
 		$filename = $this->profilePhoto;
 		$thumbname = str_replace('profile', 'thumb', $filename);
 		$directory = config('filesystems.disks.local.root');
@@ -272,7 +281,8 @@ class Person extends BaseModel
 		// check if a profile photo has been specified
 		//
 		if (!$filename || !$directory) {
-			return "No profile photo.";
+			$error = "No profile photo.";
+			return;
 		}
 
 		// check if pre-filtered thumbnail exists
@@ -288,21 +298,19 @@ class Person extends BaseModel
 		// check if file exists
 		//
 		if (!file_exists($filepath)) {
-			return "File not found.";
+			$error = "File $filepath not found.";
+			return;
 		}
 
 		// downsample profile image
 		//
 		$data = file_get_contents($filepath);
-		// $image = \Image::make($data);
 
 		// resize to fit
 		//
-		// $image->fit(config('app.thumb_size'));
+		$image->fit(config('app.thumb_size'));
 
-		// return $image->orientate();
-		// return $image;
-		return $data;
+		return $image->orientate();
 	}
 
 	/**

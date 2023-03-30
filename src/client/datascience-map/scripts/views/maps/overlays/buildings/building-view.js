@@ -207,7 +207,7 @@ export default BaseView.extend(_.extend({}, SVGRenderable, TooltipShowable, {
 	// mouse event handling methods
 	//
 
-	onClick: function(event) {
+	onClick: function() {
 		let topView = this.getTopView();
 		let mainView = topView.getChildView('content');
 		let mapView = mainView.getChildView('mainbar');

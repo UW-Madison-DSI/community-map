@@ -88,12 +88,18 @@ class User extends TimeStamped
 		'middle_name',
 		'last_name',
 
-		// professional info
+		// affiliation info
 		//
 		'primary_unit_affiliation_id',
+		'primary_unit_affiliation',
 		'non_primary_unit_affiliation_ids',
+		'is_affiliate',
+
+		// institution info
+		//
 		'primary_institution_id',
 		'appointment_type',
+		'building_number',
 
 		// research info
 		//
@@ -140,12 +146,18 @@ class User extends TimeStamped
 		'middle_name',
 		'last_name',
 
-		// professional info
+		// affiliation info
 		//
 		'primary_unit_affiliation_id',
+		'primary_unit_affiliation',
 		'non_primary_unit_affiliation_ids',
+		'is_affiliate',
+
+		// institution info
+		//
 		'primary_institution_id',
 		'appointment_type',
+		'building_number',
 
 		// research info
 		//
@@ -171,6 +183,19 @@ class User extends TimeStamped
 		'username',
 		'email',
 		'options'
+	];
+
+	/**
+	 * The attributes that should be cast to native types.
+	 *
+	 * @var array
+	 */
+	protected $casts = [
+		'id' => 'integer',
+		'primary_unit_affiliation_id' => 'integer',
+		'primary_institutioni_id' => 'integer',
+		'is_affiliate' => 'boolean',
+		'degree_year' => 'integer'
 	];
 
 	//
@@ -219,7 +244,7 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getProfilePhotoUrlAttribute(): ?string {
-		return $this->person? $this->person->profilePhotoUrl : '';
+		return $this->person? $this->person->profilePhotoUrl : null;
 	}
 
 	/**
@@ -237,7 +262,7 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getHomepageAttribute(): ?string {
-		return $this->person? $this->person->homepage : '';
+		return $this->person? $this->person->homepage : null;
 	}
 
 	/**
@@ -246,7 +271,7 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getSocialUrlAttribute(): ?string {
-		return $this->person? $this->person->socialUrl : '';
+		return $this->person? $this->person->socialUrl : null;
 	}
 
 	/**
@@ -255,7 +280,16 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getGithubUrlAttribute(): ?string {
-		return $this->person? $this->person->githubUrl : '';
+		return $this->person? $this->person->githubUrl : null;
+	}
+
+	/**
+	 * Get this user's primary unit affiliation attribute.
+	 *
+	 * @return string
+	 */
+	public function getPrimaryUnitAffiliationAttribute(): ?object {
+		return $this->person? $this->person->primaryUnitAffiliation : null;
 	}
 
 	/**
@@ -263,8 +297,8 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getPrimaryUnitAffiliationIdAttribute(): ?string {
-		return $this->person? $this->person->primaryUnitAffiliationId : '';
+	public function getPrimaryUnitAffiliationIdAttribute(): ?int {
+		return $this->person? $this->person->primaryUnitAffiliationId : null;
 	}
 
 	/**
@@ -272,8 +306,17 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getNonPrimaryUnitAffiliationIdsAttribute(): ?string {
-		return $this->person? $this->person->nonPrimaryUnitAffiliationIds : '';
+	public function getNonPrimaryUnitAffiliationIdsAttribute(): ?array {
+		return $this->person? $this->person->nonPrimaryUnitAffiliationIds : [];
+	}
+
+	/**
+	 * Get this user's is_affiliate attribute.
+	 *
+	 * @return string
+	 */
+	public function getIsAffiliateAttribute(): bool {
+		return $this->person? $this->person->isAffiliate : false;
 	}
 
 	/**
@@ -281,8 +324,8 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getPrimaryInstitutionIdAttribute(): ?string {
-		return $this->person? $this->person->primaryInstitutionId : '';
+	public function getPrimaryInstitutionIdAttribute(): ?int {
+		return $this->person? $this->person->primaryInstitutionId : null;
 	}
 
 	/**
@@ -291,7 +334,16 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getAppointmentTypeAttribute(): ?string {
-		return $this->person? $this->person->appointmentType : '';
+		return $this->person? $this->person->appointmentType : null;
+	}
+
+	/**
+	 * Get this user's building number attribute.
+	 *
+	 * @return int
+	 */
+	public function getBuildingNumberAttribute(): ?int {
+		return $this->person? $this->person->buildingNumber : null;
 	}
 
 	/**
@@ -300,7 +352,7 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getDegreeInstitutionNameAttribute(): ?string {
-		return $this->person? $this->person->degreeInstitutionName : '';
+		return $this->person? $this->person->degreeInstitutionName :null;
 	}
 
 	/**
@@ -308,8 +360,8 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getDegreeYearAttribute(): ?string {
-		return $this->person? $this->person->degreeYear : '';
+	public function getDegreeYearAttribute(): ?int {
+		return $this->person? $this->person->degreeYear : null;
 	}
 
 	/**
@@ -318,7 +370,7 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getOrcidIdAttribute(): ?string {
-		return $this->person? $this->person->orcidId : '';
+		return $this->person? $this->person->orcidId : null;
 	}
 
 	/**
@@ -327,7 +379,7 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getResearchSummaryAttribute(): ?string {
-		return $this->person? $this->person->researchSummary : '';
+		return $this->person? $this->person->researchSummary : null;
 	}
 
 	/**
@@ -335,7 +387,7 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getResearchTermsAttribute(): ?array {
+	public function getResearchTermsAttribute(): array {
 		return $this->person? $this->person->researchTerms : [];
 	}
 
@@ -344,7 +396,7 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getResearchInterestsAttribute(): ?array {
+	public function getResearchInterestsAttribute(): array {
 		return $this->person? $this->person->researchInterests : [];
 	}
 
@@ -353,7 +405,7 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getUsernameAttribute(): ?string {
+	public function getUsernameAttribute(): string {
 		return $this->account? $this->account->username : '';
 	}
 
@@ -362,7 +414,7 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getEmailAttribute(): ?string {
+	public function getEmailAttribute(): string {
 		return $this->account? $this->account->email : '';
 	}
 
@@ -371,7 +423,7 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getOptionsAttribute(): ?array {
+	public function getOptionsAttribute(): array {
 		return $this->account? $this->account->options : [];
 	}
 
@@ -429,12 +481,30 @@ class User extends TimeStamped
 	}
 
 	/**
+	 * Whether or not this user is a DSI affiliate.
+	 *
+	 * @return bool
+	 */
+	public function isAffiliate(): bool {
+		return $this->account? $this->account->is_affiliate == true : false;
+	}
+
+	/**
 	 * Whether or not this user is currently logged in.
 	 *
 	 * @return bool
 	 */
 	public function isOnline(): bool {
 		return UserSession::where('user_id', '=', $this->id)->exists();
+	}
+
+	/**
+	 * Whether or not this user has an account.
+	 *
+	 * @return bool
+	 */
+	public function hasAccount(): bool {
+		return $this->account != null;
 	}
 
 	/**

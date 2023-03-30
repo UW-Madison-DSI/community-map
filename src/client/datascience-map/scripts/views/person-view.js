@@ -56,14 +56,14 @@ export default WelcomeView.extend({
 		// show person
 		//
 		new Person({
-			id: application.session.user.get('id')
+			id: this.options.person.get('id')
 		}).fetch({
 
 			// callbacks
 			//
 			success: (model) => {
 				this.showPerson(model, {
-					editable: true,
+					editable: false,
 					zoom_to: true
 				});
 			}

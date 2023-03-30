@@ -132,6 +132,10 @@ export default Marionette.Application.extend({
 		this.router = new Router();
 	},
 
+	//
+	// getting methods
+	//
+
 	getURL: function() {
 		let protocol = window.location.protocol;
 		let hostname = window.location.host;
@@ -183,6 +187,14 @@ export default Marionette.Application.extend({
 			}
 		}
 		return collection;
+	},
+
+	//
+	// getting methods
+	//
+
+	getQueryString: function() {
+
 	},
 
 	//

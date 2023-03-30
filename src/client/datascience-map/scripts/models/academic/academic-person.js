@@ -161,10 +161,14 @@ export default Person.extend({
 			last_name: response.lastName? response.lastName : undefined,
 			middle_name: response.middleName? response.middleName : undefined,
 
-			// professional info
+			// affiliation info
 			//
 			primary_affiliation: this.parsePrimaryAffiliation(response),
 			affiliations: this.parseAffiliations(response),
+			is_affiliate: response.isAffiliate == 1,
+
+			// institution info
+			//
 			appointment_type: response.appointmentType,
 			building_number: response.buildingNumber,
 

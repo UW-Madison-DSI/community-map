@@ -31,11 +31,16 @@ export default BaseModel.extend({
 		last_name: undefined,
 		middle_name: undefined,
 
-		// professional info
+		// affiliation info
 		//
 		primary_affiliation: undefined,
 		affiliations: undefined,
+		is_affiliate: undefined,
+
+		// institution info
+		//
 		appointment_type: undefined,
+		building_number: undefined,
 
 		// research info
 		//
@@ -87,6 +92,10 @@ export default BaseModel.extend({
 	//
 	// querying methods
 	//
+
+	isAffiliate: function() {
+		return this.get('is_affiliate');
+	},
 
 	hasTerm: function(term) {
 		if (this.has('research_terms')) {

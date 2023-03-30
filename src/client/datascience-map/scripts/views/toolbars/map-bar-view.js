@@ -109,11 +109,11 @@ export default ToolbarView.extend({
 	// setting methods
 	//
 
-	setMapMode: function(mode) {
+	setMapMode: function(mapMode) {
 
 		// fetch full department info for graph mode
 		//
-		if (mode == 'graph' && !this.units_loaded) {
+		if (mapMode == 'graph' && !this.units_loaded) {
 			this.parent.fetchInstitutionUnits({
 				full: true,
 
@@ -122,7 +122,7 @@ export default ToolbarView.extend({
 				success: (institutionUnits) => {
 					this.units_loaded = true;
 					this.parent.showInstitutionUnits(institutionUnits);
-					this.setMapMode(mode);
+					this.setMapMode(mapMode);
 				}
 			});
 			return;
@@ -130,7 +130,7 @@ export default ToolbarView.extend({
 
 		// set button states
 		//
-		switch (mode) {
+		switch (mapMode) {
 			case 'map':
 				this.$el.find('#show-map-mode').addClass('selected');
 				this.$el.find('#show-aerial-mode').removeClass('selected');
@@ -154,9 +154,11 @@ export default ToolbarView.extend({
 				break;
 		}
 
-		// set map mode
+		// update map
 		//
-		this.parent.setMapMode(mode);
+		if (this.parent.getMapMode() != mapMode) {
+			this.parent.setMapMode(mapMode);
+		}
 	},
 
 	setQueryParams: function(params) {

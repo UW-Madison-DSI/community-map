@@ -22,6 +22,14 @@ import Url from '../../utilities/web/url.js';
 export default {
 
 	//
+	// converting methods
+	//
+
+	toObject: function() {
+		return this.decode(this.get());
+	},
+
+	//
 	// querying methods
 	//
 
@@ -127,16 +135,25 @@ export default {
 	// setting methods
 	//
 
-	set: function(queryString, options) {
-		if (queryString) {
-			AddressBar.set(AddressBar.get('base') + "?" + queryString, options);
-		} else {
-			AddressBar.set(AddressBar.get('base'), options);
-		}
+	set: function(queryString) {
+		let address = AddressBar.get('base') + (queryString? "?" + queryString : '');
+		AddressBar.set(address);
 	},
 
-	clear: function(options) {
-		AddressBar.set(AddressBar.get('location').split('?')[0], options);
+	push: function(queryString) {
+		let address = AddressBar.get('base') + (queryString? "?" + queryString : '');
+		AddressBar.push(address);
+	},
+
+	clear: function() {
+		let address = AddressBar.get('location').split('?')[0];
+		AddressBar.set(address);
+	},
+
+	clearParam: function(key) {
+		let params = this.toObject();
+		delete params[key];
+		this.set(this.encode(params));
 	},
 
 	//

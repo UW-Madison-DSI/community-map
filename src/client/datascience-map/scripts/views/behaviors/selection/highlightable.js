@@ -47,7 +47,7 @@ export default {
 		}
 	},
 
-	unhighlight: function(options) {
+	unhighlight: function() {
 		if (this.isHighlighted()) {
 			this.$el.removeClass('highlighted');
 		}

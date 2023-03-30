@@ -108,6 +108,10 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 		return this.viewport.getZoomLevel();
 	},
 
+	getMapMode: function() {
+		return this.mapMode;
+	},
+
 	//
 	// navigation methods
 	//

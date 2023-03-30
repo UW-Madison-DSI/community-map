@@ -211,6 +211,19 @@ export default BaseMapView.extend({
 	},
 
 	setMapMode: function(mapMode) {
+
+		// check if current mode matches desired mode
+		//
+		if (this.mapMode == mapMode) {
+			return;
+		}
+
+		// set attributes
+		//
+		this.mapMode = mapMode;
+
+		// update map tiles
+		//
 		if (mapMode == 'graph') {
 			this.fadeOut();
 		} else {
@@ -220,7 +233,6 @@ export default BaseMapView.extend({
 			this.map.view = mapMode;
 			this.tiles.render();
 		}
-		this.mapMode = mapMode;
 	},
 
 	//

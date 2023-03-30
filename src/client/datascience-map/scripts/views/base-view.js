@@ -17,7 +17,6 @@
 
 import Hierarchical from '../views/behaviors/layout/hierarchical.js';
 import TooltipShowable from '../views/behaviors/tips/tooltip-showable.js';
-import Browser from '../utilities/web/browser.js';
 
 export default Marionette.View.extend(_.extend({}, Hierarchical, TooltipShowable, {
 

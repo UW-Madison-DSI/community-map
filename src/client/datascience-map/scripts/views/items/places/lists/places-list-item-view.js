@@ -16,6 +16,7 @@
 \******************************************************************************/
 
 import ListItemView from '../../lists/list-item-view.js';
+import AddressBar from '../../../../utilities/web/address-bar.js';
 
 export default ListItemView.extend({
 
@@ -68,6 +69,31 @@ export default ListItemView.extend({
 	`),
 
 	events: _.extend({}, ListItemView.prototype.events, {
-		'click .thumbnail': 'onClick'
-	})
+		'click .thumbnail': 'onClick',
+		'click a': 'onClickLink'
+	}),
+
+	//
+	// mouse event handling methods
+	//
+
+	onClickLink: function() {
+		let name = this.model.get('name');
+		let baseUrl = location.origin + window.location.pathname;
+		let queryString = '?query="' + name.replace(/ /g, '+') + '"';
+		let url = baseUrl + queryString;
+		let mapView = this.getParentView('split-view').getChildView('mainbar');
+
+		// set address bar
+		//
+		AddressBar.set(url);
+
+		// set search bar
+		//
+		mapView.getChildView('search').setQuery(name);
+
+		// highlight building
+		//
+		mapView.showPlaces([this.model]);
+	}
 });

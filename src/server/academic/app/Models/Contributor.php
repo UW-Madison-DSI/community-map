@@ -64,12 +64,17 @@ class Contributor extends Person
 		'middleName',
 		'lastName',
 
-		// professional info
+		// affiliation info
 		//
 		'primaryUnitAffiliationId',
 		'nonPrimaryUnitAffiliationIds',
+		'isAffiliate',
+
+		// institution info
+		//	
 		'primaryInstitutionId',
 		'appointmentType',
+		'buildingNumber',
 
 		// research info
 		//
@@ -112,10 +117,14 @@ class Contributor extends Person
 		'middleName',
 		'lastName',
 
-		// professional info
+		// affiliation info
 		//
 		'primaryUnitAffiliation',
 		'nonPrimaryUnitAffiliations',
+		'isAffiliate',
+
+		// institution info
+		//	
 		'primaryInstitution',
 		'appointmentType',
 		'degreeInstitutionName',

@@ -19,6 +19,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Intervention\Image\Image;
 use App\Models\Person;
 use App\Models\Scholar;
 use App\Models\Academic;
@@ -57,18 +59,30 @@ class PersonController extends Controller
 			'password' => $password,
 			'email' => $request->input('email'),
 
-			// personal info
+			// name info
 			//
+			'title' => $request->input('title'),
 			'firstName' => $request->input('first_name'),
 			'middleName' => $request->input('middle_name'),
 			'lastName' => $request->input('last_name'),
 
-			// web info
+			// affiliation info
 			//
-			'homepage' => $request->input('homepage'),
-			'profilePhoto' => $request->input('profile_photo'),
-			'socialUrl' => $request->input('social_url'),
-			'githubUrl' => $request->input('github_url'),
+			'primaryUnitAffiliationId' => $request->input('primary_unit_affiliation_id'),
+			'otherPrimaryUnitAffiliation' => $request->input('primary_unit_affiliation'),
+			'nonPrimaryUnitAffiliationIds' => implode(',', $request->input('non_primary_unit_affiliation_ids')),
+			'isAffiliate' => $request->input('is_affiliate'),
+
+			// institution info
+			//
+			'buildingNumber' => $request->input('building_number'),
+			'primaryInstitutionId' => 14,
+			'desiredExposure' => 2,
+
+			// research info
+			//
+			'researchSummary' => $request->input('research_summary'),
+			'researchTerms' => explode(', ', $request->input('research_terms')),
 
 			// academic info
 			//
@@ -76,15 +90,12 @@ class PersonController extends Controller
 			'degreeYear' => $request->input('degree_year'),
 			'orcidId' => $request->input('orcid_id'),
 
-			// professional info
+			// personal info
 			//
-			'title' => $request->input('title'),
-			'primaryUnitAffiliationId' => $request->input('primary_unit_affiliation_id'),
-			'nonPrimaryUnitAffiliationIds' => implode(',', $request->input('non_primary_unit_affiliation_ids')),
-			'primaryInstitutionId' => 14,
-			'desiredExposure' => 2,
-			'researchTerms' => explode(', ', $request->input('research_terms')),
-			'researchSummary' => $request->input('research_summary')
+			'homepage' => $request->input('homepage'),
+			'profilePhoto' => $request->input('profile_photo'),
+			'socialUrl' => $request->input('social_url'),
+			'githubUrl' => $request->input('github_url')
 		]);
 		$person->save();
 
@@ -176,11 +187,15 @@ class PersonController extends Controller
 
 		// get thumbnail data
 		//
-		$thumb = $user->getProfileThumbnail();
+		$thumb = $user->getProfileThumbnail($error);
 
 		// add response headers
 		//
-		return response($thumb, 200)->header('Content-Type', 'image/jpg');
+		if ($thumb) {
+			return response($thumb, 200)->header('Content-Type', 'image/jpg');
+		} else {
+			return $error;
+		}
 	}
 
 	/**
@@ -228,15 +243,32 @@ class PersonController extends Controller
 		// parse and create a new person
 		//
 		$person->change([
+
+			// name info
+			//
 			'title' => $request->input('title'),
 			'firstName' => $request->input('first_name'),
 			'middleName' => $request->input('middle_name'),
 			'lastName' => $request->input('last_name'),
+
+			// professional info
+			//
 			'primaryUnitAffiliationId' => $request->input('primary_unit_affiliation_id'),
-			'degreeInstitutionName' => $request->input('degree_institution'),
-			'degreeYear' => $request->input('degree_year'),
+			'otherPrimaryUnitAffiliation' => $request->input('primary_unit_affiliation'),
+			'buildingNumber' => $request->input('building_number'),
+
+			// research info
+			//
 			'researchSummary' => $request->input('research_summary'),
 			'researchTerms' => explode(', ', $request->input('research_terms')),
+
+			// academic info
+			//
+			'degreeInstitutionName' => $request->input('degree_institution'),
+			'degreeYear' => $request->input('degree_year'),
+
+			// personal info
+			//
 			'homepage' => $request->input('homepage'),
 			'profilePhoto' => $request->input('profile_photo'),
 			'socialUrl' => $request->input('social_url'),

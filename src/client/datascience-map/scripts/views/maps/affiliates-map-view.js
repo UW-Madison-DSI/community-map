@@ -16,6 +16,7 @@
 \******************************************************************************/
 
 import KnowledgeMapView from '../../views/maps/knowledge-map-view.js';
+import QueryString from '../../utilities/web/query-string.js';
 
 // ui views
 //
@@ -32,7 +33,7 @@ export default KnowledgeMapView.extend({
 
 		// show all if no search
 		//
-		if (window.location.search == '' && window.location.hash != '#home') {
+		if (!QueryString.hasParam('query') && window.location.hash != '#home') {
 			this.showAll();
 		}
 	},
@@ -56,15 +57,21 @@ export default KnowledgeMapView.extend({
 
 	showAll: function() {
 		let department = this.departments.findByName('Data Science');
-		this.showDepartmentPeople('academic_analytics', department, {
+		if (!this.parent.options.person) {
+			this.showDepartmentPeople('academic_analytics', department, {
 
-			// callbacks
-			//
-			success: () => {
-				if (this.options.onstart) {
-					this.options.onstart();
+				// callbacks
+				//
+				success: () => {
+					if (this.options.onstart) {
+						this.options.onstart();
+					}
 				}
-			}
-		});
+			});
+		} else {
+			if (this.options.onstart) {
+				this.options.onstart();
+			}		
+		}
 	}
 });

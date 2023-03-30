@@ -35,7 +35,7 @@ export default CollectionView.extend({
 				<i class="collapse fa fa-caret-down"</div></i>
 				<i class="expand fa fa-caret-right"</div></i>
 			</div>
-			<span class="select"><input type="checkbox" checked /></span>
+			<span class="select"><input type="checkbox" /></span>
 			<span class="name"><%= name %></span>
 			<span class="count"><div class="badge"><%= count %></div></span>
 		</div>
@@ -134,6 +134,17 @@ export default CollectionView.extend({
 	//
 
 	setValues: function(names) {
+		/*
+		for (let i = 0; i < this.children.length; i++) {
+			let childView = this.children.findByIndex(i);
+			if (childView instanceof this.constructor) {
+				childView.setValues(names);
+			} else if (names.includes(childView.model.get('name'))) {
+				childView.select();
+			}
+		}
+		*/
+
 		this.$el.find('.item').each(function() {
 			let name = $(this).find('.name').text().trim();
 			let checked = names? names.includes(name) : false;
@@ -267,7 +278,7 @@ export default CollectionView.extend({
 		}
 	},
 
-	childViewOptions: function(child) {
+	childViewOptions: function() {
 		return {
 			onclick: this.options.onclick
 		};
@@ -302,7 +313,7 @@ export default CollectionView.extend({
 	// mouse event handling methods
 	//
 
-	onClickCheckbox: function(event) {
+	onClickCheckbox: function() {
 		this.toggleChildrenSelected();
 
 		// perform callback
@@ -312,7 +323,7 @@ export default CollectionView.extend({
 		}
 	},
 
-	onClickName: function(event) {
+	onClickName: function() {
 		this.toggleAllSelected();
 
 		// perform callback

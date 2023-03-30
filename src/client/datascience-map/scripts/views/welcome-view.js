@@ -23,6 +23,7 @@ import PeopleView from '../views/items/people/people-view.js';
 import PlacesView from '../views/items/places/places-view.js';
 import AffiliatesMapView from '../views/maps/affiliates-map-view.js';
 import Browser from '../utilities/web/browser.js';
+import AddressBar from '../utilities/web/address-bar.js';
 
 export default SplitView.extend({
 
@@ -38,9 +39,11 @@ export default SplitView.extend({
 	// querying methods
 	//
 
-	filter: function(terms, appointments) {
+	filter: function(terms, appointments, affiliates) {
 		let mapView = this.parent.getChildView('content mainbar');
-		mapView.peopleView.filter(terms, appointments);
+		if (mapView.peopleView) {
+			mapView.peopleView.filter(terms, appointments, affiliates);
+		}
 	},
 
 	//
@@ -118,9 +121,11 @@ export default SplitView.extend({
 
 		// update count bubbles
 		//
-		let people = this.getPeople();
-		if (people) {
-			this.getChildView('sidebar').showPeopleCounts(people);
+		if (this.hasChildView('sidebar')) {
+			let people = this.getPeople();
+			if (people) {
+				this.getChildView('sidebar').showPeopleCounts(people);
+			}
 		}
 
 		// set up resize callback
@@ -142,6 +147,16 @@ export default SplitView.extend({
 	showPerson: function(person, options) {
 		let mapView = this.getChildView('mainbar');
 
+		// hide search bar
+		//
+		if (mapView) {
+			mapView.hideSearchBar();
+		}
+
+		// set url
+		//
+		AddressBar.set(location.origin + location.pathname + '#users/' + person.get('id'));
+
 		// open sidebar if mobile
 		//
 		if (Browser.device == 'phone' || $(window).width() < 768) {
@@ -153,31 +168,31 @@ export default SplitView.extend({
 
 		// save collection
 		//
-		this.savedPeople = mapView.people.models;
+		if (mapView && mapView.people) {
+			this.savedPeople = mapView.people.models;
 
-		// save view
-		//
-		mapView.pushView();
+			// save view
+			//
+			mapView.pushView();
+		}
 
 		// show person in mainbar
 		//
-		this.getChildView('mainbar').showPerson(person, {
-			zoom_to: options? options.zoom_to : true
-		});
+		if (this.hasChildView('mainbar') && person) {
+			this.getChildView('mainbar').showPerson(person, {
+				zoom_to: options? options.zoom_to : true
+			});
+		}
 
 		// show person in sidebar
 		//
-		this.showChildView('sidebar', new PersonView({
-			model: person,
-			editable: options? options.editable : false,
-			query: options? options.query : undefined
-		}));
-
-		/*
-		if (options && options.update_query_string) {
-			window.location.search = '?person=' + person.get('id');
+		if (this.hasChildView('sidebar') && person) {
+			this.showChildView('sidebar', new PersonView({
+				model: person,
+				editable: options? options.editable : false,
+				query: options? options.query : undefined
+			}));
 		}
-		*/
 	},
 
 	showPeople: function(people, options) {
@@ -202,13 +217,6 @@ export default SplitView.extend({
 		// show sidebar
 		//
 		this.getChildView('sidebar').showPeopleCounts(people);
-		/*
-		if (options && options.query) {
-			this.showSelectedPeople(people, options);
-		} else {
-			this.getChildView('sidebar').showPeopleCounts(people);
-		}
-		*/
 	},
 
 	showSelectedPeople: function(people, options) {
@@ -238,7 +246,18 @@ export default SplitView.extend({
 	//
 
 	onStart: function() {
-		if (this.hasChildView('sidebar')) {
+
+		// show affiliates only
+		//
+		/*
+		if (QueryString.hasParam('affiliates') && QueryString.getParam('affiliates')) {
+			this.filter(null, null, true);
+		}
+		*/
+
+		// show people counts
+		//
+		if (this.hasChildView('sidebar') && this.getChildView('sidebar').showPeopleCounts) {
 			this.getChildView('sidebar').showPeopleCounts(this.getPeople());
 		}
 
@@ -254,7 +273,7 @@ export default SplitView.extend({
 	//
 
 	onClick: function(event) {
-		if (event.originalEvent.target.nodeName == 'image') {
+		if (event.target.nodeName == 'image') {
 
 			// clear sidebar if showing places
 			//
@@ -266,10 +285,13 @@ export default SplitView.extend({
 
 	onClickCheckbox: function(options) {
 		let mapView = this.parent.getChildView('content mainbar');
-		mapView.peopleView.unfilter();
-		// this.filterByTerms(options.terms);
-		// this.filterByAppointments(options.appointments);
-		this.filter(options.terms, options.appointments);
+		if (mapView.peopleView) {
+			mapView.peopleView.unfilter();
+		}
+
+		// filter people
+		//
+		this.filter(options.terms, options.appointments, options.affiliates);
 	},
 
 	//

@@ -54,7 +54,8 @@ class InstitutionUnitController extends Controller
 	 * @return App\Models\InstitutionUnit[]
 	 */
 	public function getAll() {
-		return InstitutionUnitSummary::all();
+		// return InstitutionUnitSummary::all();
+		return InstitutionUnitSummary::orderBy('name')->get();
 	}
 
 	/**
@@ -63,7 +64,8 @@ class InstitutionUnitController extends Controller
 	 * @return App\Models\InstitutionUnit[]
 	 */
 	public function getFull() {
-		return InstitutionUnit::all();
+		// return InstitutionUnit::all();
+		return InstitutionUnit::orderBy('name')->get();
 	}
 
 	/**

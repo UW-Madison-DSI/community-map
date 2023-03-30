@@ -41,11 +41,20 @@ export default BaseCollection.extend({
 
 	findByName: function(query, options) {
 		let results = [];
+		let exact = options? options.exact : false;
 
-		if (options && options.exact) {
+		// perform case insensitive search
+		//
+		query = query.toLowerCase();
+
+		if (query.contains('lot') && query != 'lot') {
+			exact = true;
+		}
+
+		if (exact) {
 			for (let i = 0; i < this.length; i++) {
 				let building = this.at(i);
-				if (building.get('name') == query) {
+				if (building.get('name').toLowerCase() == query) {
 					results.push(building);
 				}
 			}
@@ -54,7 +63,8 @@ export default BaseCollection.extend({
 			for (let i = 0; i < this.length; i++) {
 				let building = this.at(i);
 				let name = building.get('name').toLowerCase();
-				if (searchstr.contains(name) || name.contains(searchstr)) {
+
+				if (name.contains(searchstr)) {
 					results.push(building);
 				}
 			}	

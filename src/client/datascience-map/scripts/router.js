@@ -10,6 +10,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
+import Person from './models/person.js';
+
 export default Backbone.Router.extend({
 
 	//
@@ -44,6 +46,10 @@ export default Backbone.Router.extend({
 		'home': 'showHome',
 		'my-profile': 'showMyProfile',
 		'my-profile/edit': 'showEditMyProfile',
+
+		// user profile routes
+		//
+		'users/:id': 'showUserProfile',
 
 		// administration routes
 		//
@@ -305,6 +311,27 @@ export default Backbone.Router.extend({
 			//
 			application.show(new EditMyProfileView.default(), {
 				nav: 'home'
+			});
+		});
+	},
+
+	//
+	// user profile route handlers
+	//
+
+	showUserProfile: function(id) {
+		import(
+			'./views/person-view.js'
+		).then((PersonView) => {
+
+			// show home view
+			//
+			application.show(new PersonView.default({
+				person: new Person({
+					id: id
+				})
+			}), {
+				full_screen: true
 			});
 		});
 	},

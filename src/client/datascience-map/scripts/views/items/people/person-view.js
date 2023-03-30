@@ -19,6 +19,7 @@ import '../../../../vendor/bootstrap/js/tab.js';
 import BaseView from '../../../views/base-view.js';
 import ProfileView from '../../../views/items/people/profile/profile-view.js';
 import CollaboratorsView from '../../../views/items/collaborators/collaborators-view.js';
+import AddressBar from '../../../utilities/web/address-bar.js';
 
 // activity views
 //
@@ -79,7 +80,7 @@ export default BaseView.extend({
 				</div>
 
 				<% if (title) { %>
-				<div class="subtitle" style="display:none"><%= title %></div>
+				<div class="subtitle"><%= title %></div>
 				<% } %>
 			</div>
 
@@ -543,22 +544,33 @@ export default BaseView.extend({
 		let mainView = topView.getChildView('content');
 		let mapView = mainView.getChildView('mainbar');
 
+		// reset address bar
+		//
+		AddressBar.clear({
+			silent: mainView.options.person == null
+		});
+
 		if (mainView.savedPeople && mainView.savedPeople.length > 1) {
+
+			// show group of people from previous search
+			//
 			mainView.clearSideBar();
-			/*
-			mainView.showPeople(mainView.savedPeople, {
-				zoom_to: true
-			});
-			*/
 			mainView.showPeople(mainView.savedPeople);
 
 			// restore view from before person was clicked
 			//
 			mapView.popView();
 
+			// restore search bar
+			//
+			mapView.showSearchBar();
 			mapView.hideDateBar();
 			mapView.hideActivitiesBar();
 		} else {
+
+			// restore search bar to initial state
+			//
+			mapView.showSearchBar();
 			mainView.clearSearch();
 		}
 

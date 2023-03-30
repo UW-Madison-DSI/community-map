@@ -20,7 +20,7 @@ namespace App\Models\Users;
 
 use App\Casts\Terms;
 use App\Models\BaseModel;
-use App\Models\InstitutionUnit;
+use App\Models\Users\InstitutionUnit;
 
 class Person extends BaseModel
 {
@@ -71,12 +71,18 @@ class Person extends BaseModel
 		'middleName',
 		'lastName',
 
-		// professional info
+		// affiliation info
 		//
 		'primaryUnitAffiliationId',
+		'otherPrimaryUnitAffiliation',
 		'nonPrimaryUnitAffiliationIds',
+		'isAffiliate',
+
+		// institution info
+		//
 		'primaryInstitutionId',
 		'appointmentType',
+		'buildingNumber',
 
 		// research info
 		//
@@ -113,12 +119,17 @@ class Person extends BaseModel
 		'middleName',
 		'lastName',
 
-		// professional info
+		// affiliation info
 		//
-		'primaryUnitAffiliationId',
-		'nonPrimaryUnitAffiliationIds',
+		'primaryUnitAffiliation',
+		'nonPrimaryUnitAffiliations',
+		'isAffiliate',
+
+		// institution info
+		//
 		'primaryInstitutionId',
 		'appointmentType',
+		'buildingNumber',
 
 		// research info
 		//
@@ -157,6 +168,10 @@ class Person extends BaseModel
 	 * @var array
 	 */
 	protected $casts = [
+		'primaryUnitAffiliationId' => 'integer',
+		'nonPrimaryUnitAffiliationIds' => 'array',
+		'isAffiliate' => 'boolean',
+		'primaryInstitutionId' => 'integer',
 		'researchTerms' => Terms::class,
 		'researchInterests' => Terms::class
 	];
@@ -171,7 +186,11 @@ class Person extends BaseModel
 	 * @return object
 	 */
 	public function getPrimaryUnitAffiliationAttribute() {
-		return InstitutionUnit::find($this->primaryUnitAffiliationId);
+		if ($this->otherPrimaryUnitAffiliation) {
+			return $this->otherPrimaryUnitAffiliation;
+		} else {
+			return InstitutionUnit::find($this->primaryUnitAffiliationId);
+		}
 	}
 
 	/**

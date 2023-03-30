@@ -27,7 +27,7 @@ export default ListItemView.extend({
 	className: 'item',
 
 	template: _.template(`
-		<span class="select"><input type="checkbox" checked /></span>
+		<span class="select"><input type="checkbox" /></span>
 		<span class="name"><%= name %></span>
 		<span class="count"><div class="badge"><%= count %></div></span>
 	`),
@@ -92,7 +92,7 @@ export default ListItemView.extend({
 	// mouse event handling methods
 	//
 
-	onClickItem: function(event) {
+	onClickItem: function() {
 		this.toggleSelected();
 
 		// perform callback

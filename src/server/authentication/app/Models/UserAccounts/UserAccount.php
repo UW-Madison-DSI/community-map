@@ -174,6 +174,24 @@ class UserAccount extends TimeStamped
 	}
 
 	/**
+	 * Find if this user account has this option.
+	 *
+	 * @return bool
+	 */
+	public function hasOption($option): bool {
+		return in_array($option, $this->options);
+	}
+
+	/**
+	 * Find if this user account has this option.
+	 *
+	 * @return bool
+	 */
+	public function isAffiliate(): bool {
+		return $this->user->is_affiliate;
+	}
+
+	/**
 	 * Find if this user account has an associated email address.
 	 *
 	 * @return bool

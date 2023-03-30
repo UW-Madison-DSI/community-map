@@ -53,12 +53,18 @@ class Scholar extends Person
 		'middleName',
 		'lastName',
 
-		// professional info
+		// affiliation info
 		//
 		'primaryUnitAffiliation',
+		'otherPrimaryUnitAffiliation',
 		'nonPrimaryUnitAffiliations',
+		'isAffiliate',
+
+		// institution info
+		//	
 		'primaryInstitution',
 		'appointmentType',
+		'buildingNumber',
 
 		// research info
 		//
@@ -135,7 +141,7 @@ class Scholar extends Person
 	 *
 	 * @return object
 	 */
-	public function getPrimaryUnitAffiliationAttribute() {
+	public function getPrimaryUnitAffiliationAttribute(): ?object {
 		return InstitutionUnit::find($this->primaryUnitAffiliationId);
 	}
 
@@ -161,7 +167,7 @@ class Scholar extends Person
 	 *
 	 * @return object
 	 */
-	public function getHasProfilePhotoAttribute() {
+	public function getHasProfilePhotoAttribute(): bool {
 		return $this->profilePhoto != null;
 	}
 
@@ -242,7 +248,7 @@ class Scholar extends Person
 	 *
 	 * @return int
 	 */
-	public function getNumCollaboratorsAttribute() {
+	public function getNumCollaboratorsAttribute(): int {
 		$collaborators = $this->getCollaborators();
 		return ($collaborators != null? count($collaborators) : 0);
 	}

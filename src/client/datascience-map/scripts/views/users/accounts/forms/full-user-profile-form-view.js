@@ -31,7 +31,7 @@ export default FormView.extend({
 		<fieldset>
 			<legend>Name</legend>
 
-			<div class="form-group" id="title" style="display:none">
+			<div class="form-group" id="title">
 				<label class="control-label">Title</label>
 				<div class="controls">
 					<div class="input-group">
@@ -103,6 +103,18 @@ export default FormView.extend({
 							<% } %>
 							<% } %>
 						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" id="is-affiliate">
+				<label class="control-label">DSI Affiliate</label>
+				<div class="controls">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" <% if (is_affiliate) { %> checked="checked" <% } %> />
+							Have you applied and been selected to participate in the <a href="https://datascience.wisc.edu/dsi-affiliates" target="_blank">Data Science Institute Affiliate Program</a>?
+						</label>
 					</div>
 				</div>
 			</div>
@@ -379,7 +391,7 @@ export default FormView.extend({
 			case 'name':
 				return this.$el.find('#name input').val();
 
-			// professional
+			// affiliation
 			//
 			case 'department_id': {
 				let value = this.$el.find('#department select').val();
@@ -388,7 +400,6 @@ export default FormView.extend({
 				} else {
 					return 0;
 				}
-				break;
 			}
 			case 'department':
 				if (!this.getValue('department_id')) {
@@ -396,6 +407,11 @@ export default FormView.extend({
 				} else {
 					return null;
 				}
+			case 'is_affiliate':
+				return this.$el.find('#is-affiliate input').is(':checked');
+
+			// institution
+			//
 			case 'appointment_type':
 				return this.$el.find('#appointment-type select').val();
 			case 'building_number':
@@ -462,11 +478,15 @@ export default FormView.extend({
 			middle_name: middle_name,
 			last_name: last_name,
 
-			// professional
+			// affiliation
 			//
 			primary_unit_affiliation_id: this.getValue('department_id'),
 			primary_unit_affiliation: this.getValue('department'),
 			non_primary_unit_affiliation_ids: [this.getDepartmentId('Data Science')],
+			is_affiliate: this.getValue('is_affiliate'),
+
+			// institution
+			//
 			appointment_type: this.getValue('appointment_type'),
 			building_number: this.getValue('building_number'),
 
@@ -536,7 +556,7 @@ export default FormView.extend({
 		let fReader = new FileReader();
 		fReader.readAsDataURL(input.files[0]);
 		fReader.onloadend = (event) => {
-			var filename = path.replace(/^.*[\\\/]/, '')
+			let filename = path.replace(/^.*[\\\/]/, '')
 
 			// add photo data to values
 			//
@@ -598,6 +618,7 @@ export default FormView.extend({
 					this.$el.find('#department select').val('other');
 					this.$el.find('#other-department input').val(value);
 				}
+				break;
 			}
 			case 'appointment_type':
 				this.$el.find('#appointment-type select').val(value);
@@ -669,7 +690,6 @@ export default FormView.extend({
 	templateContext: function() {
 		return {
 			name: this.model.getName(),
-			has_profile_photo: this.model.get('has_profile_photo'),
 			departments: this.options.departments,
 			appointment_types: defaults.appointment_types,
 			buildings: this.options.buildings,
@@ -690,7 +710,7 @@ export default FormView.extend({
 			sortWithCollection: false,
 			expanded: defaults.expanded.terms
 		}));
-		this.$el.find('input[type="checkbox"]').prop('checked', false);
+		this.$el.find('#data-science-interests input[type="checkbox"]').prop('checked', false);
 
 		// initialize form
 		//

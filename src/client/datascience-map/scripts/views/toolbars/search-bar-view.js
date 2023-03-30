@@ -16,6 +16,7 @@
 \******************************************************************************/
 
 import ToolbarView from './toolbar-view.js';
+import QueryString from '../../utilities/web/query-string.js';
 
 export default ToolbarView.extend({
 
@@ -115,6 +116,14 @@ export default ToolbarView.extend({
 		//
 		this.setQueryParams(params);
 
+		// set map mode from query params
+		//
+		if (params.mode) {
+			if (this.parent.hasChildView('map')) {
+				this.parent.getChildView('map').setMapMode(params.mode);
+			}
+		}
+
 		// set input
 		//
 		if (params.query && params.query != 'null') {
@@ -131,21 +140,7 @@ export default ToolbarView.extend({
 
 		// set address bar
 		//
-		this.setQueryString(params.toString());
-	},
-
-	setQueryString: function(queryString) {
-		let address = `${location.pathname}?${queryString}`;
-		window.history.replaceState('', '', address);
-	},
-
-	pushQueryString: function(queryString) {
-		let address = `${location.pathname}?${queryString}`;
-		window.history.pushState('', '', address);
-	},
-
-	clearQueryString: function() {
-		window.history.replaceState('', '', window.location.origin + window.location.pathname);
+		application.setQueryString(params.toString());
 	},
 
 	//
@@ -205,29 +200,22 @@ export default ToolbarView.extend({
 
 		// set address bar
 		//
-		this.pushQueryString(params.toString());
+		QueryString.push(params.toString());
 
-		if (query.includes('building')) {
+		// perform search
+		//
+		if (query.includes('building') || query.includes('lot') || 
+			query.includes('parking') || query.includes('parking lot')) {
 
-			// string the word 'building' from search and trim whitespace
+			// search for buildings
 			//
-			let search = query.replace(/building/g, '').replace(/^\s+|\s+$/gm, '');
-
-			this.searchPlaces(search, {
-
-				// callbacks
-				//
-				error: () => {
-					application.showStatusDialog({
-						title: 'Search Results',
-						icon: 'fa fa-search',
-						message: 'No buildings found.'
-					});
-				}
+			this.searchBuildings(query, {
+				exact: exact
 			});
+
 		} else {
 
-			// perform search
+			// search for people
 			//
 			this.searchPeople(query, {
 				exact: exact,
@@ -236,6 +224,7 @@ export default ToolbarView.extend({
 				//
 				error: () => {
 					this.searchPlaces(query, {
+						exact: exact,
 
 						// callbacks
 						//
@@ -250,6 +239,28 @@ export default ToolbarView.extend({
 				}
 			});
 		}
+	},
+
+	searchBuildings: function(query, options) {
+
+		// strip the word 'building' from search and trim whitespace
+		//
+		query = query.replace(/building/g, '').replace(/^\s+|\s+$/gm, '');
+		query = query.replace(/parking lot/g, 'lot');
+		query = query.replace(/parking/g, 'lot');
+
+		this.searchPlaces(query, _.extend({}, options, {
+
+			// callbacks
+			//
+			error: () => {
+				application.showStatusDialog({
+					title: 'Search Results',
+					icon: 'fa fa-search',
+					message: 'No buildings found.'
+				});
+			}
+		}));
 	},
 
 	searchPeople: function(query, options) {
@@ -300,14 +311,6 @@ export default ToolbarView.extend({
 				// hide status message
 				//
 				application.hideDialogs();
-
-				// check for exact matches
-				//
-				/*
-				if (options && options.exact) {
-					people = collection.filterByTopic(query);
-				}
-				*/
 
 				// show results
 				//
@@ -378,14 +381,6 @@ export default ToolbarView.extend({
 						query: name,
 						zoom_to: true
 					});
-
-					// autoselect first person
-					//
-					/*
-					if (people.length == 1) {
-						this.parent.peopleView.children.findByIndex(0).select();
-					}
-					*/
 				} else {
 					if (options && options.error) {
 						options.error();
@@ -395,7 +390,6 @@ export default ToolbarView.extend({
 							message: 'No people were found by that name.'
 						});	
 					}
-					// this.getTopView().showDialog(new NoPeopleDialogView())
 				}
 			}
 		});
@@ -443,7 +437,7 @@ export default ToolbarView.extend({
 		this.parent.clear();
 		this.parent.showAll();
 		this.parent.labelsView.deselectAll();
-		this.clearQueryString();
+		QueryString.clearParam('query');
 	},
 
 	//
@@ -482,6 +476,7 @@ export default ToolbarView.extend({
 	onClickClear: function() {
 		this.clear();
 		this.parent.resetView();
+		this.parent.setMapMode('map');
 	},
 
 	onClickInput: function(event) {
