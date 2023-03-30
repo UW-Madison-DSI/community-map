@@ -177,6 +177,7 @@ export default BaseView.extend({
 			collection: this.terms,
 			sortWithCollection: false,
 			expanded: defaults.expanded.terms,
+			checked: true,
 
 			// callbacks
 			//
@@ -190,6 +191,7 @@ export default BaseView.extend({
 			collection: this.appointments,
 			sortWithCollection: false,
 			expanded: defaults.expanded.appointment_types,
+			checked: true,
 
 			// callbacks
 			//

@@ -218,10 +218,6 @@ export default BaseMapView.extend({
 			return;
 		}
 
-		// set attributes
-		//
-		this.mapMode = mapMode;
-
 		// update map tiles
 		//
 		if (mapMode == 'graph') {
@@ -230,9 +226,15 @@ export default BaseMapView.extend({
 			if (this.mapMode == 'graph') {
 				this.fadeIn();
 			}
-			this.map.view = mapMode;
-			this.tiles.render();
+
+			// update map
+			//
+			BaseMapView.prototype.setMapMode.call(this, mapMode);
 		}
+
+		// set attributes
+		//
+		this.mapMode = mapMode;
 	},
 
 	//

@@ -16,6 +16,7 @@
 \******************************************************************************/
 
 import ToolbarView from './toolbar-view.js';
+import QueryString from '../../utilities/web/query-string.js';
 
 export default ToolbarView.extend({
 
@@ -83,6 +84,14 @@ export default ToolbarView.extend({
 		return this.$el.find('#show-map-labels').hasClass('selected');
 	},
 
+	addQueryParams: function(params) {
+		let mode = this.getMapMode();
+		if (mode != 'map') {
+			params.set('mode', mode);
+		}
+		return params;
+	},
+
 	//
 	// getting methods
 	//
@@ -97,11 +106,9 @@ export default ToolbarView.extend({
 		}
 	},
 
-	getQueryParams: function(params) {
-		let mode = this.getMapMode();
-		if (mode != 'map') {
-			params.set('mode', mode);
-		}
+	getQueryParams: function() {
+		let params = new URLSearchParams();
+		this.addQueryParams(params);
 		return params;
 	},
 
@@ -110,23 +117,7 @@ export default ToolbarView.extend({
 	//
 
 	setMapMode: function(mapMode) {
-
-		// fetch full department info for graph mode
-		//
-		if (mapMode == 'graph' && !this.units_loaded) {
-			this.parent.fetchInstitutionUnits({
-				full: true,
-
-				// callbacks
-				//
-				success: (institutionUnits) => {
-					this.units_loaded = true;
-					this.parent.showInstitutionUnits(institutionUnits);
-					this.setMapMode(mapMode);
-				}
-			});
-			return;
-		}
+		let currentMapMode = this.parent.getMapMode();
 
 		// set button states
 		//
@@ -156,8 +147,25 @@ export default ToolbarView.extend({
 
 		// update map
 		//
-		if (this.parent.getMapMode() != mapMode) {
-			this.parent.setMapMode(mapMode);
+		if (currentMapMode != mapMode) {
+			if (mapMode == 'graph' && !this.units_loaded) {
+
+				// fetch full department info for graph mode
+				//
+				this.parent.fetchInstitutionUnits({
+					full: true,
+
+					// callbacks
+					//
+					success: (institutionUnits) => {
+						this.units_loaded = true;
+						this.parent.showInstitutionUnits(institutionUnits);
+						this.setMapMode(mapMode);
+					}
+				});
+			} else {
+				this.parent.setMapMode(mapMode);
+			}
 		}
 	},
 
@@ -167,6 +175,26 @@ export default ToolbarView.extend({
 		}
 	},
 
+	updateQueryString: function() {
+		let mapMode = this.getMapMode();
+
+		// add query to params
+		//
+		let params = QueryString.toObject();
+
+		// update map mode
+		//
+		if (mapMode != 'map') {
+			params.mode = mapMode;
+		} else {
+			delete params.mode;
+		}
+
+		// set address bar
+		//
+		QueryString.set(QueryString.encode(params));
+	},
+
 	//
 	// mouse event handling methods
 	//
@@ -174,21 +202,21 @@ export default ToolbarView.extend({
 	onClickShowMapMode: function() {
 		if (this.getMapMode() != 'map') {
 			this.setMapMode('map');
-			this.parent.getChildView('search').updateQueryString();
+			this.updateQueryString();
 		}
 	},
 
 	onClickShowAerialMode: function() {
 		if (this.getMapMode() != 'aerial') {
 			this.setMapMode('aerial');
-			this.parent.getChildView('search').updateQueryString();
+			this.updateQueryString();
 		}
 	},
 
 	onClickShowGraphMode: function() {
 		if (this.getMapMode() != 'graph') {
 			this.setMapMode('graph');
-			this.parent.getChildView('search').updateQueryString();
+			this.updateQueryString();
 		}
 	},
 

@@ -93,6 +93,19 @@ export default ToolbarView.extend({
 		return !this.show_range;
 	},
 
+	addQueryParams: function(params) {
+		if (this.isVisible()) {
+			if (this.hasRange()) {
+				let range = this.getRange();
+				params.set('from', range[0]);
+				params.set('to', range[1]);
+			} else if (this.hasYear()) {
+				params.set('year', this.getYear());
+			}
+		}
+		return params;
+	},
+
 	//
 	// getting methods
 	//
@@ -105,16 +118,9 @@ export default ToolbarView.extend({
 		return this.value;
 	},
 
-	getQueryParams: function(params) {
-		if (this.isVisible()) {
-			if (this.hasRange()) {
-				let range = this.getRange();
-				params.set('from', range[0]);
-				params.set('to', range[1]);
-			} else if (this.hasYear()) {
-				params.set('year', this.getYear());
-			}
-		}
+	getQueryParams: function() {
+		let params = new URLSearchParams();
+		this.addQueryParams(params);
 		return params;
 	},
 

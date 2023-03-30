@@ -46,14 +46,24 @@ export default ToolbarView.extend({
 	},
 
 	//
-	// getting methods
+	// querying methods
 	//
 
-	getQueryParams: function(params) {
+	addQueryParams: function(params) {
 		let items = this.getItems();
 		if (items) {
 			params.set('items', items);
 		}
+		return params;
+	},
+
+	//
+	// getting methods
+	//
+
+	getQueryParams: function() {
+		let params = new URLSearchParams();
+		this.addQueryParams(params);
 		return params;
 	},
 

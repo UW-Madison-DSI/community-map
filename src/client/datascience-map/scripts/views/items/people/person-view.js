@@ -197,6 +197,17 @@ export default BaseView.extend({
 		return JSON.stringify(data, null, 4);
 	},
 
+	addQueryParams: function(params) {
+
+		// add activity to params
+		//
+		if (this.info && this.info != 'profile') {
+			params.set('info', this.info);
+		}
+
+		return params;
+	},
+
 	//
 	// getting methods
 	//
@@ -206,14 +217,9 @@ export default BaseView.extend({
 		return Object.fromEntries(urlSearchParams.entries());
 	},
 
-	getQueryParams: function(params) {
-
-		// add activity to params
-		//
-		if (this.info && this.info != 'profile') {
-			params.set('info', this.info);
-		}
-
+	getQueryParams: function() {
+		let params = new URLSearchParams();
+		this.addQueryParams(params);
 		return params;
 	},
 

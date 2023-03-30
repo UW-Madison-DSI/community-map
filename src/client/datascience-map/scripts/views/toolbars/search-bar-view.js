@@ -43,6 +43,38 @@ export default ToolbarView.extend({
 	},
 
 	//
+	// querying methods
+	//
+
+	addQueryParams: function(params) {
+
+		// add search to params
+		//
+		let query = this.getValue();
+		if (query) {
+			params.set('query', query);
+		}
+
+		// add date to params
+		//
+		params = this.parent.getChildView('date').addQueryParams(params);
+
+		// add map mode to params
+		//
+		params = this.parent.getChildView('map').addQueryParams(params);
+
+		// add filters to params
+		//
+		let topView = this.getTopView();
+		let sidebar = topView.getChildView('sidebar');
+		if (sidebar && sidebar.getQueryParams) {
+			params = sidebar.getQueryParams(params);
+		}
+
+		return params;
+	},
+
+	//
 	// getting methods
 	//
 
@@ -55,21 +87,9 @@ export default ToolbarView.extend({
 		return Object.fromEntries(urlSearchParams.entries());
 	},
 
-	getQueryParams: function(params) {
-		let query = this.getValue();
-		params.set('query', query);
-
-		// update params
-		//
-		params = this.parent.getChildView('date').getQueryParams(params);
-		params = this.parent.getChildView('map').getQueryParams(params);
-
-		let topView = this.getTopView();
-		let sidebar = topView.getChildView('sidebar');
-		if (sidebar && sidebar.getQueryParams) {
-			params = sidebar.getQueryParams(params);
-		}
-
+	getQueryParams: function() {
+		let params = new URLSearchParams();
+		this.addQueryParams(params);
 		return params;
 	},
 
@@ -132,15 +152,14 @@ export default ToolbarView.extend({
 	},
 
 	updateQueryString: function() {
-		let params = new URLSearchParams();
 
 		// add query to params
 		//
-		params = this.getQueryParams(params);
+		let params = this.getQueryParams();
 
 		// set address bar
 		//
-		application.setQueryString(params.toString());
+		QueryString.set(params.toString());
 	},
 
 	//

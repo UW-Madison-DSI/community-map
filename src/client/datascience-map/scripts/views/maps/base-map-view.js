@@ -319,15 +319,20 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 	//
 
 	setMapMode: function(mapMode) {
-		if (mapMode == 'graph') {
-			this.fadeOut();
-		} else {
-			if (this.mapMode == 'graph') {
-				this.fadeIn();
-			}
-			this.map.view = mapMode;
-			this.tiles.render();
+
+		// check if current mode matches desired mode
+		//
+		if (this.mapMode == mapMode) {
+			return;
 		}
+
+		// update map tiles
+		//
+		this.map.view = mapMode;
+		this.tiles.render();
+
+		// set attributes
+		//
 		this.mapMode = mapMode;
 	},
 

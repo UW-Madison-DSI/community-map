@@ -35,7 +35,7 @@ export default CollectionView.extend({
 				<i class="collapse fa fa-caret-down"</div></i>
 				<i class="expand fa fa-caret-right"</div></i>
 			</div>
-			<span class="select"><input type="checkbox" /></span>
+			<span class="select"><input type="checkbox"<% if (checked) { %> checked<% } %> /></span>
 			<span class="name"><%= name %></span>
 			<span class="count"><div class="badge"><%= count %></div></span>
 		</div>
@@ -221,7 +221,8 @@ export default CollectionView.extend({
 	templateContext: function() {
 		return {
 			name: this.model? this.model.get('name'): 'All',
-			count: this.model? this.model.get('count') : ''
+			count: this.model? this.model.get('count') : '',
+			checked: this.options.checked
 		};
 	},
 
@@ -258,6 +259,10 @@ export default CollectionView.extend({
 		if (!child.has('collection')) {
 			return new LeafView({
 				model: child,
+
+				// options
+				//
+				checked: this.options.checked,
 				parent: this,
 
 				// callbacks
@@ -267,8 +272,12 @@ export default CollectionView.extend({
 		} else {
 			return new this.constructor({
 				model: child,
+
+				// options
+				//
 				collection: child.get('collection'),
 				expanded: this.options.expanded,
+				checked: this.options.checked,
 				parent: this,
 
 				// callbacks
@@ -280,7 +289,8 @@ export default CollectionView.extend({
 
 	childViewOptions: function() {
 		return {
-			onclick: this.options.onclick
+			onclick: this.options.onclick,
+			checked: this.options.checked
 		};
 	},
 
