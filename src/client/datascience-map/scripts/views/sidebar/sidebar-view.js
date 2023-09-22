@@ -1,10 +1,10 @@
 /******************************************************************************\
 |                                                                              |
-|                                info-view.js                                  |
+|                                sidebar-view.js                               |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
-|        This defines a simple info view.                                      |
+|        This defines a sidebar information view.                              |
 |                                                                              |
 |        Author(s): Abe Megahed                                                |
 |                                                                              |

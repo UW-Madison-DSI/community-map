@@ -17,9 +17,8 @@
 
 import Buildings from '../collections/buildings.js';
 import SplitView from '../views/layout/split-view.js';
-import InfoView from '../views/sidebar/info-view.js';
+import SideBarView from '../views/sidebar/sidebar-view.js';
 import PersonView from '../views/sidebar/people/person-view.js';
-import PeopleView from '../views/sidebar/people/people-view.js';
 import PlacesView from '../views/sidebar/places/places-view.js';
 import PeopleMapView from '../views/maps/people-map-view.js';
 import Browser from '../utilities/web/browser.js';
@@ -83,7 +82,7 @@ export default SplitView.extend({
 	},
 
 	getSideBarView: function() {
-		return new InfoView({
+		return new SideBarView({
 
 			// callbacks
 			//
@@ -217,12 +216,6 @@ export default SplitView.extend({
 		// show sidebar
 		//
 		this.getChildView('sidebar').showPeopleCounts(people);
-	},
-
-	showSelectedPeople: function(people, options) {
-		this.showChildView('sidebar', new PeopleView(_.extend({
-			collection: people
-		}, options)));
 	},
 
 	showPlace: function(place, options) {

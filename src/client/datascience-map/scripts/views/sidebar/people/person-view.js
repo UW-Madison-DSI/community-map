@@ -166,6 +166,23 @@ export default BaseView.extend({
 		return params;
 	},
 
+	getMapView: function() {
+		let topView = this.getTopView();
+		let mainView = topView.getChildView('content');
+		return mainView.getChildView('mainbar');
+	},
+
+	getPersonView: function() {
+		let mapView = this.getMapView();
+		if (mapView.peopleView) {
+			let personView = mapView.peopleView.children.findByModel(this.model);
+			if (!personView) {
+				personView = mapView.peopleView.children.findByIndex(0);
+			}
+			return personView;
+		}
+	},
+
 	//
 	// setting methods
 	//
@@ -192,14 +209,13 @@ export default BaseView.extend({
 	},
 
 	onRender: function() {
-		let info = this.getSearchParams().info || 'profile';
 
 		// set initial state
 		//
 		this.$el.find('li').hide();
 		this.$el.find('li.profile').show();
-		this.setActiveTab(info);
-		this.showInfo(info);
+		this.setActiveTab('profile');
+		this.showProfile();
 
 		// fetch model counts
 		//
@@ -208,7 +224,7 @@ export default BaseView.extend({
 
 			// callbacks
 			//
-			success: (model) => {
+			success: () => {
 				this.hideSpinner();
 			}
 		});
@@ -216,25 +232,6 @@ export default BaseView.extend({
 		// add tooltip triggers
 		//
 		this.addTooltips();
-	},
-
-	showInfo: function(info) {
-		let topView = this.getTopView();
-		let mainView = topView.getChildView('content');
-		let mapView = mainView.getChildView('mainbar');
-		let personView;
-
-		if (mapView.peopleView) {
-			personView = mapView.peopleView.children.findByModel(this.model);
-			if (!personView) {
-				personView = mapView.peopleView.children.findByIndex(0);
-			}
-			this.personView = personView;
-		}
-
-		// show sub views
-		//
-		this.showProfile();
 	},
 
 	showProfile: function() {

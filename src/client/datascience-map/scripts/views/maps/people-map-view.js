@@ -267,18 +267,6 @@ export default CampusMapView.extend({
 	},
 
 	//
-	// selection hiding methods
-	//
-
-	showUnselectedPeople: function() {
-		this.viewport.$el.removeClass('hide-unselected-people');
-	},
-
-	hideUnselectedPeople: function() {
-		this.viewport.$el.addClass('hide-unselected-people');
-	},
-
-	//
 	// rendering methods
 	//
 
