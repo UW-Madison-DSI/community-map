@@ -31,7 +31,6 @@ import AcademicConferenceProceedings from '../../collections/academic/activities
 import AcademicGrants from '../../collections/academic/activities/academic-grants.js';
 import AcademicPatents from '../../collections/academic/activities/academic-patents.js';
 import AcademicTechnologies from '../../collections/academic/activities/academic-technologies.js';
-import GoogleScholarPeople from '../../collections/google-scholar/google-scholar-people.js';
 
 // views
 //
