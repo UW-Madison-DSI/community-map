@@ -28,7 +28,7 @@ export default BaseView.extend({
 			<li><i class="fa fa-user-plus"></i>Add Me</li>
 		</ol>
 
-		<p>If you are a UW data scientist or data science practitioner, you can add yourself to the map to connect with the UW data science community. Once you've added yourself to the map, you can update or delete your profile at any time. </p>
+		<p>If you are a UW <%= community %> practitioner, you can add yourself to the map to connect with the UW <%= community %> community. Once you've added yourself to the map, you can update or delete your profile at any time. </p>
 		
 		<hr />
 
@@ -90,6 +90,18 @@ export default BaseView.extend({
 	//
 	// rendering methods
 	//
+
+	templateContext: function() {
+		let community = defaults.community || '';
+
+		if (community == 'all') {
+			community = 'research';
+		}
+
+		return {
+			community: community.replace(/-/g, ' ')
+		};
+	},
 
 	onRender: function() {
 

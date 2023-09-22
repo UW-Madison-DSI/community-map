@@ -31,6 +31,12 @@ Promise.all([
 	window.config = files[0];
 	window.defaults = files[1];
 
+	// set web page title
+	//
+	if (window.defaults.navbar.title) {
+		document.title = window.defaults.navbar.title;
+	}
+
 	// go!
 	//
 	$(document).ready(() => {

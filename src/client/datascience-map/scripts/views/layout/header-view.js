@@ -23,26 +23,30 @@ export default BaseView.extend({
 			<div class="container">
 
 				<a id="brand" href="#" id="brand" class="active navbar-brand">
-					<img class="logo" src="images/uw-crest.png" />
-					<%= defaults.application.title %>
+					<img class="logo" src="<%= defaults.navbar.icon %>" />
+					<%= defaults.navbar.title %>
 				</a>
 
-				<ul class="nav navbar-nav hidden-xs">
-					<li<% if (nav == 'about') {%> class="active" <% } %>>
-						<a id="about"><i class="fa fa-info-circle"></i>About</a>
+				<% if (defaults.navbar.navs) { %>
+				<ul class="nav navbar-nav">
+					<% let keys = Object.keys(defaults.navbar.navs); %>
+					<% for (let i = 0; i < keys.length; i++) { %>
+					<% let key = keys[i]; %>
+					<% let item = defaults.navbar.navs[key]; %>
+					<li class="<%= key %><% if (nav == key) {%> active <% } %>">
+						<a href="<%= item.href %>">
+							<i class="<%= item.icon %>"></i>
+							<span class="hidden-xs"><%= item.text %></span>
+						</a>
 					</li>
-					<li<% if (nav == 'help') {%> class="active" <% } %>>
-						<a id="help"><i class="fa fa-question-circle"></i>Help</a>
-					</li>
-					<li<% if (nav == 'contact') {%> class="active" <% } %>>
-						<a id="contact"><i class="fa fa-envelope"></i>Contact</a>
-					</li>
+					<% } %>
 				</ul>
+				<% } %>
 
 				<ul class="title-bar nav navbar-nav hidden-xs">
 					<li class="hidden-sm hidden-xs">
 						<a href="http://www.wisc.edu" target="_blank" style="padding:0">
-							<img src="images/uw-header.png" height="40px" />
+							<span style="color:white;line-height:40px">UNIVERSITY OF WISCONSIN-MADISON</span>
 						</a>
 					</li>
 				</ul>

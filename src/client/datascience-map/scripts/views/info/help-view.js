@@ -91,6 +91,15 @@ export default BaseView.extend({
 						<div class="caption">Search By Topic</div>
 					</div>
 				</div>
+
+				<p>When you click on a person's icon, the map will display that person's profile page.  On the profile page, the sidebar will contain information about that person's affiliations and accomplishments and the mainbar will show that person's campus location. </p>
+
+				<div class="row">
+					<div class="figure col-sm-8" style="float:none; margin:auto">
+						<a href="images/profile.png" target="_blank" class="lightbox" title="A Person's Profile"><img src="images/profile.png" /></a>
+						<div class="caption">A Person's Profile</div>
+					</div>
+				</div>
 			</li>
 		</ul>
 

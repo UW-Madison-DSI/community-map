@@ -10,9 +10,15 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import Person from './models/person.js';
+import BaseView from './views/base-view.js';
 
 export default Backbone.Router.extend({
+
+	//
+	// attributes
+	//
+
+	templates: 'templates',
 
 	//
 	// route definitions
@@ -23,10 +29,6 @@ export default Backbone.Router.extend({
 		// main routes
 		//
 		'': 'showWelcome',
-
-		'about': 'showAbout',
-		'contact': 'showContact',
-		'help': 'showHelp',
 		
 		// user registration routes
 		//
@@ -56,14 +58,14 @@ export default Backbone.Router.extend({
 		'overview': 'showSystemOverview',
 		'accounts/review(?*query_string)': 'showReviewAccounts',
 
-		// privacy routes
-		//
-		'privacy': 'showPrivacyPolicy',
-		'cookies': 'showCookieConsent',
-
 		// user account routes
 		//
-		'accounts/:id(/:nav)': 'showUserAccount'
+		'accounts/:id(/:nav)': 'showUserAccount',
+
+		// info routes
+		//
+		'contact': 'showContact',
+		'*address': 'showInfo'
 	},
 
 	//
@@ -72,52 +74,13 @@ export default Backbone.Router.extend({
 
 	showWelcome: function() {
 		import(
-			'./views/welcome-view.js'
-		).then((WelcomeView) => {
+			'./views/main-split-view.js'
+		).then((MainSplitView) => {
 
 			// show home view
 			//
-			application.show(new WelcomeView.default(), {
+			application.show(new MainSplitView.default(), {
 				full_screen: true
-			});
-		});
-	},
-
-	showAbout: function() {
-		import(
-			'./views/info/about-view.js'
-		).then((AboutView) => {
-
-			// show about view
-			//
-			application.show(new AboutView.default(), {
-				nav: 'about'
-			});
-		});
-	},
-
-	showContact: function() {
-		import(
-			'./views/info/contact-view.js'
-		).then((ContactView) => {
-
-			// show contact view
-			//
-			application.show(new ContactView.default(), {
-				nav: 'contact'
-			});
-		});
-	},
-
-	showHelp: function() {
-		import(
-			'./views/info/help-view.js'
-		).then((HelpView) => {
-
-			// show help view
-			//
-			application.show(new HelpView.default(), {
-				nav: 'help'
 			});
 		});
 	},
@@ -320,14 +283,15 @@ export default Backbone.Router.extend({
 	//
 
 	showUserProfile: function(id) {
-		import(
-			'./views/person-view.js'
-		).then((PersonView) => {
+		Promise.all([
+			import('./models/person.js'),
+			import('./views/person-view.js'),
+		]).then(([Person, PersonView]) => {
 
 			// show home view
 			//
 			application.show(new PersonView.default({
-				person: new Person({
+				person: new Person.default({
 					id: id
 				})
 			}), {
@@ -337,31 +301,71 @@ export default Backbone.Router.extend({
 	},
 
 	//
-	// privacy route handlers
+	// info page route handlers
 	//
 
-	showPrivacyPolicy: function() {
-		import(
-			'./views/policies/privacy-policy-view.js'
-		).then((PrivacyPolicyView) => {
+	showInfo: function(address) {
+		this.fetchTemplate(address, (text) => {
 
-			// show edit my profile view
+			// show info page
 			//
-			application.show(new PrivacyPolicyView.default(), {
-				nav: 'privacy'
+			application.show(new BaseView({
+				template: _.template(text)
+			}), {
+				nav: address.contains('/')? address.split('/')[0] : address
 			});
 		});
 	},
 
-	showCookieConsent: function() {
+	showContact: function() {
 		import(
-			'./views/policies/cookie-consent-view.js'
-		).then((CookieConsentView) => {
+			'./views/info/contact-view.js'
+		).then((ContactView) => {
 
-			// show edit my profile view
+			// show contact view
 			//
-			application.show(new CookieConsentView.default(), {
-				nav: 'cookies'
+			application.show(new ContactView.default(), {
+				nav: 'contact'
+			});
+		});
+	},
+
+	//
+	// error route handlers
+	//
+
+	showNotFound: function(options) {
+		import(
+			'./views/not-found-view.js'
+		).then((NotFoundView) => {
+
+			// show not found page
+			//
+			application.show(new NotFoundView.default(options));
+		});
+	},
+
+	//
+	// utility methods
+	//
+
+	fetchTemplate(address, callback) {
+		fetch(this.templates + '/' + address + '.tpl').then(response => {
+			if (!response.ok) {
+				throw response;
+			}
+			return response.text();
+		}).then(template => {
+			callback(template);
+			return;
+		}).catch(error => {
+
+			// show 404 page
+			//
+			this.showNotFound({
+				title: "Page Not Found",
+				message: "The page that you are looking for could not be found: " + address,
+				error: error
 			});
 		});
 	}

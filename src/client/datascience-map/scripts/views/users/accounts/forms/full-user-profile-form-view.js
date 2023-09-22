@@ -16,7 +16,7 @@
 \******************************************************************************/
 
 import FormView from '../../../../views/forms/form-view.js';
-import TreeView from '../../../../views/items/trees/tree-view.js';
+import TreeView from '../../../../views/sidebar/trees/tree-view.js';
 import '../../../../views/forms/validation/alphanumeric-rules.js';
 import '../../../../views/forms/validation/authentication-rules.js';
 
@@ -116,6 +116,22 @@ export default FormView.extend({
 							Have you applied and been selected to participate in the <a href="https://datascience.wisc.edu/dsi-affiliates" target="_blank">Data Science Institute Affiliate Program</a>?
 						</label>
 					</div>
+				</div>
+			</div>
+
+			<div class="form-group" id="communities">
+				<label class="control-label">Communities</label>
+				<div class="controls">
+					<% for (i = 0; i < all_communities.length; i++) { %>
+					<% let community = all_communities[i]; %>
+					<% let communityName = community.replace(/-/g, ' ').toTitleCase(); %>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="<%= community %>"<% if (!communities || communities.includes(community)) { %> checked="checked" <% } %> />
+							<%= communityName %>
+						</label>
+					</div>
+					<% } %>
 				</div>
 			</div>
 
@@ -319,10 +335,32 @@ export default FormView.extend({
 	
 	initialize: function() {
 		this.terms = application.getCollection(defaults.terms);	
+		this.termsList = this.toList(defaults.terms);
 
 		// add custom form validation rules
 		//
 		this.addRules();
+	},
+
+	toList: function(object) {
+		let list = [];
+		if (object) {
+			let keys = Object.keys(object);
+			for (let i = 0; i < keys.length; i++) {
+				let key = keys[i];
+				let item = object[key];
+				list.push(key);
+				if (item) {
+					if (Array.isArray(item)) {
+						list = list.concat(item);
+					} else if (typeof item == 'object') {
+						let sublist = this.toList(item);
+						list = list.concat(sublist);
+					}
+				}
+			}
+		}
+		return list;
 	},
 
 	//
@@ -349,6 +387,14 @@ export default FormView.extend({
 	//
 	// getting methods
 	//
+
+	getCommunities: function() {
+		var selected = [];
+		$('#communities input:checked').each(function() {
+			selected.push($(this).val());
+		});
+		return selected;
+	},
 
 	getTerms: function() {
 		return this.getChildView('terms').getValues();
@@ -409,6 +455,8 @@ export default FormView.extend({
 				}
 			case 'is_affiliate':
 				return this.$el.find('#is-affiliate input').is(':checked');
+			case 'communities':
+				return this.getCommunities();
 
 			// institution
 			//
@@ -422,7 +470,7 @@ export default FormView.extend({
 			case 'research_summary':
 				return this.$el.find('#research-summary textarea').val();
 			case 'research_terms':
-				return this.getTerms();
+				return this.getTerms().concat(this.getValue('research_interests'));
 			case 'research_interests':
 				return this.getTermList(this.$el.find('#research-interests input').val());
 
@@ -484,6 +532,7 @@ export default FormView.extend({
 			primary_unit_affiliation: this.getValue('department'),
 			non_primary_unit_affiliation_ids: [this.getDepartmentId('Data Science')],
 			is_affiliate: this.getValue('is_affiliate'),
+			communities: this.getValue('communities'),
 
 			// institution
 			//
@@ -494,7 +543,6 @@ export default FormView.extend({
 			//
 			research_summary: this.getValue('research_summary'),
 			research_terms: this.getValue('research_terms'),
-			research_interests: this.getValue('research_interests'),
 
 			// academic
 			//
@@ -523,6 +571,17 @@ export default FormView.extend({
 				return department.get('id');
 			}
 		}
+	},
+
+	getOtherAttributes: function(attributes) {
+		let otherAttributes = [];
+		for (let i = 0; i < attributes.length; i++) {
+			let attribute = attributes[i];
+			if (!this.termsList.includes(attribute)) {
+				otherAttributes.push(attribute);
+			}
+		}
+		return otherAttributes;
 	},
 
 	//
@@ -607,17 +666,17 @@ export default FormView.extend({
 			// professional
 			//
 			case 'department_id': {
-				this.$el.find('#department select').val(value);
 				if (value) {
-					this.$el.find('#other-department').hide();
+					this.$el.find('#department select').val(value);
+					this.hideOtherDepartment();
+				} else if (value == 0) {
+					this.$el.find('#department select').val('other');
+					this.showOtherDepartment();
 				}
 				break;
 			}
 			case 'department': {
-				if (value && typeof(value) == 'string') {
-					this.$el.find('#department select').val('other');
-					this.$el.find('#other-department input').val(value);
-				}
+				this.$el.find('#other-department input').val(value? value.name : '');
 				break;
 			}
 			case 'appointment_type':
@@ -634,10 +693,13 @@ export default FormView.extend({
 				break;
 			case 'research_terms':
 				this.setTerms(value);
+				this.$el.find('#research-interests input').val(this.getOtherAttributes(value).join(', '));
 				break;
+			/*
 			case 'research_interests':
 				this.$el.find('#research-interests input').val(value.join(', '));
 				break;
+			*/
 
 			// academic
 			//
@@ -688,10 +750,17 @@ export default FormView.extend({
 	//
 
 	templateContext: function() {
+		let communities = this.model.get('communities');
+		if (!communities || communities.length == 0) {
+			communities = [defaults.community];
+		}
+
 		return {
 			name: this.model.getName(),
 			departments: this.options.departments,
 			appointment_types: defaults.appointment_types,
+			communities: communities,
+			all_communities: defaults.communities,
 			buildings: this.options.buildings,
 			interests: defaults.interests
 		}
@@ -769,6 +838,7 @@ export default FormView.extend({
 
 	onChangeDepartment: function() {
 		if (this.$el.find('#department select').val() == 'other') {
+			this.$el.find('#other-department input').val('');
 			this.showOtherDepartment();
 		} else {
 			this.hideOtherDepartment();

@@ -314,6 +314,7 @@ export default ToolbarView.extend({
 		this.parent.getPeople(options.source).fetchAll({
 			term: query,
 			institution_unit: 10000,
+			community: defaults.community,
 			exact: options.exact
 		}, {
 
@@ -371,7 +372,8 @@ export default ToolbarView.extend({
 
 		this.parent.getPeople(options.source).fetchAll({
 			name: name,
-			institution_unit: 10000
+			institution_unit: 10000,
+			community: defaults.community
 		}, {
 
 			// callbacks

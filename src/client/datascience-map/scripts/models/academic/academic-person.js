@@ -107,17 +107,19 @@ export default Person.extend({
 
 	parsePrimaryAffiliation(response) {
 		if (response.primaryUnitAffiliation) {
+			return response.primaryUnitAffiliation.baseName;
+		} else if (response.otherPrimaryUnitAffiliation) {
+			return response.otherPrimaryUnitAffiliation;
+		} else if (response.unitName) {
+			return response.unitName;
+		}
+	},
 
-			// check if primary unit affiliation in an object
-			//
-			if (response.primaryUnitAffiliation.baseName) {
-				return response.primaryUnitAffiliation.baseName;
-
-			// primary unit affiliation is a string (other)
-			//
-			} else {
-				return response.primaryUnitAffiliation;
-			}
+	parsePrimaryAffiliationName(response) {
+		if (response.primaryUnitAffiliation) {
+			return response.primaryUnitAffiliation.name;
+		} else if (response.otherPrimaryUnitAffiliation) {
+			return response.otherPrimaryUnitAffiliation;
 		} else if (response.unitName) {
 			return response.unitName;
 		}
@@ -164,8 +166,10 @@ export default Person.extend({
 			// affiliation info
 			//
 			primary_affiliation: this.parsePrimaryAffiliation(response),
+			primary_affiliation_name: this.parsePrimaryAffiliationName(response),
 			affiliations: this.parseAffiliations(response),
 			is_affiliate: response.isAffiliate == 1,
+			communities: response.communities,
 
 			// institution info
 			//

@@ -58,30 +58,6 @@ export default BaseModel.extend({
 		image: undefined,
 		homepage: undefined,
 
-		// activities
-		//
-		collaborators: undefined,
-		articles: undefined,
-		awards: undefined,
-		book_chapters: undefined,
-		books: undefined,
-		conference_proceedings: undefined,
-		grants: undefined,
-		patents: undefined,
-		technologies: undefined,
-
-		// counts
-		//
-		num_collaborators: undefined,
-		num_articles: undefined,
-		num_awards: undefined,
-		num_book_chapters: undefined,
-		num_books: undefined,
-		num_conference_proceedings: undefined,
-		num_grants: undefined,
-		num_patents: undefined,
-		num_technologies: undefined,
-
 		// account info
 		//
 		email: undefined,

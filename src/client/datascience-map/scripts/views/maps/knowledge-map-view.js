@@ -461,6 +461,9 @@ export default CampusMapView.extend({
 	showDepartmentPeople: function(source, department, options) {
 		if (!directory[department]) {
 			this.getPeople(source).fetchByInstitutionUnit(department, {
+				data: {
+					community: defaults.community
+				},
 
 				// callbacks
 				//
@@ -470,6 +473,9 @@ export default CampusMapView.extend({
 					// add affilations
 					//
 					this.getPeople(source).fetchByInstitutionUnitAffiliation(department, {
+						data: {
+							community: defaults.community
+						},
 
 						// callbacks
 						//

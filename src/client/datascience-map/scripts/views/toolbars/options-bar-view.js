@@ -29,7 +29,8 @@ export default ToolbarView.extend({
 	template: _.template(`
 		<div class="buttons">
 			<button id="show-filters" data-toggle="tooltip" title="Show / Hide Filters" data-placement="left">
-				<i class="fa fa-bars"></i>
+				<i class="fa fa-caret-down"></i>
+				<i class="fa fa-caret-up"></i>
 			</button>
 		</div>
 	`),

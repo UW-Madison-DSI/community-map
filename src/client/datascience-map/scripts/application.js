@@ -158,6 +158,13 @@ export default Marionette.Application.extend({
 
 	getCollection: function(items) {
 		let collection = new BaseCollection();
+
+		// check if we have any items
+		//
+		if (!items) {
+			return collection;
+		}
+
 		if (items.length) {
 			for (let i = 0; i < items.length; i++) {
 				collection.add(new BaseModel({

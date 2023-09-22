@@ -16,10 +16,10 @@
 \******************************************************************************/
 
 import Person from '../models/academic/academic-person.js';
-import WelcomeView from '../views/welcome-view.js';
+import MainSplitView from '../views/main-split-view.js';
 import AffiliatesMapView from '../views/maps/affiliates-map-view.js';
 
-export default WelcomeView.extend({
+export default MainSplitView.extend({
 
 	//
 	// methods

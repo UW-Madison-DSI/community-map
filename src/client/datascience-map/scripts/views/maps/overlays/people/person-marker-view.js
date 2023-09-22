@@ -244,21 +244,16 @@ export default LabeledMarkerView.extend({
 		//
 		LabeledMarkerView.prototype.onSelect.call(this, event);
 
-		// show person
+		// select item
 		//
-		if (mapView.people.length > 1) {
+		this.options.parent.select();
 
-			// select item
-			//
-			this.options.parent.select();
-
-			// show person in sidebar
-			//
-			mainView.showPerson(this.model, {
-				query: queryBarView? queryBarView.getValue() : undefined,
-				zoom_to: true
-			});
-		}
+		// show person in sidebar
+		//
+		mainView.showPerson(this.model, {
+			query: queryBarView? queryBarView.getValue() : undefined,
+			zoom_to: true
+		});
 	}
 }, {
 

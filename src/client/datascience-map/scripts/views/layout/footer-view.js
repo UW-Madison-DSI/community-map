@@ -24,11 +24,16 @@ export default BaseView.extend({
 			<a href="<%= defaults.application.organization.url%>" target="_blank"><img class="logo" src="images/uw-logo-white.png" /></a>
 			<p>
 				Copyright &copy; <%= defaults.application.year %>
-				<a href="<%= defaults.application.department.url %>" target="_blank"><%= defaults.application.department.name %></a>, 
+				<% if (defaults.application.department) { %>
+				<a href="<%= defaults.application.department.url %>" target="_blank"><%= defaults.application.department.name %></a>
+				<% } %>
+				<% if (defaults.application.organization) { %>
 				<a href="<%= defaults.application.organization.url %>" target="_blank"><%= defaults.application.organization.name %></a>
+				<% } %>
 				<br />
-				<a href="#privacy">Privacy Policy</a> | 
-				<a href="#cookies">Cookie Policy</a> |
+				<a href="#privacy">Privacy</a> |
+				<a href="#cookies">Cookies</a> |
+				<a href="#contact" id="contact">Contact</a> |
 				<a id="credits">Credits</a>
 			</p>
 		</div>
