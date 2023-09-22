@@ -21,7 +21,7 @@ import InfoView from '../views/sidebar/info-view.js';
 import PersonView from '../views/sidebar/people/person-view.js';
 import PeopleView from '../views/sidebar/people/people-view.js';
 import PlacesView from '../views/sidebar/places/places-view.js';
-import AffiliatesMapView from '../views/maps/affiliates-map-view.js';
+import PeopleMapView from '../views/maps/people-map-view.js';
 import Browser from '../utilities/web/browser.js';
 import AddressBar from '../utilities/web/address-bar.js';
 
@@ -66,7 +66,7 @@ export default SplitView.extend({
 	},
 
 	getMainBarView: function() {
-		return new AffiliatesMapView({
+		return new PeopleMapView({
 			el: this.$el.find('.mainbar')[0],
 			latitude: 43.0740,
 			longitude: 89.406,
@@ -150,7 +150,7 @@ export default SplitView.extend({
 		// hide search bar
 		//
 		if (mapView) {
-			mapView.hideSearchBar();
+			mapView.setToolbarVisible('search', false);
 		}
 
 		// set url

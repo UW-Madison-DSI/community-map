@@ -15,16 +15,16 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import KnowledgeMapView from '../../views/maps/knowledge-map-view.js';
+import PeopleMapView from '../../views/maps/people-map-view.js';
 
-export default KnowledgeMapView.extend({
+export default PeopleMapView.extend({
 
 	//
 	// methods
 	//
 
 	start: function() {
-		KnowledgeMapView.prototype.start.call(this);
+		PeopleMapView.prototype.start.call(this);
 
 		// show affiliates if no search
 		//

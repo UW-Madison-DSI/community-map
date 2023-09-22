@@ -18,6 +18,7 @@
 import BaseCollection from '../collections/base-collection.js';
 import Person from '../models/person.js';
 import Departments from '../collections/departments.js';
+import QueryString from '../utilities/web/query-string.js';
 
 export default BaseCollection.extend({
 
@@ -110,5 +111,44 @@ export default BaseCollection.extend({
 			}
 		}
 		return matches;
+	},
+
+	//
+	// fetching methods
+	//
+
+	fetchAll(params, options) {
+		return this.fetch(_.extend({}, options, {
+			url: config.servers.academic + '/people?' + QueryString.encode(params),
+			parse: true
+		}));
+	},
+
+	fetchByName(name, options) {
+		return this.fetch(_.extend({}, options, {
+			url: config.servers.academic + '/people?name=' + encodeURIComponent(name),
+			parse: true
+		}));
+	},
+
+	fetchByLabel(label, options) {
+		return this.fetch(_.extend({}, options, {
+			url: config.servers.academic + '/people?term=' + encodeURIComponent(label),
+			parse: true
+		}));
+	},
+
+	fetchByInstitutionUnit(institutionUnit, options) {
+		return this.fetch(_.extend({}, options, {
+			url: config.servers.academic + '/institution-units/' + institutionUnit.get('id') + '/people',
+			parse: true
+		}));
+	},
+
+	fetchByInstitutionUnitAffiliation(institutionUnit, options) {
+		return this.fetch(_.extend({}, options, {
+			url: config.servers.academic + '/institution-units/' + institutionUnit.get('id') + '/affiliations',
+			parse: true
+		}));
 	}
 });

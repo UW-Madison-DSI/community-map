@@ -18,7 +18,7 @@
 import Vector2 from '../../utilities/math/vector2.js';
 import Buildings from '../../collections/buildings.js';
 import Departments from '../../collections/departments.js';
-import AcademicInstitutionUnits from '../../collections/academic/academic-institution-units.js';
+import InstitutionUnits from '../../collections/institution-units.js';
 import BaseMapView from '../../views/maps/base-map-view.js';
 import DepartmentMarkerView from '../../views/maps/overlays/departments/department-marker-view.js';
 import BuildingsView from '../../views/maps/overlays/buildings/buildings-view.js';
@@ -111,7 +111,7 @@ export default BaseMapView.extend({
 	},
 
 	fetchInstitutionUnits: function(options) {
-		this.getInstitutionUnits('academic_analytics').fetch({
+		new InstitutionUnits().fetch({
 			full: options && options.full,
 
 			// callbacks
@@ -151,13 +151,6 @@ export default BaseMapView.extend({
 	//
 	// getting methods
 	//
-
-	getInstitutionUnits: function(source) {
-		switch (source) {
-			case 'academic_analytics':
-				return new AcademicInstitutionUnits();
-		}
-	},
 
 	getDepartmentLocation: function(name) {
 		let department = this.departments[name];
@@ -328,16 +321,6 @@ export default BaseMapView.extend({
 		let fullnames = [];
 		let locations = [];
 		let weights = [];
-		let excludes = ['Academic', 'Alumni', 'Program', 'Programs', 
-			'Service', 'Services', 'Shop', 'Clinic', 'Inc', 'Bureau',
-			'Library', 'Print', 'Printing', 'iSchool', 'Plan', 'Summer', 'Continuing', 'Picnic',
-			'President', 'Exterminator', 'Chancellor', 'Administration', 'Bursar', 'System',
-			'Student', 'Major', 'Commons', 'Teacher', 'Enrollment', 'Housing',
-			'Cinema', 'Theatre', 'Theater', 'Information', 'Graduate', 
-			'Leadership', 'Wisconsin', 'University', 'UW', 'Tech', 'Plumbing',
-			'Licensing', 'Car', 'Learning', 'Studio', 'Cooperatives', 'Peace', 'Committee',
-			'WISCIENCE', 'WHA', 'WIDA', 'WCER', 'SCALE', 'SAGE', 'DiME', 'CIRTL', 'CCE', 'WARF',
-			'Monatshefte', 'Waisman', 'Sonderegger'];
 
 		// save departments
 		//
@@ -351,8 +334,10 @@ export default BaseMapView.extend({
 			let name = department.get('base_name');
 			let skip = false;
 
-			for (let i = 0; i < excludes.length; i++) {
-				if (fullname.includes(excludes[i])) {
+			// skip excluded departments
+			//
+			for (let i = 0; i < defaults.excluded_departments.length; i++) {
+				if (fullname.includes(defaults.excluded_departments[i])) {
 					skip = true;
 					break;
 				}

@@ -25,6 +25,7 @@ export default BaseCollection.extend({
 	//
 
 	model: InstitutionUnit,
+	url: config.servers.academic + '/institution-units',
 
 	//
 	// querying methods
@@ -37,5 +38,16 @@ export default BaseCollection.extend({
 				return model;
 			}
 		}
+	},
+
+	//
+	// fetching methods
+	//
+
+	fetch(options) {
+		return BaseCollection.prototype.fetch.call(this, _.extend({}, options, {
+			url: this.url + (options && options.full? '/full' : ''),
+			parse: true
+		}));
 	}
 });

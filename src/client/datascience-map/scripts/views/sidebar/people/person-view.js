@@ -18,19 +18,7 @@
 import '../../../../vendor/bootstrap/js/tab.js';
 import BaseView from '../../../views/base-view.js';
 import ProfileView from '../../../views/sidebar/people/profile/profile-view.js';
-import CollaboratorsView from '../../../views/sidebar/collaborators/collaborators-view.js';
 import AddressBar from '../../../utilities/web/address-bar.js';
-
-// activity views
-//
-import GrantsView from '../../../views/sidebar/activities/grants/grants-view.js';
-import ArticlesView from '../../../views/sidebar/activities/articles/articles-view.js';
-import AwardsView from '../../../views/sidebar/activities/awards/awards-view.js';
-import BookChaptersView from '../../../views/sidebar/activities/book-chapters/book-chapters-view.js';
-import BooksView from '../../../views/sidebar/activities/books/books-view.js';
-import ConferenceProceedingsView from '../../../views/sidebar/activities/conference-proceedings/conference-proceedings-view.js';
-import PatentsView from '../../../views/sidebar/activities/patents/patents-view.js';
-import TechnologiesView from '../../../views/sidebar/activities/technologies/technologies-view.js';
 
 export default BaseView.extend({
 
@@ -89,51 +77,6 @@ export default BaseView.extend({
 					<a class="icon" role="tab" data-toggle="tab">
 						<i class="fa fa-info-circle"></i>
 						<i class="fa fa-spinner spinning" style="display:none"></i>
-					</a>
-				</li>
-				<li role="presentation" class="collaborators tab" data-toggle="tooltip" title="Collaborators">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-users"></i>
-					</a>
-				</li>
-				<li role="presentation" class="grants tab" data-toggle="tooltip" title="Grants">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-money-check-dollar"></i>
-					</a>
-				</li>
-				<li role="presentation" class="articles tab" data-toggle="tooltip" title="Articles">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-file-text"></i>
-					</a>
-				</li>
-				<li role="presentation" class="book-chapters tab" data-toggle="tooltip" title="Book Chapters">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-book-open"></i>
-					</a>
-				</li>
-				<li role="presentation" class="books tab" data-toggle="tooltip" title="Books">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-book"></i>
-					</a>
-				</li>
-				<li role="presentation" class="conference-proceedings tab" data-toggle="tooltip" title="Conference Proceedings">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-microphone"></i>
-					</a>
-				</li>
-				<li role="presentation" class="patents tab" data-toggle="tooltip" title="Patents">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-lightbulb"></i>
-					</a>
-				</li>
-				<li role="presentation" class="technologies tab" data-toggle="tooltip" title="Technologies">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-gear"></i>
-					</a>
-				</li>
-				<li role="presentation" class="awards tab" data-toggle="tooltip" title="Awards">
-					<a class="icon" role="tab" data-toggle="tab">
-						<i class="fa fa-trophy"></i>
 					</a>
 				</li>
 			</ul>
@@ -232,18 +175,6 @@ export default BaseView.extend({
 		this.$el.find('li.' + tab.replace(/_/g, '-')).addClass('active');
 	},
 
-	setYear: function(value) {
-		if (this.hasChildView('details') && this.getChildView('details').setYear) {
-			this.getChildView('details').setYear(value);
-		}
-	},
-
-	setRange: function(values) {
-		if (this.hasChildView('details') && this.getChildView('details').setRange) {
-			this.getChildView('details').setRange(values);
-		}
-	},
-
 	//
 	// rendering methods
 	//
@@ -279,17 +210,8 @@ export default BaseView.extend({
 			//
 			success: (model) => {
 				this.hideSpinner();
-				this.showCounts(model);
 			}
 		});
-
-		// hide close button
-		//
-		/*
-		if (!mainView.savedPeople || mainView.savedPeople.length <= 1) {
-			this.$el.find('#close').hide();
-		}
-		*/
 
 		// add tooltip triggers
 		//
@@ -302,97 +224,17 @@ export default BaseView.extend({
 		let mapView = mainView.getChildView('mainbar');
 		let personView;
 
-		// set defaults
-		//
-		if (!info) {
-			info = 'profile';
-		}
-
 		if (mapView.peopleView) {
 			personView = mapView.peopleView.children.findByModel(this.model);
 			if (!personView) {
 				personView = mapView.peopleView.children.findByIndex(0);
 			}
 			this.personView = personView;
-
-			// show only one activity at a time
-			//
-			if (this.info == 'collaborators') {
-				personView.hideCollaborators();
-			} else if (this.info != 'profile') {
-				personView.hideActivity(this.info);
-			}
 		}
 
-		this.info = info;
-
-		// update query string
+		// show sub views
 		//
-		/*
-		if (mapView.hasChildView('search')) {
-			mapView.getChildView('search').updateQueryString();
-		}
-		*/
-
-		switch (info) {
-
-			case 'profile':
-				this.showProfile();
-
-				// configure map view
-				//
-				mapView.hideDateBar();
-				mapView.hideActivitiesBar();
-				break;
-
-			case 'collaborators':
-				personView.showCollaborators({
-
-					// callbacks
-					//
-					done: (collaboratorsView) => {
-						this.showCollaborators();
-
-						// configure map view
-						//
-						mapView.showDateBar();
-						mapView.hideActivitiesBar();
-
-						// zoom to collaborators
-						//
-						if (collaboratorsView) {
-							mapView.zoomToLocations(collaboratorsView.getLocations());
-						}
-					}
-				});
-				break;
-
-			default:
-				personView.showActivity(info, {
-
-					// callbacks
-					//
-					done: (activitiesView) => {
-						this.showActivity(info);
-
-						// configure map view
-						//
-						mapView.showDateBar();
-						mapView.showActivitiesBar();
-
-						// update activity date
-						//
-						mapView.getChildView('date').update();
-
-						// zoom to activity
-						//
-						if (activitiesView) {
-							mapView.zoomToLocations(activitiesView.getLocations());
-						}
-					}
-				});
-				break;
-		}
+		this.showProfile();
 	},
 
 	showProfile: function() {
@@ -400,119 +242,6 @@ export default BaseView.extend({
 			model: this.model,
 			query: this.options.query
 		}));
-	},
-
-	addBadge: function(element, count) {
-		$(element).append($('<span class="badge">' + count + '</span>'));
-	},
-
-	updateTabCount: function(element, count) {
-		if (count == 0) {
-			element.hide();
-		} else {
-			element.show();
-			this.addBadge(element, count);
-		}
-	},
-
-	showCounts: function(model) {
-		this.updateTabCount(this.$el.find('li.collaborators'), model.get('num_collaborators'));
-		this.updateTabCount(this.$el.find('li.grants'), model.get('num_grants'));
-		this.updateTabCount(this.$el.find('li.articles'), model.get('num_articles'));
-		this.updateTabCount(this.$el.find('li.book-chapters'), model.get('num_book_chapters'));
-		this.updateTabCount(this.$el.find('li.books'), model.get('num_books'));
-		this.updateTabCount(this.$el.find('li.conference-proceedings'), model.get('num_conference_proceedings'));
-		this.updateTabCount(this.$el.find('li.patents'), model.get('num_patents'));
-		this.updateTabCount(this.$el.find('li.technologies'), model.get('num_technologies'));
-		this.updateTabCount(this.$el.find('li.awards'), model.get('num_awards'));
-	},
-
-	showCollaborators: function() {
-		let collection = this.model.get('collaborators');
-		// let topView = this.getTopView();
-		// let mainView = topView.getChildView('content');
-		// let mapView = topView.getChildView('mainbar');
-		// let range = mapView.getChildView('date').range;
-		// let color = 'grey';
-
-		this.showChildView('details', new CollaboratorsView({
-			collection: collection,
-			nested: true,
-
-			// callbacks
-			//
-			onclick: (item) => {
-				let view = this.personView.collaboratorsView.children.findByModel(item.model);
-				let topView = this.getTopView();
-				let mainView = topView.getChildView('content');
-				let mapView = mainView.getChildView('mainbar');
-
-				// reset map
-				//
-				mapView.deselectAll();
-				mapView.clearPopovers();
-
-				// select collaborator marker
-				//
-				view.toTop();
-				view.markerView.select();
-				mapView.goTo(view.markerView.location, 1, {
-
-					// callbacks
-					//
-					done: () => {
-						view.markerView.showPopover();
-					}
-				});
-			}
-		}));
-
-		// mainView.showTrends('collaborators', range, collection, color);
-	},
-
-	showActivityView(ActivityView, activity) {
-		let collection = this.model.get(activity);
-		// let topView = this.getTopView();
-		// let mainView = topView.getChildView('content');
-		// let mapView = mainView.getChildView('mainbar');
-		// let range = mapView.getChildView('date').range;
-		// let color = Activity.colors[activity];
-
-		this.showChildView('details', new ActivityView({
-			collection: collection,
-			nested: true
-		}));
-
-		// mainView.showTrends(activity, range, collection, color);
-	},
-
-	showActivity: function(activity) {
-		switch (activity) {
-			case 'awards':
-				this.showActivityView(AwardsView, activity);
-				break;
-			case 'articles':
-				this.showActivityView(ArticlesView, activity);
-				break;
-			case 'book_chapters':
-				this.showActivityView(BookChaptersView, activity);
-				break;
-			case 'books':
-				this.showActivityView(BooksView, activity);
-				break;
-			case 'conference_proceedings':
-				this.showActivityView(ConferenceProceedingsView, activity);
-				break;
-			case 'grants':
-				this.showActivityView(GrantsView, activity);
-				break;
-			case 'patents':
-				this.showActivityView(PatentsView, activity);
-				break;
-			case 'technologies':
-				this.showActivityView(TechnologiesView, activity);
-				break;
-		}
 	},
 
 	showSpinner: function() {
@@ -532,17 +261,6 @@ export default BaseView.extend({
 	onClickTab: function(event) {
 		let className = $(event.target).closest('li').attr('class');
 		let info = className.replace('tab', '').replace('tooltip-trigger', '').replace('active', '').replace(/-/g, '_').trim();
-		
-		if (info != this.info) {
-
-			// clear current sidebar view
-			//
-			this.showChildView('details', new BaseView({
-				template: _.template('<div class="message">Loading...</div>')
-			}));
-
-			this.showInfo(info);
-		}
 	},
 
 	onClickClose: function() {
@@ -569,42 +287,14 @@ export default BaseView.extend({
 
 			// restore search bar
 			//
-			mapView.showSearchBar();
-			mapView.hideDateBar();
-			mapView.hideActivitiesBar();
+			mapView.setToolbarVisible('search', true);
 		} else {
 
 			// restore search bar to initial state
 			//
-			mapView.showSearchBar();
+			mapView.setToolbarVisible('search', true);
 			mainView.clearSearch();
 		}
-
-		/*
-		// clear query string
-		//
-		window.location.hash = '';
-
-		// close trends view 
-		//
-		mainView.hideSideBar();
-
-		// deselect selected person
-		//
-		mapView.deselectAll();
-		mapView.peopleView.clearAll();
-		mapView.showUnselectedPeople();
-		mapView.zoomToPeople();
-
-		// hide activity oriented ui elements
-		//
-		mapView.hideDateBar();
-
-		// replace this view
-		//
-		// this.parent.showPeople(mapView.peopleView.collection);
-		this.parent.clearSideBar();
-		*/
 	},
 
 	onClickEditPerson: function() {

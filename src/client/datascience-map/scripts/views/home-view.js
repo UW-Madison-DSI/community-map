@@ -15,9 +15,9 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import Person from '../models/academic/academic-person.js';
+import Person from '../models/person.js';
 import MainSplitView from '../views/main-split-view.js';
-import AffiliatesMapView from '../views/maps/affiliates-map-view.js';
+import PeopleMapView from '../views/maps/people-map-view.js';
 
 export default MainSplitView.extend({
 
@@ -26,7 +26,7 @@ export default MainSplitView.extend({
 	//
 
 	getMainBarView: function() {
-		return new AffiliatesMapView({
+		return new PeopleMapView({
 			el: this.$el.find('.mainbar')[0],
 			latitude: 43.0740,
 			longitude: 89.406,
@@ -42,7 +42,7 @@ export default MainSplitView.extend({
 
 				// hide search bar
 				//
-				this.getChildView('mainbar').hideSearchBar();
+				this.getChildView('mainbar').setToolbarVisible('search', false);
 			}
 		});
 	},

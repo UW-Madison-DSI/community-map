@@ -10,7 +10,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import InstitutionUnits from '../../../../collections/academic/academic-institution-units.js';
+import InstitutionUnits from '../../../../collections/institution-units.js';
 import Buildings from '../../../../collections/buildings.js';
 import BaseView from '../../../../views/base-view.js';
 import FullUserProfileFormView from '../../../../views/users/accounts/forms/full-user-profile-form-view.js';

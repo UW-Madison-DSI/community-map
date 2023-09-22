@@ -20,9 +20,12 @@ import '../utilities/scripting/string-utils.js';
 
 export default BaseModel.extend({
 
+	//
+	// attributes
+	//
+
 	defaults: {
 		id: undefined,
-		source: undefined,
 
 		// name info
 		//
@@ -64,6 +67,12 @@ export default BaseModel.extend({
 		url: undefined,
 		options: undefined
 	},
+
+	//
+	// ajax attributes
+	//
+
+	urlRoot: config.servers.academic + '/people',
 
 	//
 	// querying methods
@@ -154,5 +163,106 @@ export default BaseModel.extend({
 	getSecondaryAffiliations() {
 		let affiliations = this.get('affiliations') || [];
 		return affiliations.remove(this.get('primary_affiliation'));
+	},
+
+	//
+	// parsing methods
+	//
+
+	parsePrimaryAffiliation(response) {
+		if (response.primaryUnitAffiliation) {
+			return response.primaryUnitAffiliation.baseName;
+		} else if (response.otherPrimaryUnitAffiliation) {
+			return response.otherPrimaryUnitAffiliation;
+		} else if (response.unitName) {
+			return response.unitName;
+		}
+	},
+
+	parsePrimaryAffiliationName(response) {
+		if (response.primaryUnitAffiliation) {
+			return response.primaryUnitAffiliation.name;
+		} else if (response.otherPrimaryUnitAffiliation) {
+			return response.otherPrimaryUnitAffiliation;
+		} else if (response.unitName) {
+			return response.unitName;
+		}
+	},
+
+	parseAffiliations(response) {
+		let affiliations = [];
+		if (response.nonPrimaryUnitAffiliations) {
+			for (let i = 0; i < response.nonPrimaryUnitAffiliations.length; i++) {
+				affiliations.push(response.nonPrimaryUnitAffiliations[i].baseName);
+			}
+		}
+		return affiliations;
+	},
+
+	parseItems: function(data, ItemClass) {
+		if (data) {
+			let items = [];
+			if (data) {
+				for (let i = 0; i < data.length; i++) {
+					items.push(new ItemClass(data[i], {
+						person: this,
+						parse: true
+					}));
+				}
+			}
+			return items;
+		}
+	},
+
+	parse: function(response) {
+		return {
+			id: response.id,
+			source: 'academic_analytics',
+			email: undefined,
+
+			// name info
+			//
+			title: response.title? response.title : undefined,
+			first_name: response.firstName? response.firstName : undefined,
+			last_name: response.lastName? response.lastName : undefined,
+			middle_name: response.middleName? response.middleName : undefined,
+
+			// affiliation info
+			//
+			primary_affiliation: this.parsePrimaryAffiliation(response),
+			primary_affiliation_name: this.parsePrimaryAffiliationName(response),
+			affiliations: this.parseAffiliations(response),
+			is_affiliate: response.isAffiliate == 1,
+			communities: response.communities,
+
+			// institution info
+			//
+			appointment_type: response.appointmentType,
+			building_number: response.buildingNumber,
+
+			// research info
+			//
+			research_summary: response.researchSummary,
+			research_interests: response.researchInterests,
+			research_tools: response.researchTools,
+			research_terms: response.researchTerms,
+
+			// academic info
+			//
+			degree_institution: response.degreeInstitutionName,
+			degree_year: response.degreeYear,
+			orcid_id: response.orcidId,
+
+			// personal info
+			//
+			has_profile_photo: response.hasProfilePhoto,
+			homepage: response.homepage,
+			social_url: response.socialUrl,
+			github_url: response.githubUrl,
+
+			// contact info
+			//
+			url: 'https://wisc.discovery.academicanalytics.com/scholar/stack/' + response.id + '/' + response.firstName + '-' + response.lastName
+		};
 	}
 });

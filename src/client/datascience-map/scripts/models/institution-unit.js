@@ -41,5 +41,27 @@ export default BaseModel.extend({
 		is_primary: undefined,
 		type: undefined,
 		num_people: undefined
+	},
+
+	//
+	// parsing methods
+	//
+
+	parse: function(response) {
+		return {
+			id: response.id,
+			source: 'academic_analytics',
+
+			// model info
+			//
+			name: response.name,
+			base_name: response.baseName,
+			institution_id: response.institutionId,
+			is_primary: response.isPrimary,
+			type: response.type,
+			building: response.building,
+			num_people: response.numPeople,
+			num_affiliations: response.numAffiliations
+		}
 	}
 });

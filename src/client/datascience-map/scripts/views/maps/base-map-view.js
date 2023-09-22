@@ -100,6 +100,10 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 		return point;
 	},
 
+	//
+	// getting methods
+	//
+
 	getLocation: function() {
 		return new Vector2(-this.viewport.offset.x, this.viewport.offset.y);
 	},
@@ -110,6 +114,18 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 
 	getMapMode: function() {
 		return this.mapMode;
+	},
+
+	//
+	// setting methods
+	//
+
+	setToolbarVisible: function(toolbar, visible) {
+		if (visible) {
+			this.getChildView(toolbar).show();
+		} else {
+			this.getChildView(toolbar).hide();
+		}
 	},
 
 	//
@@ -440,9 +456,9 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 		//
 		this.showBaseMap();
 
-		// render toolbars
+		// render overlay toolbars
 		//
-		this.showZoomBar();
+		this.showToolbars();
 	},
 
 	showBaseMap: function() {
@@ -459,6 +475,13 @@ export default BaseView.extend(_.extend({}, FullScreenable, {
 		// add mouse interaction behaviors
 		//
 		this.addBehaviors();
+	},
+
+	showToolbars: function() {
+
+		// render toolbars
+		//
+		this.showZoomBar();
 	},
 
 	showZoomBar: function() {

@@ -15,7 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ToolbarView from './toolbar-view.js';
+import People from '../../collections/people.js';
+import ToolbarView from '../../views/toolbars/toolbar-view.js';
 import QueryString from '../../utilities/web/query-string.js';
 
 export default ToolbarView.extend({
@@ -54,10 +55,6 @@ export default ToolbarView.extend({
 		if (query) {
 			params.set('query', query);
 		}
-
-		// add date to params
-		//
-		params = this.parent.getChildView('date').addQueryParams(params);
 
 		// add map mode to params
 		//
@@ -121,16 +118,6 @@ export default ToolbarView.extend({
 
 	parseQueryString: function() {
 		const params = this.getSearchParams();
-
-		// configure ui
-		//
-		this.setQueryParams(params);
-		if (this.parent.hasChildView('activities')) {
-			this.parent.getChildView('activities').setQueryParams(params);
-		}
-		if (this.parent.hasChildView('map')) {
-			this.parent.getChildView('date').setQueryParams(params);
-		}
 
 		// configure map view
 		//
@@ -311,7 +298,7 @@ export default ToolbarView.extend({
 
 		// find people associated with label
 		//
-		this.parent.getPeople(options.source).fetchAll({
+		new People().fetchAll({
 			term: query,
 			institution_unit: 10000,
 			community: defaults.community,
@@ -370,7 +357,7 @@ export default ToolbarView.extend({
 			});
 		}
 
-		this.parent.getPeople(options.source).fetchAll({
+		new People().fetchAll({
 			name: name,
 			institution_unit: 10000,
 			community: defaults.community

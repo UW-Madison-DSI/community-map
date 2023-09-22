@@ -18,7 +18,6 @@
 import Router from './router.js';
 import BaseModel from './models/base-model.js';
 import Session from './models/users/session.js';
-import AcademicPerson from './models/academic/academic-person.js';
 import BaseCollection from './collections/base-collection.js';
 import MainView from './views/layout/main-view.js';
 import PageView from './views/layout/page-view.js';
@@ -28,7 +27,7 @@ import NotifyDialogView from './views/dialogs/notify-dialog-view.js';
 import StatusDialogView from './views/dialogs/status-dialog-view.js';
 import ConfirmDialogView from './views/dialogs/confirm-dialog-view.js';
 import DownloadDialogView from './views/dialogs/download-dialog-view.js';
-import KnowledgeMapView from './views/maps/knowledge-map-view.js';
+import PeopleMapView from './views/maps/people-map-view.js';
 import PersonMarkerView from './views/maps/overlays/people/person-marker-view.js';
 import Browser from './utilities/web/browser.js';
 import './utilities/time/date-format.js';
@@ -320,8 +319,7 @@ export default Marionette.Application.extend({
 	},
 
 	reset: function() {
-		KnowledgeMapView.reset();
-		AcademicPerson.reset();
+		PeopleMapView.reset();
 		PersonMarkerView.reset();
 	},
 
