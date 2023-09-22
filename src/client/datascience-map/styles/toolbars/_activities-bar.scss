@@ -1,0 +1,108 @@
+/******************************************************************************\
+|                                                                              |
+|                             _activities-bar.scss                             |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@use "../colors/colors";
+@use "../markers/people";
+@use "../activities/articles";
+@use "../activities/awards";
+@use "../activities/book-chapters";
+@use "../activities/books";
+@use "../activities/conference-proceedings";
+@use "../activities/grants";
+@use "../activities/patents";
+@use "../activities/technologies";
+
+//
+// colors
+//
+
+$info-color: cornflowerblue;
+$contributors-color: darken(grey, 20%);
+$activities-color: darken(grey, 20%);
+$help-color: desaturate(lighten(firebrick, 10%), 30%);
+
+//
+// styles
+//
+
+#activities-bar {
+	position: absolute;
+	top: 310px;
+	right: 10px;
+
+	.buttons {
+		button {
+			&#close {
+				color: white;
+				background: crimson;
+				border: crimson;
+			}
+		}
+	}
+
+	#person-buttons {
+		display: flex;
+		flex-direction: column;
+	}
+
+	//
+	// button colors
+	//
+
+	button#show-info.selected {
+		color: $info-color;
+	}
+
+	button#show-contributors.selected {
+		color: $contributors-color;
+	}
+
+	button#show-activities.selected {
+		color: $activities-color;
+	}
+
+	button#show-grants.selected {
+		color: grants.$grant-color;
+	}
+
+	button#show-articles.selected {
+		color: articles.$article-color;
+	}
+
+	button#show-books.selected {
+		color: books.$book-color;
+	}
+
+	button#show-book-chapters.selected {
+		color: book-chapters.$book-chapter-color;
+	}
+
+	button#show-conference-proceedings.selected {
+		color: conference-proceedings.$conference-proceeding-color;
+	}
+
+	button#show-patents.selected {
+		color: patents.$patent-color;
+	}
+
+	button#show-technology.selected {
+		color: technologies.$technology-color;
+	}
+
+	button#show-awards.selected {
+		color: awards.$award-color;
+	}
+
+	button#show-help.selected {
+		color: $help-color;
+	}
+}

@@ -1,0 +1,79 @@
+/******************************************************************************\
+|                                                                              |
+|                                 _books.scss                                  |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+//
+// colors
+//
+
+$book-color: desaturate(lighten(brown, 10%), 30%);
+
+//
+// styles
+//
+
+.book {
+
+	> .marker {
+
+		.background {
+			stroke: $book-color;
+		}
+
+		.icon {
+			fill: $book-color;
+			stroke: none;
+			transform: scale(0.8) translate(-12px, -12px);
+		}
+	}
+
+	.contributor {
+		.background {
+			stroke: $book-color;
+		}
+
+		path {
+			fill: $book-color;
+		}
+	}
+
+	line {
+		stroke: $book-color;
+	}
+}
+
+//
+// icon styles
+//
+
+.book.icon {
+	color: $book-color;
+}
+
+.books.active > .icon {
+	color: $book-color !important;
+}
+
+//
+// hiding styles
+//
+
+.hide-books {
+	.book {
+		display: none;
+	}
+}
+
+.hide-unselected-books {
+	.book:not(.selected) {
+		display: none;
+	}
+}

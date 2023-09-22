@@ -1,0 +1,28 @@
+/******************************************************************************\
+|                                                                              |
+|                                 _colors.scss                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@use "branding";
+
+//
+// colors
+//
+
+$light-grey: #e0e0e0;
+$very-light-grey: #f0f0f0;
+$steel-grey: #dadfe1;
+
+// highlighting colors
+//
+$select-color: branding.$light-color;
+$highlight-color: $select-color;
+$select-fill: lighten($select-color, 33%);
+$highlight-fill: lighten($highlight-color, 33%);

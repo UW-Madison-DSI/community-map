@@ -1,6 +1,6 @@
 /******************************************************************************\
 |                                                                              |
-|                                  styles.less                                 |
+|                               _activities.scss                               |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -9,69 +9,21 @@
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
-/******************************************************************************\
-|                                                                              |
-|                                   styles.less                                |
-|                                                                              |
-|******************************************************************************|
-|                                                                              |
-|        This defines the dom and svg visual styles for this application.      |
-|                                                                              |
-|******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
-\******************************************************************************/
-/******************************************************************************\
-|                                                                              |
-|                                activities.less                               |
-|                                                                              |
-|******************************************************************************|
-|                                                                              |
-|        This defines the dom and svg visual styles for this application.      |
-|                                                                              |
-|******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
-\******************************************************************************/
-.article:not(.selected) > line,
-.award:not(.selected) > line,
-.book:not(.selected) > line,
-.book-chapter:not(.selected) > line,
-.conference-proceeding:not(.selected) > line,
-.grant:not(.selected) > line,
-.patent:not(.selected) > line,
-.technology:not(.selected) > line {
+.article:not(.selected) > line, .award:not(.selected) > line, .book:not(.selected) > line, .book-chapter:not(.selected) > line, .conference-proceeding:not(.selected) > line, .grant:not(.selected) > line, .patent:not(.selected) > line, .technology:not(.selected) > line {
   stroke-opacity: 0.5;
 }
-.hide-unselected .article:not(.selected),
-.hide-unselected .award:not(.selected),
-.hide-unselected .book:not(.selected),
-.hide-unselected .book-chapter:not(.selected),
-.hide-unselected .conference-proceeding:not(.selected),
-.hide-unselected .grant:not(.selected),
-.hide-unselected .patent:not(.selected),
-.hide-unselected .technology:not(.selected) {
+
+.hide-unselected .article:not(.selected), .hide-unselected .award:not(.selected), .hide-unselected .book:not(.selected), .hide-unselected .book-chapter:not(.selected), .hide-unselected .conference-proceeding:not(.selected), .hide-unselected .grant:not(.selected), .hide-unselected .patent:not(.selected), .hide-unselected .technology:not(.selected) {
   display: none;
 }
-.hide-activity-markers .article > .marker,
-.hide-activity-markers .award > .marker,
-.hide-activity-markers .book > .marker,
-.hide-activity-markers .book-chapter > .marker,
-.hide-activity-markers .conference-proceeding > .marker,
-.hide-activity-markers .grant > .marker,
-.hide-activity-markers .patent > .marker,
-.hide-activity-markers .technology > .marker,
-.hide-activity-markers .article .contributor > line,
-.hide-activity-markers .award .contributor > line,
-.hide-activity-markers .book .contributor > line,
-.hide-activity-markers .book-chapter .contributor > line,
-.hide-activity-markers .conference-proceeding .contributor > line,
-.hide-activity-markers .grant .contributor > line,
-.hide-activity-markers .patent .contributor > line,
-.hide-activity-markers .technology .contributor > line {
+
+.hide-activity-markers .article > .marker, .hide-activity-markers .article .contributor > line, .hide-activity-markers .award > .marker, .hide-activity-markers .award .contributor > line, .hide-activity-markers .book > .marker, .hide-activity-markers .book .contributor > line, .hide-activity-markers .book-chapter > .marker, .hide-activity-markers .book-chapter .contributor > line, .hide-activity-markers .conference-proceeding > .marker, .hide-activity-markers .conference-proceeding .contributor > line, .hide-activity-markers .grant > .marker, .hide-activity-markers .grant .contributor > line, .hide-activity-markers .patent > .marker, .hide-activity-markers .patent .contributor > line, .hide-activity-markers .technology > .marker, .hide-activity-markers .technology .contributor > line {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                 articles.less                                |
+|                                _articles.scss                                |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -97,15 +49,26 @@
 .article line {
   stroke: cornflowerblue;
 }
+
+.article.icon {
+  color: cornflowerblue;
+}
+
+.articles.active > .icon {
+  color: cornflowerblue !important;
+}
+
 .hide-articles .articles {
   display: none;
 }
+
 .hide-unselected-articles .article:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   awards.less                                |
+|                                _awards.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -131,15 +94,26 @@
 .award line {
   stroke: #e0a51b;
 }
+
+.award.icon {
+  color: #e0a51b;
+}
+
+.awards.active > .icon {
+  color: #e0a51b !important;
+}
+
 .hide-awards .award {
   display: none;
 }
+
 .hide-unselected-awards .award:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                              book-chapters.less                              |
+|                             _book-chapters.scss                              |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -165,15 +139,26 @@
 .book-chapter line {
   stroke: #a1745f;
 }
+
+.book-chapter.icon {
+  color: #a1745f;
+}
+
+.book-chapters.active > .icon {
+  color: #a1745f !important;
+}
+
 .hide-book-chapters .book-chapter {
   display: none;
 }
+
 .hide-unselected-book-chapters .book-chapter:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   books.less                                 |
+|                                 _books.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -199,15 +184,26 @@
 .book line {
   stroke: #a65c5c;
 }
+
+.book.icon {
+  color: #a65c5c;
+}
+
+.books.active > .icon {
+  color: #a65c5c !important;
+}
+
 .hide-books .book {
   display: none;
 }
+
 .hide-unselected-books .book:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                         conference-proceedings.less                          |
+|                        _conference-proceedings.scss                          |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -233,15 +229,48 @@
 .conference-proceeding line {
   stroke: #e05252;
 }
+
+.conference-proceeding.icon {
+  color: #e05252;
+}
+
+.conference-proceedings.active > .icon {
+  color: #e05252 !important;
+}
+
 .hide-conference-proceedings .conference-proceeding {
   display: none;
 }
+
 .hide-unselected-conference-proceeding .conference-proceeding:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  grants.less                                 |
+|                                _branding.scss                                |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+/******************************************************************************\
+|                                                                              |
+|                                 _colors.scss                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+/******************************************************************************\
+|                                                                              |
+|                                _grants.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -254,13 +283,11 @@
   fill: #248f24;
   stroke: #248f24;
 }
-.grant > .marker.highlighted,
-.grant > .marker.selected {
+.grant > .marker.highlighted, .grant > .marker.selected {
   fill: #f7060f !important;
   stroke: #f7060f !important;
 }
-.grant > .marker.highlighted circle,
-.grant > .marker.selected circle {
+.grant > .marker.highlighted circle, .grant > .marker.selected circle {
   fill: #f7060f !important;
   stroke: #f7060f !important;
 }
@@ -273,15 +300,26 @@
 .grant line {
   stroke: #248f24;
 }
+
+.grant.icon {
+  color: #248f24;
+}
+
+.grants.active > .icon {
+  color: #248f24 !important;
+}
+
 .hide-grants .grants {
   display: none;
 }
+
 .hide-unselected-grants .grant:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  patents.less                                |
+|                                 _patents.scss                                |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -307,15 +345,26 @@
 .patent line {
   stroke: orange;
 }
+
+.patent.icon {
+  color: orange;
+}
+
+.patents.active > .icon {
+  color: orange !important;
+}
+
 .hide-patents .patent {
   display: none;
 }
+
 .hide-unselected-patents .patent:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                               technologies.less                              |
+|                              _technologies.scss                              |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -341,31 +390,37 @@
 .technology line {
   stroke: purple;
 }
+
+.technology.icon {
+  color: purple;
+}
+
+.technologies.active > .icon {
+  color: purple !important;
+}
+
 .hide-technologies .technology {
   display: none;
 }
+
 .hide-unselected-technologies .technology:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   styles.less                                |
+|                                 _index.less                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
-|        This defines various CSS styles used in this application.             |
-|                                                                              |
-|        Author(s): Abe Megahed                                                |
-|                                                                              |
-|        This file is subject to the terms and conditions defined in           |
-|        'LICENSE.txt', which is part of this source code distribution.        |
+|        This defines the dom and svg visual styles for this application.      |
 |                                                                              |
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                                keyframes.less                                |
+|                           _animation-keyframes.scss                          |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -463,7 +518,54 @@
 }
 /******************************************************************************\
 |                                                                              |
-|                             dialog-keyframes.less                            |
+|                               _animations.scss                               |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines various CSS styles used in this application.             |
+|                                                                              |
+|        Author(s): Abe Megahed                                                |
+|                                                                              |
+|        This file is subject to the terms and conditions defined in           |
+|        'LICENSE.txt', which is part of this source code distribution.        |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+.bouncing {
+  animation: bouncing-keyframes 0.3s ease-in-out;
+}
+
+.growing-bounce {
+  animation: growing-bounce-keyframes 0.3s ease-in-out;
+}
+
+.shrinking-bounce {
+  animation: shrinking-bounce-keyframes 0.3s ease-in-out;
+}
+
+.spinning {
+  animation: spinning-keyframes 2s linear infinite;
+}
+
+.blinking {
+  animation: blinking-keyframes 0.5s linear infinite;
+}
+
+.spinning3d .icon, .spinning3d .tile, .spinning3d .spinning3d, .spinning3d .profile.photo {
+  animation-name: spinning3d-keyframes;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+  -webkit-animation-name: spinning3d-keyframes;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 5s;
+}
+
+/******************************************************************************\
+|                                                                              |
+|                          _transition-keyframes.scss                          |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -589,51 +691,7 @@
 }
 /******************************************************************************\
 |                                                                              |
-|                                animation.less                                |
-|                                                                              |
-|******************************************************************************|
-|                                                                              |
-|        This defines various CSS styles used in this application.             |
-|                                                                              |
-|        Author(s): Abe Megahed                                                |
-|                                                                              |
-|        This file is subject to the terms and conditions defined in           |
-|        'LICENSE.txt', which is part of this source code distribution.        |
-|                                                                              |
-|******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
-\******************************************************************************/
-.bouncing {
-  animation: bouncing-keyframes 0.3s ease-in-out;
-}
-.growing-bounce {
-  animation: growing-bounce-keyframes 0.3s ease-in-out;
-}
-.shrinking-bounce {
-  animation: shrinking-bounce-keyframes 0.3s ease-in-out;
-}
-.spinning {
-  animation: spinning-keyframes 2s linear infinite;
-}
-.blinking {
-  animation: blinking-keyframes 0.5s linear infinite;
-}
-.spinning3d .icon,
-.spinning3d .tile,
-.spinning3d .spinning3d,
-.spinning3d .profile.photo {
-  animation-name: spinning3d-keyframes;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-duration: 5s;
-  -webkit-animation-name: spinning3d-keyframes;
-  -webkit-animation-timing-function: linear;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-duration: 5s;
-}
-/******************************************************************************\
-|                                                                              |
-|                                 transitions.less                             |
+|                                _transitions.scss                             |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -651,53 +709,65 @@
   animation: fade-in-keyframes;
   animation-duration: 0.5s;
 }
+
 .fading-out {
   animation: fade-out-keyframes;
   animation-duration: 0.5s;
 }
+
 .sliding-from-top {
   animation: slide-from-top-keyframes, fade-in-keyframes;
   animation-duration: 0.5s;
 }
+
 .sliding-to-top {
   animation: slide-to-top-keyframes, fade-out-keyframes;
   animation-duration: 0.5s;
 }
+
 .sliding-to-bottom {
   animation: slide-to-bottom-keyframes, fade-out-keyframes;
   animation-duration: 0.5s;
 }
+
 .sliding-from-bottom {
   animation: slide-from-bottom-keyframes, fade-in-keyframes;
   animation-duration: 0.5s;
 }
+
 .zooming-to {
   animation: zoom-to-keyframes, fade-in-keyframes;
   animation-duration: 0.5s;
 }
+
 .zooming-from {
   animation: zoom-from-keyframes, fade-out-keyframes;
   animation-duration: 0.5s;
 }
+
 .growing-in {
   animation: growing-keyframes, fade-in-keyframes;
   animation-duration: 0.5s;
 }
+
 .shrinking-out {
   animation: shrinking-keyframes, fade-out-keyframes;
   animation-duration: 0.5s;
 }
+
 .shrinking-to-bottom {
   animation: shrink-to-bottom-keyframes, fade-out-keyframes;
   animation-duration: 0.5s;
 }
+
 .growing-from-bottom {
   animation: grow-from-bottom-keyframes, fade-in-keyframes;
   animation-duration: 0.5s;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   styles.less                                |
+|                                 _index.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -713,7 +783,7 @@
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                                  dialogs.less                                |
+|                                 _dialogs.scss                                |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -740,7 +810,7 @@
   border-radius: 5px;
   border-width: 1px;
   border-style: solid;
-  box-shadow: 10px 10px 50px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 50px 10px fade(black, 50%);
   pointer-events: auto;
   left: 0;
   top: 0;
@@ -777,9 +847,11 @@
 .modal .modal-dialog .modal-content .modal-footer {
   padding: 10px;
 }
+
 .status-dialog .modal-body {
   text-align: center;
 }
+
 @media (min-width: 768px) and (max-height: 550px) {
   .modal {
     text-align: center;
@@ -797,16 +869,19 @@
 }
 .modal.backdrop {
   pointer-events: all;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: fade(black, 25%);
 }
+
 .modal-open .modal {
   overflow-x: hidden;
   overflow-y: hidden;
 }
+
 .modal-extents {
   width: 100%;
   margin: auto;
 }
+
 @media (min-width: 480px) {
   .modal .modal-dialog .modal-header {
     border-top-left-radius: 3px;
@@ -826,8 +901,7 @@
     flex-shrink: 0;
     margin-left: 10px;
   }
-  .modal .modal-dialog .modal-footer .buttons .btn,
-  .modal .modal-dialog .modal-footer .buttons .btn + .btn {
+  .modal .modal-dialog .modal-footer .buttons .btn, .modal .modal-dialog .modal-footer .buttons .btn + .btn {
     margin-bottom: 5px;
   }
   .modal .modal-dialog:not(.ui-resizable) .modal-body .vertically.scrollable {
@@ -837,9 +911,10 @@
     overflow: auto;
   }
 }
-body[device="desktop"] .modal.in .modal-dialog {
+body[device=desktop] .modal.in .modal-dialog {
   transform: translateZ(0);
 }
+
 @media (max-width: 480px) {
   .modal-extents {
     height: auto !important;
@@ -875,21 +950,22 @@ body[device="desktop"] .modal.in .modal-dialog {
     -webkit-overflow-scrolling: touch;
   }
 }
-body[device="phone"] .modal-dialog {
+body[device=phone] .modal-dialog {
   width: 100%;
   margin: 0 !important;
 }
-body[device="phone"] .modal-dialog .modal-content {
+body[device=phone] .modal-dialog .modal-content {
   height: 100%;
   border-width: 0;
   border-radius: 0;
 }
-body[device="phone"] .modal-dialog .modal-content .modal-footer {
+body[device=phone] .modal-dialog .modal-content .modal-footer {
   text-align: center;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                            dialog-transitions.less                           |
+|                           _dialog-transitions.scss                           |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -926,6 +1002,7 @@ body[device="phone"] .modal-dialog .modal-content .modal-footer {
     transform: translate(0, 0);
   }
 }
+
 .modal.closing {
   -webkit-animation: closing 0.5s;
   -moz-animation: closing 0.5s;
@@ -949,9 +1026,11 @@ body[device="phone"] .modal-dialog .modal-content .modal-footer {
     transform: translate(0, -50%);
   }
 }
+
 .modal.closed {
   display: none;
 }
+
 .modal.minimizing {
   -webkit-animation: minimizing 0.5s;
   -moz-animation: minimizing 0.5s;
@@ -969,6 +1048,7 @@ body[device="phone"] .modal-dialog .modal-content .modal-footer {
     transform: translate(-25%, 50%) scale(0);
   }
 }
+
 .modal.unminimizing {
   -webkit-animation: unminimizing 0.5s;
   -moz-animation: unminimizing 0.5s;
@@ -986,12 +1066,14 @@ body[device="phone"] .modal-dialog .modal-content .modal-footer {
     transform: translate(0, 0) scale(1);
   }
 }
+
 .modal.minimized {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   styles.less                                |
+|                                 _index.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1007,7 +1089,7 @@ body[device="phone"] .modal-dialog .modal-content .modal-footer {
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                                   badges.js                                  |
+|                                 _badges.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1039,12 +1121,14 @@ body[device="phone"] .modal-dialog .modal-content .modal-footer {
 .badge::empty {
   display: none;
 }
+
 .badge:empty {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   forms.less                                 |
+|                                  _forms.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1061,6 +1145,7 @@ body[device="phone"] .modal-dialog .modal-content .modal-footer {
 input {
   outline: none;
 }
+
 textarea {
   width: 100%;
   height: 100%;
@@ -1071,6 +1156,7 @@ textarea {
   border-bottom-left-radius: 5px;
   outline: none;
 }
+
 select {
   -webkit-appearance: none;
   border-radius: 0;
@@ -1081,24 +1167,28 @@ select {
   border-radius: 5px;
   outline: none;
 }
+
 .form-control {
   font-size: 16px;
 }
+
 .input-group-addon i {
   margin: 0;
 }
-.form-group .checkbox input[type="checkbox"],
-label input[type="checkbox"] {
+
+.form-group .checkbox input[type=checkbox], label input[type=checkbox] {
   margin-top: 10px;
 }
-.form-label i,
-.control-label i {
+
+.form-label i, .control-label i {
   margin-right: 5px;
 }
+
 .form-horizontal .form-group {
   margin-left: 0;
   margin-right: 0;
 }
+
 .required label:after,
 label.required:after,
 span.required:after {
@@ -1106,27 +1196,42 @@ span.required:after {
   color: #c2002f;
   margin-left: 5px;
 }
+
 .alert label {
   margin-right: 10px;
 }
+
+fieldset {
+  margin-top: 20px;
+}
+fieldset legend {
+  font-weight: bold;
+  color: #c5050c;
+}
+
 .country-code.input-group {
   width: 100px;
 }
+
 #country-selector {
   position: absolute;
 }
+
 #country-selector .dropdown-menu {
   position: relative;
   margin: 0;
   padding: 0;
 }
+
 #country-selector button img {
   margin-top: -3px;
   margin-left: 5px;
 }
+
 .country-code.input-group {
   width: 100px;
 }
+
 /*
  * validation styles
  */
@@ -1137,16 +1242,20 @@ label.error {
   background: url(../images/forms/error.png) 5px 0px no-repeat;
   padding-left: 30px;
 }
+
 label.error:empty {
   display: none;
 }
+
 label.error.valid {
   display: none;
 }
+
 .form-group.error input,
 .form-group.error textarea {
   border: 1px solid #c2002f;
 }
+
 /*
  * popover styles
  */
@@ -1154,16 +1263,15 @@ label.error.valid {
   max-width: 360px;
   width: auto;
 }
+
 @media (min-width: 480px) {
   form.form-horizontal .form-group > label {
     width: 25%;
     float: left;
     margin-right: 15px;
   }
-  form.form-horizontal .form-group > .controls,
-  form.form-horizontal .form-group > .static-controls,
-  form.form-horizontal .form-group > .form-control,
-  form.form-horizontal .form-group > .form-control-static {
+  form.form-horizontal .form-group > .controls, form.form-horizontal .form-group > .static-controls,
+  form.form-horizontal .form-group > .form-control, form.form-horizontal .form-group > .form-control-static {
     float: left;
     width: 50%;
   }
@@ -1177,10 +1285,8 @@ label.error.valid {
     text-align: left;
     width: 100%;
   }
-  #page form.form-horizontal .form-group > .controls,
-  #page form.form-horizontal .form-group > .static-controls,
-  #page form.form-horizontal .form-group > .form-control,
-  #page form.form-horizontal .form-group > .form-control-static {
+  #page form.form-horizontal .form-group > .controls, #page form.form-horizontal .form-group > .static-controls,
+  #page form.form-horizontal .form-group > .form-control, #page form.form-horizontal .form-group > .form-control-static {
     width: 100%;
   }
 }
@@ -1191,13 +1297,14 @@ label.error.valid {
     margin-left: 0%;
   }
 }
-body[device="phone"] .form-group > div {
+body[device=phone] .form-group > div {
   padding: 0;
   overflow: hidden;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  icons.less                                  |
+|                                 _icons.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1212,66 +1319,10 @@ body[device="phone"] .form-group > div {
   border-radius: 10px;
   margin-right: 10px;
 }
-.place.icon {
-  color: brown;
-}
-.person.icon {
-  color: grey;
-}
-.collaborator.icon {
-  color: grey;
-}
-.grant.icon {
-  color: #248f24;
-}
-.article.icon {
-  color: cornflowerblue;
-}
-.book.icon {
-  color: #a65c5c;
-}
-.book-chapter.icon {
-  color: #a1745f;
-}
-.conference-proceeding.icon {
-  color: #e05252;
-}
-.patent.icon {
-  color: orange;
-}
-.technology.icon {
-  color: purple;
-}
-.award.icon {
-  color: #e0a51b;
-}
-.grants.active > .icon {
-  color: #248f24 !important;
-}
-.articles.active > .icon {
-  color: cornflowerblue !important;
-}
-.books.active > .icon {
-  color: #a65c5c !important;
-}
-.book-chapters.active > .icon {
-  color: #a1745f !important;
-}
-.conference-proceedings.active > .icon {
-  color: #e05252 !important;
-}
-.patents.active > .icon {
-  color: orange !important;
-}
-.technologies.active > .icon {
-  color: purple !important;
-}
-.awards.active > .icon {
-  color: #e0a51b !important;
-}
+
 /******************************************************************************\
 |                                                                              |
-|                                popovers.less                                 |
+|                               _popovers.less                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1282,7 +1333,7 @@ body[device="phone"] .form-group > div {
 \******************************************************************************/
 .popover {
   max-width: 500px;
-  border-color: #ececec;
+  border-color: #ededed;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 .popover.right > .arrow {
@@ -1293,8 +1344,7 @@ body[device="phone"] .form-group > div {
   font-weight: bold;
   padding: 10px;
 }
-.popover .popover-title i,
-.popover .popover-title .icon {
+.popover .popover-title i, .popover .popover-title .icon {
   margin-right: 5px;
 }
 .popover .popover-title button.close {
@@ -1345,9 +1395,10 @@ body[device="phone"] .form-group > div {
   max-height: 100px;
   border-radius: 5px;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   tabs.less                                  |
+|                                  _tabs.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1374,8 +1425,7 @@ body[device="phone"] .form-group > div {
 .nav-tabs > li > a i {
   font-size: 20px;
 }
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover {
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover {
   background: #f0f0f0;
   border-color: transparent;
 }
@@ -1397,9 +1447,10 @@ body[device="phone"] .form-group > div {
   right: 3px;
   pointer-events: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                tooltips.less                                 |
+|                               _tooltips.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1411,9 +1462,10 @@ body[device="phone"] .form-group > div {
 .tooltip-inner {
   max-width: 400px;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   styles.less                                |
+|                                  _index.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1429,7 +1481,7 @@ body[device="phone"] .form-group > div {
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                                  items.less                                  |
+|                                  _items.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1438,35 +1490,29 @@ body[device="phone"] .form-group > div {
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
-.items ol,
-.items ul:not(.nav-tabs) {
+.items ol, .items ul:not(.nav-tabs) {
   padding: 0;
   list-style-position: inside;
   margin-bottom: 0;
 }
-.items ol li,
-.items ul:not(.nav-tabs) li {
+.items ol li, .items ul:not(.nav-tabs) li {
   padding: 5px 10px;
   /*
-			&:not(:last-child) {
-				border-bottom: 2px dashed @list-item-divider-color;
-			}
-			*/
+  &:not(:last-child) {
+  	border-bottom: 2px dashed $item-divider-color;
+  }
+  */
 }
-.items ol li:hover,
-.items ul:not(.nav-tabs) li:hover {
+.items ol li:hover, .items ul:not(.nav-tabs) li:hover {
   background-color: #f0f0f0;
 }
-.items ol li .icon,
-.items ul:not(.nav-tabs) li .icon {
+.items ol li .icon, .items ul:not(.nav-tabs) li .icon {
   margin-right: 5px;
 }
-.items ol li a,
-.items ul:not(.nav-tabs) li a {
+.items ol li a, .items ul:not(.nav-tabs) li a {
   cursor: pointer;
 }
-.items ol li .options,
-.items ul:not(.nav-tabs) li .options {
+.items ol li .options, .items ul:not(.nav-tabs) li .options {
   float: right;
 }
 .items ol li .title {
@@ -1496,10 +1542,10 @@ body[device="phone"] .form-group > div {
 }
 .items table tr {
   /*
-			&:not(:last-child) {
-				border-bottom: 2px dashed @list-item-divider-color;
-			}
-			*/
+  &:not(:last-child) {
+  	border-bottom: 2px dashed $item-divider-color;
+  }
+  */
 }
 .items table tr:hover {
   background-color: #f0f0f0;
@@ -1514,15 +1560,12 @@ body[device="phone"] .form-group > div {
 .items table tr td.duplicate {
   font-size: 0;
 }
-.items table tr td.year,
-.items table tr td.department,
-.items table tr td.amount {
+.items table tr td.year, .items table tr td.department, .items table tr td.amount {
   word-break: normal;
   font-weight: bold;
   vertical-align: top;
 }
-.items table tr td.first-name,
-.items table tr td.department {
+.items table tr td.first-name, .items table tr td.department {
   width: 50%;
 }
 .items table tr td.contributors {
@@ -1543,9 +1586,90 @@ body[device="phone"] .form-group > div {
 .items table tr td .expander {
   margin-right: -10px;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                messages.less                                 |
+|                              _typography.scss                                |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+body {
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 16px;
+}
+
+h1, h2, h3 {
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: bold;
+}
+
+.communities li {
+  font-size: 150%;
+}
+
+.fineprint {
+  font-size: 1em;
+}
+
+.tooltip {
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 14px;
+}
+
+.popover {
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 16px;
+}
+
+.btn {
+  font-size: 16px;
+}
+
+.btn-lg {
+  font-size: 20px;
+}
+
+.status-message {
+  margin: 0;
+}
+
+body[device=desktop] #page .main {
+  font-size: 18px;
+}
+body[device=desktop] #page .main h1 {
+  font-size: 32px;
+}
+body[device=desktop] #page .main h2 {
+  font-size: 28px;
+}
+body[device=desktop] #page .main h3 {
+  font-size: 24px;
+}
+body[device=desktop] #page .main p {
+  font-size: 18px;
+}
+body[device=desktop] .welcome #title {
+  font-size: 36px;
+}
+
+body[device=phone] h1 {
+  font-size: 1.5em;
+}
+body[device=phone] h2 {
+  font-size: 1.25em;
+}
+body[device=phone] h3 {
+  font-size: 1em;
+}
+
+/******************************************************************************\
+|                                                                              |
+|                               _messages.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1562,8 +1686,7 @@ body[device="phone"] .form-group > div {
   height: 100%;
   pointer-events: none;
 }
-#messages #info,
-#messages #message {
+#messages #info, #messages #message {
   display: inline-block;
   position: relative;
   width: 75%;
@@ -1571,39 +1694,35 @@ body[device="phone"] .form-group > div {
   pointer-events: none;
   text-align: center;
 }
-#messages #info button.close,
-#messages #message button.close {
+#messages #info button.close, #messages #message button.close {
   position: absolute;
   top: 10px;
   right: 10px;
 }
-#messages #info button.close i,
-#messages #message button.close i {
+#messages #info button.close i, #messages #message button.close i {
   margin: 0;
 }
-#messages #info .content,
-#messages #message .content {
+#messages #info .content, #messages #message .content {
   width: 100%;
   height: 100%;
   padding: 5%;
   overflow: auto;
 }
-#messages #info .content .icon,
-#messages #message .content .icon {
+#messages #info .content .icon, #messages #message .content .icon {
   color: #c5050c;
   margin-right: 5px;
 }
-#messages #info .content .text,
-#messages #message .content .text {
+#messages #info .content .text, #messages #message .content .text {
   font-family: "Red Hat Display", sans-serif;
   font-weight: bold;
 }
 #messages #message {
   font-size: 200%;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  tables.less                                 |
+|                                 _tables.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1628,8 +1747,7 @@ table thead {
 table th {
   border-top: none !important;
 }
-table th,
-table td {
+table th, table td {
   padding: 2px 5px;
   vertical-align: middle;
 }
@@ -1637,6 +1755,18 @@ table tr.children {
   display: block;
   margin-left: 20px;
 }
+
+/******************************************************************************\
+|                                                                              |
+|                              _tablesorter.scss                               |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
 .tablesorter-default .header,
 .tablesorter-default .tablesorter-header {
   background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
@@ -1646,31 +1776,36 @@ table tr.children {
   white-space: normal;
   border-top: 2px dashed #c5050c;
 }
+
 .tablesorter-default thead .headerSortUp,
 .tablesorter-default thead .tablesorter-headerAsc,
 .tablesorter-default thead .tablesorter-headerSortUp {
   background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
   border-top: 2px solid #c5050c;
 }
+
 .tablesorter-default thead .headerSortDown,
 .tablesorter-default thead .tablesorter-headerDesc,
 .tablesorter-default thead .tablesorter-headerSortDown {
   background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
   border-top: 2px solid #c5050c;
 }
+
 .tablesorter-default thead .sorter-false {
   background-image: none;
   cursor: default;
   padding: 4px;
 }
+
 .tablesorter-default .tablesorter-processing {
   background-position: center center !important;
   background-repeat: no-repeat !important;
   background-image: url(data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=) !important;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  trees.less                                  |
+|                                 _trees.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1723,29 +1858,14 @@ table tr.children {
 .tree.expanded > .item .expander .collapse {
   display: inline-block;
 }
+
 .tree > .item > .name {
   font-weight: bold;
 }
-/*
-//
-// highlight top level of tree
-//
 
-.root.tree > {
-	> .item > .name {
-		font-weight: bold;
-	}
-
-	> .children {
-		> .tree > .item > .name {
-			font-weight: bold;
-		}
-	}
-}
-*/
 /******************************************************************************\
 |                                                                              |
-|                                   styles.less                                |
+|                                  _index.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1761,7 +1881,7 @@ table tr.children {
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                                  layout.less                                 |
+|                                 _layout.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1774,13 +1894,15 @@ html {
   width: 100%;
   height: 100%;
 }
+
 body {
   display: flex;
   flex-direction: column;
   height: 100%;
   margin: 0;
-  color: #494949;
+  color: rgb(73, 73, 73);
 }
+
 #main {
   display: block;
   position: absolute;
@@ -1792,11 +1914,13 @@ body {
   overflow: hidden;
   touch-action: none;
 }
+
 .main.container {
   flex-grow: 1;
   padding-top: 20px;
   padding-bottom: 50px;
 }
+
 #overlays {
   position: absolute;
   width: 100%;
@@ -1804,6 +1928,7 @@ body {
   display: flex;
   pointer-events: none;
 }
+
 #background {
   position: absolute;
   top: 0;
@@ -1811,6 +1936,7 @@ body {
   width: 100%;
   height: 100%;
 }
+
 svg {
   position: absolute;
   top: 0;
@@ -1818,6 +1944,7 @@ svg {
   width: 100%;
   height: 100%;
 }
+
 .full-screen {
   position: absolute;
   top: 0;
@@ -1829,21 +1956,25 @@ svg {
   margin: 0;
   overflow: hidden;
 }
+
 .page {
   padding: 0 50px;
 }
 .page h1:first-child {
   margin-top: 0;
 }
+
 canvas {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 .dark canvas {
   background: #333333;
 }
+
 #logo {
   position: absolute;
   margin: 10px;
@@ -1852,6 +1983,7 @@ canvas {
 #logo img {
   height: 40px;
 }
+
 .overlay {
   display: flex;
   flex-direction: column;
@@ -1860,6 +1992,7 @@ canvas {
 .overlay * {
   pointer-events: auto;
 }
+
 #index {
   position: absolute;
   top: 0;
@@ -1869,14 +2002,15 @@ canvas {
   background: rgba(255, 255, 255, 0.75);
   border-radius: 5px;
 }
-#info h1,
-#info h2 {
+
+#info h1, #info h2 {
   text-align: center;
 }
 #info .subheading {
   font-weight: bold;
   text-align: center;
 }
+
 .figure {
   text-align: center;
 }
@@ -1891,34 +2025,35 @@ canvas {
 .figure + p {
   margin-top: 10px;
 }
+
 .panel {
   box-shadow: none;
 }
+
 span.count {
   margin-right: 5px;
 }
+
 span.highlighted {
   background: lightblue;
 }
+
 .title + .buttons {
   margin-top: 5px;
 }
+
 .fineprint {
   font-size: 12px;
 }
-fieldset {
-  margin-top: 20px;
-}
-fieldset legend {
-  font-weight: bold;
-  color: #c5050c;
-}
+
 .hidden {
   display: none;
 }
+
 .invisible {
   visibility: hidden;
 }
+
 .collapsed .expander .expand {
   display: block;
 }
@@ -1928,6 +2063,7 @@ fieldset legend {
 .collapsed .details {
   display: none;
 }
+
 .credits .credit {
   font-style: italic;
 }
@@ -1935,6 +2071,7 @@ fieldset legend {
   font-weight: bold;
   float: right;
 }
+
 @media (min-width: 480px) {
   .credits {
     width: 75%;
@@ -1943,7 +2080,7 @@ fieldset legend {
 }
 /******************************************************************************\
 |                                                                              |
-|                                   main.less                                  |
+|                                  _main.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1953,28 +2090,47 @@ fieldset legend {
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 .split-view .gutter {
-  background-color: #ececec;
+  background-color: #ededed;
   border-color: lightgrey;
 }
 .split-view .gutter .handle {
-  background-image: url('../images/splitters/grip.png');
+  background-image: url("../images/splitters/grip.png");
 }
 .split-view .gutter.gutter-horizontal .handle {
-  background-image: url('../images/splitters/horizontal-grip.png');
+  background-image: url("../images/splitters/horizontal-grip.png");
 }
 .split-view .gutter.gutter-vertical .handle {
-  background-image: url('../images/splitters/vertical-grip.png');
+  background-image: url("../images/splitters/vertical-grip.png");
 }
+
 #map {
   width: 100%;
   height: 100%;
 }
+
 table.tablesorter-default {
   font: inherit;
 }
+
+.toolbar {
+  background-color: #c5050c;
+}
+.toolbar .buttons #show-filters {
+  background-color: #c5050c;
+}
+.toolbar .buttons #show-filters i {
+  color: white;
+}
+.toolbar .buttons #show-filters:not(.selected) .fa-caret-up {
+  display: none;
+}
+.toolbar .buttons #show-filters.selected .fa-caret-down {
+  display: none;
+}
+
 /******************************************************************************\
 |                                                                              |
-|                                    maps.less                                 |
+|                                   _maps.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -1986,11 +2142,11 @@ table.tablesorter-default {
 #background {
   background: #f0f0f0;
 }
+
 #viewport #tiles {
   opacity: 0.5;
 }
-#viewport #labels text,
-#viewport .marker text {
+#viewport #labels text, #viewport .marker text {
   paint-order: stroke;
   stroke: white;
   stroke-width: 2px;
@@ -1998,14 +2154,13 @@ table.tablesorter-default {
   stroke-linejoin: miter;
   font-weight: bold;
 }
-#viewport.hide-map #tiles,
-#viewport.hide-map #departments,
-#viewport.hide-map #buildings {
+#viewport.hide-map #tiles, #viewport.hide-map #departments, #viewport.hide-map #buildings {
   display: none !important;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  pages.less                                  |
+|                                 _pages.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2049,9 +2204,10 @@ table.tablesorter-default {
 #page #footer .container a:hover {
   color: white;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                 sidebar.less                                 |
+|                                _sidebar.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2060,26 +2216,25 @@ table.tablesorter-default {
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
-/*
-@welcome-panel-text-color: white;
-@welcome-panel-background-color: @brand-primary;
-*/
 .sidebar {
   overflow: auto;
   color: #303030;
   background-color: #dadfe1;
   word-break: break-word;
   /*
-	.sorting {
-		border-bottom: 2px solid @brand-primary;
-		margin-bottom: 10px;
-	}
-	*/
+  .sorting {
+  	border-bottom: 2px solid branding.$primary-color;
+  	margin-bottom: 10px;
+  }
+  */
 }
 .sidebar h1 {
   font-family: "Red Hat Display", sans-serif;
   font-weight: bold;
   margin-top: 0;
+}
+.sidebar h1 a {
+  text-decoration: none;
 }
 .sidebar .logo {
   margin: 10px;
@@ -2090,8 +2245,7 @@ table.tablesorter-default {
 .sidebar button {
   background: white;
 }
-.sidebar button:hover,
-.sidebar button:active {
+.sidebar button:hover, .sidebar button:active {
   background: #f0f0f0;
 }
 .sidebar .expander button {
@@ -2156,19 +2310,27 @@ table.tablesorter-default {
 .sidebar .panel button#close:hover {
   color: lightgrey;
 }
+.sidebar hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.sidebar ul {
+  margin-bottom: 0;
+}
 .sidebar ol.panel {
   padding: 0;
 }
 .sidebar .welcome.panel {
   text-align: center;
+  min-width: 250px;
   min-height: 100%;
   color: #303030;
   /*
-		a {
-			color: white;
-			text-decoration: underline;
-		}
-		*/
+  a {
+  	color: white;
+  	text-decoration: underline;
+  }
+  */
 }
 .sidebar .welcome.panel .logo {
   height: 100px;
@@ -2179,13 +2341,12 @@ table.tablesorter-default {
   margin: 10px;
   margin-bottom: 0;
 }
-.sidebar .welcome.panel .subheading {
-  margin: 25px 10px;
-}
 .sidebar .welcome.panel .panel {
+  max-width: 300px;
   color: black;
   text-align: left;
   border-radius: 5px;
+  margin: auto;
 }
 .sidebar div.profile {
   padding: 10px;
@@ -2323,9 +2484,10 @@ table.tablesorter-default {
 .sidebar #footer .container .logo {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                splitters.less                                |
+|                               _splitters.scss                                |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2384,9 +2546,10 @@ table.tablesorter-default {
   height: 100%;
   float: left;
 }
+
 body:not(.binary) .contents.split-view > .split.mainbar::after {
   content: "";
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 0px 10px fade(black, 20%);
   position: absolute;
   left: 0;
   right: 0;
@@ -2397,9 +2560,11 @@ body:not(.binary) .contents.split-view > .split.mainbar::after {
 body:not(.binary) .desktop.app .contents.split-view > .split.mainbar::after {
   box-shadow: none;
 }
+
 .split .split-view > .split::after {
   box-shadow: none;
 }
+
 /*
 body[device="phone"] {
 	.gutter.gutter-vertical {
@@ -2413,86 +2578,23 @@ body[device="phone"] {
 */
 /******************************************************************************\
 |                                                                              |
-|                               typeography.less                               |
+|                                  _index.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
-|        This defines the dom and svg visual styles for this application.      |
+|        This defines various CSS styles used in this application.             |
 |                                                                              |
-|******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
-\******************************************************************************/
-body {
-  font-family: "Red Hat Text", sans-serif;
-  font-size: 16px;
-}
-h1,
-h2,
-h3 {
-  font-family: "Red Hat Display", sans-serif;
-  font-weight: bold;
-}
-.fineprint {
-  font-size: 1em;
-}
-.tooltip {
-  font-family: "Red Hat Text", sans-serif;
-  font-size: 14px;
-}
-.popover {
-  font-family: "Red Hat Text", sans-serif;
-  font-size: 16px;
-}
-.btn {
-  font-size: 16px;
-}
-.btn-lg {
-  font-size: 20px;
-}
-.status-message {
-  margin: 0;
-}
-body[device="desktop"] #page .main {
-  font-size: 18px;
-}
-body[device="desktop"] #page .main h1 {
-  font-size: 32px;
-}
-body[device="desktop"] #page .main h2 {
-  font-size: 28px;
-}
-body[device="desktop"] #page .main h3 {
-  font-size: 24px;
-}
-body[device="desktop"] #page .main p {
-  font-size: 18px;
-}
-body[device="desktop"] .welcome #title {
-  font-size: 36px;
-}
-body[device="phone"] h1 {
-  font-size: 1.5em;
-}
-body[device="phone"] h2 {
-  font-size: 1.25em;
-}
-body[device="phone"] h3 {
-  font-size: 1em;
-}
-/******************************************************************************\
+|        Author(s): Abe Megahed                                                |
 |                                                                              |
-|                                   styles.less                                |
-|                                                                              |
-|******************************************************************************|
-|                                                                              |
-|        This defines the dom and svg visual styles for this application.      |
+|        This file is subject to the terms and conditions defined in           |
+|        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                              affiliations.less                               |
+|                             _affiliations.scss                               |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2503,18 +2605,20 @@ body[device="phone"] h3 {
 \******************************************************************************/
 .affiliations line {
   stroke: #d74c68;
-  stroke-dasharray: 5,5;
+  stroke-dasharray: 5, 5;
   stroke-opacity: 1;
 }
+
 .hide-affiliations .affiliations {
   display: none;
 }
 .hide-affiliations .label.selected line {
   display: none !important;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                buildings.less                                |
+|                               _buildings.scss                                |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2533,19 +2637,20 @@ body[device="phone"] h3 {
   stroke: lightgrey;
   fill: lightgrey;
 }
-.building.selected .polygon,
-.building:hover .polygon {
+.building.selected .polygon, .building:hover .polygon {
   stroke: #ed365b;
   fill: #ed365b;
   fill-opacity: 0.5;
   stroke-opacity: 0.5;
 }
+
 .popover .building .icon {
   width: 200px !important;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                               contributors.less                              |
+|                              _contributors.scss                              |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2558,12 +2663,14 @@ body[device="phone"] h3 {
   stroke-opacity: 0.5;
   pointer-events: none;
 }
+
 .hide-collaborators .collaborator {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                               contributors.less                              |
+|                              _contributors.scss                              |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2576,15 +2683,18 @@ body[device="phone"] h3 {
   stroke-opacity: 0.5;
   pointer-events: none;
 }
+
 .hide-contributors .contributors {
   display: none;
 }
+
 .hide-unselected .contributors line {
   stroke-opacity: 1;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                               departments.less                               |
+|                              _departments.scss                               |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2597,9 +2707,10 @@ body[device="phone"] h3 {
   fill-opacity: 0.125;
   stroke: white;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                 markers.less                                 |
+|                                _markers.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2608,26 +2719,24 @@ body[device="phone"] h3 {
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
-.marker.selected circle,
-.marker.highlighted circle {
+.marker.selected circle, .marker.highlighted circle {
   stroke: #f7060f !important;
   fill: #fda8ac !important;
 }
-.marker.selected path,
-.marker.highlighted path,
-.marker.selected text,
-.marker.highlighted text {
+.marker.selected path, .marker.selected text, .marker.highlighted path, .marker.highlighted text {
   fill: #f7060f !important;
 }
+
 .grant > .marker.highlighted circle {
   fill: #f7060f;
 }
 .grant.highlighted > .marker circle {
   fill: #f7060f;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  people.less                                 |
+|                                 _people.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2636,8 +2745,7 @@ body[device="phone"] h3 {
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
-.people > .person > .marker.highlighted image,
-.people > .person > .marker.selected image {
+.people > .person > .marker.highlighted image, .people > .person > .marker.selected image {
   filter: sepia(50) hue-rotate(300deg);
 }
 .people > .person.selected .interests {
@@ -2650,16 +2758,25 @@ body[device="phone"] h3 {
 .people > .person:hover .marker image {
   filter: sepia(50) hue-rotate(300deg);
 }
-.people > .person:hover .marker path,
-.people > .person:hover .marker text {
+.people > .person:hover .marker path, .people > .person:hover .marker text {
   fill: #f7060f;
 }
 .people > .person:hover line {
   stroke: #f7060f;
 }
+
 .popover-content > .person {
   display: flex;
 }
+
+.person.icon {
+  color: grey;
+}
+
+.collaborator.icon {
+  color: grey;
+}
+
 .person circle.background {
   stroke: #c5050c;
 }
@@ -2675,28 +2792,25 @@ body[device="phone"] h3 {
 .person.data-science-enthusiast circle.background {
   stroke: green !important;
 }
+
 .hide-unselected-people .people > .person:not(.selected) {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   styles.less                                |
+|                                  _index.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
-|        This defines various CSS styles used in this application.             |
-|                                                                              |
-|        Author(s): Abe Megahed                                                |
-|                                                                              |
-|        This file is subject to the terms and conditions defined in           |
-|        'LICENSE.txt', which is part of this source code distribution.        |
+|        This defines the dom and svg visual styles for this application.      |
 |                                                                              |
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                                   buttons.js                                 |
+|                                _buttons.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2721,8 +2835,7 @@ body[device="phone"] h3 {
 .btn:hover {
   background: #e0e0e0;
 }
-.btn.close:hover,
-.btn.clear:hover {
+.btn.close:hover, .btn.clear:hover {
   color: crimson;
   opacity: 1;
 }
@@ -2734,22 +2847,24 @@ body[device="phone"] h3 {
   background-color: #c5050c;
   border-color: #c5050c;
 }
-.btn.btn-primary:hover,
-.btn.btn-primary:active {
+.btn.btn-primary:hover, .btn.btn-primary:active {
   background: #9b0000;
   border-color: #9b0000;
 }
 .btn:active {
   box-shadow: none !important;
 }
+
 .btn#close {
   width: 30px;
   height: 30px;
 }
+
 button label {
   margin-bottom: 0;
   cursor: pointer;
 }
+
 .expander {
   display: inline-block;
 }
@@ -2762,9 +2877,10 @@ button label {
 .expander .expand {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                 navbars.less                                 |
+|                                _navbars.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2790,6 +2906,7 @@ button label {
   height: 40px;
   padding: 10px;
   color: white;
+  flex-shrink: 0;
 }
 .navbar .container .navbar-brand .logo {
   height: 20px;
@@ -2798,7 +2915,7 @@ button label {
 }
 .navbar .container .navbar-nav {
   display: flex;
-  margin: 0;
+  margin: 0 auto;
 }
 .navbar .container .navbar-nav > li > a {
   padding: 10px;
@@ -2832,12 +2949,13 @@ button label {
 .navbar .container .navbar-right button + button {
   margin-left: 5px;
 }
-@media (min-width: 768px) {
+
+@media (min-width: 1200px) {
   #home {
     margin-right: 10px;
   }
   .navbar .container .navbar-right {
-    margin-left: 125px;
+    margin-left: 200px;
   }
 }
 @media (max-width: 768px) {
@@ -2853,10 +2971,13 @@ button label {
   .navbar .container .navbar-brand {
     padding: 10px 0;
   }
+  .navbar .container .navbar-nav > li:not(.communities) {
+    display: none;
+  }
 }
 /******************************************************************************\
 |                                                                              |
-|                                   navs.less                                  |
+|                                  _navs.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2870,26 +2991,29 @@ h1 i {
   margin-right: 10px;
   color: #c5050c;
 }
-.navbar i,
-.breadcrumb i {
+
+.navbar i, .breadcrumb i {
   margin-right: 5px;
 }
+
 a {
   color: #c5050c;
 }
 a:hover {
   color: #930409;
 }
-.doi a,
-.url a {
+
+.doi a, .url a {
   word-break: break-all;
 }
-body[device="phone"] .breadcrumb {
+
+body[device=phone] .breadcrumb {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   styles.less                                |
+|                                  _index.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2905,7 +3029,7 @@ body[device="phone"] .breadcrumb {
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                                    grids.less                                |
+|                                 _grids.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2920,12 +3044,14 @@ pattern svg path {
   opacity: 0.5;
   vector-effect: non-scaling-stroke;
 }
+
 #grid {
   opacity: 1;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                 labels.less                                  |
+|                                _labels.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2942,15 +3068,18 @@ text.label {
 text.label:hover {
   fill: #f7060f;
 }
+
 text.label.hidden {
   display: none;
 }
+
 .hide-labels .label:not(.selected) {
   display: none !important;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  markers.less                                |
+|                                _markers.less                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -2981,17 +3110,20 @@ svg.marker .icon {
 svg.marker circle {
   fill-opacity: 0.25;
 }
+
 .marker .background {
   fill: white;
   stroke: #c5050c;
   fill-opacity: 1;
 }
+
 .hide-marker-labels .marker text {
   display: none !important;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                     svg.less                                 |
+|                                   _svg.less                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3006,14 +3138,17 @@ svg {
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 .dark svg {
   background: #333333;
 }
+
 #viewport {
   position: relative;
   width: 100%;
   height: 100%;
 }
+
 /*
  * svg element styles
  */
@@ -3025,24 +3160,29 @@ path.polygon {
   stroke-opacity: 0.5;
   fill-opacity: 0.5;
 }
+
 circle {
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
 }
+
 line {
   stroke: grey;
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
 }
+
 .hide-map #basemap {
   display: none;
 }
+
 .hide-grid #grid {
   display: none;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                   styles.less                                |
+|                                 _index.scss                                  |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3058,7 +3198,7 @@ line {
 \******************************************************************************/
 /******************************************************************************\
 |                                                                              |
-|                               activities-bar.js                              |
+|                             _activities-bar.scss                             |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3117,9 +3257,96 @@ line {
 #activities-bar button#show-help.selected {
   color: #b25555;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                date-bar.less                                 |
+|                                _toolbars.scss                                |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+.toolbar {
+  display: flex;
+  padding: 5px;
+  background: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ededed;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.toolbar .title {
+  color: #c5050c;
+  font-weight: bold;
+}
+.toolbar .buttons {
+  display: flex;
+}
+.toolbar .buttons button {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  color: darkgrey;
+  background: transparent;
+  padding: 0;
+}
+.toolbar .buttons button.selected {
+  color: #c5050c;
+}
+.toolbar .buttons button:active {
+  background: #d9d9d9;
+}
+.toolbar input, .toolbar select, .toolbar button {
+  border: none;
+}
+.toolbar select {
+  background: #e7e7e7;
+}
+.toolbar .slider-range {
+  border-color: lightgrey;
+}
+.toolbar:not(.vertical) .buttons button:not(:first-child) {
+  margin-left: 5px;
+}
+.toolbar.vertical {
+  flex-direction: column;
+  text-align: center;
+}
+.toolbar.vertical .title {
+  margin: 0 -5px;
+}
+.toolbar.vertical .buttons {
+  flex-direction: column;
+  align-items: end;
+}
+.toolbar.vertical .buttons button:not(:last-child) {
+  margin: auto;
+}
+.toolbar.vertical .divider {
+  display: block;
+  border-bottom: 2px dashed lightgrey;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+body[device=desktop] .toolbar .buttons button.close:hover, body[device=desktop] .toolbar .buttons button.clear:hover {
+  color: crimson;
+}
+body[device=desktop] .toolbar .buttons button:hover {
+  color: #9b0000;
+}
+body[device=desktop] .toolbar .buttons button.selected:hover {
+  color: #9b0000;
+}
+
+/******************************************************************************\
+|                                                                              |
+|                               _date-bar.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3143,7 +3370,7 @@ line {
 #date-bar > div label {
   line-height: 30px;
 }
-#date-bar > div input[type="checkbox"] {
+#date-bar > div input[type=checkbox] {
   margin-left: 5px;
   vertical-align: top;
 }
@@ -3187,19 +3414,22 @@ line {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+
 /*
  * slider styles
  */
 .slider-label {
   width: 50px;
 }
+
 .ui-slider-handle {
   border: 1px solid #aaaaaa !important;
   outline: none !important;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  help-bar.js                                 |
+|                                 _help-bar.js                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3213,9 +3443,10 @@ line {
   bottom: 10px;
   left: 10px;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                map-mode-bar.js                               |
+|                                _map-bar.scss                                 |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3232,9 +3463,10 @@ line {
   flex-direction: column;
   text-align: center;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                options-bar.js                                |
+|                              _options-bar.scss                               |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3248,9 +3480,10 @@ line {
   top: 65px;
   left: 10px;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                search-bar.less                               |
+|                               _search-bar.scss                               |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3277,6 +3510,7 @@ line {
   margin: 0 5px;
   font-weight: bold;
 }
+
 #source-selector {
   position: absolute;
   top: 10px;
@@ -3290,6 +3524,7 @@ line {
 #source-selector .title i {
   margin-right: 5px;
 }
+
 @media (min-width: 768px) {
   #search-bar {
     width: 75%;
@@ -3297,94 +3532,7 @@ line {
 }
 /******************************************************************************\
 |                                                                              |
-|                                 toolbars.less                                |
-|                                                                              |
-|******************************************************************************|
-|                                                                              |
-|        This defines the dom and svg visual styles for this application.      |
-|                                                                              |
-|******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
-\******************************************************************************/
-.toolbar {
-  display: flex;
-  padding: 5px;
-  background: white;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ececec;
-  border-radius: 5px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-.toolbar .title {
-  color: #c5050c;
-  font-weight: bold;
-}
-.toolbar .buttons {
-  display: flex;
-}
-.toolbar .buttons button {
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
-  color: darkgrey;
-  background: transparent;
-  padding: 0;
-}
-.toolbar .buttons button.selected {
-  color: #c5050c;
-}
-.toolbar .buttons button:active {
-  background: #d9d9d9;
-}
-.toolbar input,
-.toolbar select,
-.toolbar button {
-  border: none;
-}
-.toolbar select {
-  background: #e7e7e7;
-}
-.toolbar .slider-range {
-  border-color: lightgrey;
-}
-.toolbar:not(.vertical) .buttons button:not(:first-child) {
-  margin-left: 5px;
-}
-.toolbar.vertical {
-  flex-direction: column;
-  text-align: center;
-}
-.toolbar.vertical .title {
-  margin: 0 -5px;
-}
-.toolbar.vertical .buttons {
-  flex-direction: column;
-  align-items: end;
-}
-.toolbar.vertical .buttons button:not(:last-child) {
-  margin: auto;
-}
-.toolbar.vertical .divider {
-  display: block;
-  border-bottom: 2px dashed lightgrey;
-  width: 100%;
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-body[device="desktop"] .toolbar .buttons button.close:hover,
-body[device="desktop"] .toolbar .buttons button.clear:hover {
-  color: crimson;
-}
-body[device="desktop"] .toolbar .buttons button:hover {
-  color: #9b0000;
-}
-body[device="desktop"] .toolbar .buttons button.selected:hover {
-  color: #9b0000;
-}
-/******************************************************************************\
-|                                                                              |
-|                                  view-bar.js                                 |
+|                                _view-bar.scss                                |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3401,9 +3549,10 @@ body[device="desktop"] .toolbar .buttons button.selected:hover {
   flex-direction: column;
   text-align: center;
 }
+
 /******************************************************************************\
 |                                                                              |
-|                                  zoom-bar.js                                 |
+|                                _zoom-bar.scss                                |
 |                                                                              |
 |******************************************************************************|
 |                                                                              |
@@ -3432,3 +3581,33 @@ body[device="desktop"] .toolbar .buttons button.selected:hover {
   border-style: solid;
   border-color: transparent;
 }
+
+/******************************************************************************\
+|                                                                              |
+|                                 _index.scss                                  |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines various CSS styles used in this application.             |
+|                                                                              |
+|        Author(s): Abe Megahed                                                |
+|                                                                              |
+|        This file is subject to the terms and conditions defined in           |
+|        'LICENSE.txt', which is part of this source code distribution.        |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+/******************************************************************************\
+|                                                                              |
+|                                  styles.scss                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+/*# sourceMappingURL=styles.css.map */
