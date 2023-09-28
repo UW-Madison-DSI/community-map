@@ -1,6 +1,5 @@
 {
 	"servers": {
-		"authentication": "http://localhost/community-map-server/public/api",
 		"community_map": "http://localhost/community-map-server/public/api",
 		"campus_map": "http://localhost/campus-map-server/public"
 	}

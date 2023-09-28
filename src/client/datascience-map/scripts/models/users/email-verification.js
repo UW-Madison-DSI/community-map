@@ -18,7 +18,7 @@ export default Timestamped.extend({
 	// Backbone attributes
 	//
 
-	urlRoot: config.servers.authentication + '/verifications',
+	urlRoot: config.servers.community_map + '/verifications',
 
 	//
 	// ajax methods

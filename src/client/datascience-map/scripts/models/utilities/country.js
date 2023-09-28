@@ -19,5 +19,5 @@ export default BaseModel.extend({
 	//
 
 	idAttribute: 'country_id',
-	urlRoot: config.servers.authentication + '/countries'
+	urlRoot: config.servers.community_map + '/countries'
 });

@@ -18,7 +18,7 @@ export default Timestamped.extend({
 	// Backbone attributes
 	//
 
-	urlRoot: config.servers.authentication + '/password-resets',
+	urlRoot: config.servers.community_map + '/password-resets',
 
 	//
 	// ajax methods

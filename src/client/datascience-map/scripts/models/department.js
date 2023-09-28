@@ -24,7 +24,7 @@ export default BaseModel.extend({
 	//
 
 	idAttribute: 'id',
-	urlRoot: config.servers.academic + '/departments',
+	urlRoot: config.servers.community_map + '/departments',
 
 	//
 	// attributes

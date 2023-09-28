@@ -22,7 +22,7 @@ export default Backbone.Model.extend({
 
 		// initialize the session
 		//
-		$.ajax(config.servers.authentication + '/login', _.extend(options, {
+		$.ajax(config.servers.community_map + '/login', _.extend(options, {
 			type:'POST',
 			dataType:'json',
 			data: {
@@ -80,7 +80,7 @@ export default Backbone.Model.extend({
 
 		// log out from server
 		//
-		$.ajax(config.servers.authentication + '/logout', _.extend(options, {
+		$.ajax(config.servers.community_map + '/logout', _.extend(options, {
 			type: 'POST'
 		}));
 	}

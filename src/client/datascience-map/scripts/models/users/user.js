@@ -39,7 +39,7 @@ export default Timestamped.extend({
 	//
 
 	idAttribute: 'id',
-	urlRoot: config.servers.authentication + '/users',
+	urlRoot: config.servers.community_map + '/users',
 
 	//
 	// querying methods
@@ -229,7 +229,7 @@ export default Timestamped.extend({
 
 	resetPassword: function(password, options) {
 		$.ajax(_.extend(options, {
-			url: config.servers.authentication + '/password-resets/' + options.password_reset_id + '/reset',
+			url: config.servers.community_map + '/password-resets/' + options.password_reset_id + '/reset',
 			type: 'PUT',
 			data: {
 				'password': password,

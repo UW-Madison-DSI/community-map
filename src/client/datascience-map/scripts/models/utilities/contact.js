@@ -23,5 +23,5 @@ export default BaseModel.extend({
 	// ajax attributes
 	//
 
-	urlRoot: config.servers.authentication + '/contacts'
+	urlRoot: config.servers.community_map + '/contacts'
 });

@@ -72,7 +72,7 @@ export default BaseModel.extend({
 	// ajax attributes
 	//
 
-	urlRoot: config.servers.community + '/users',
+	urlRoot: config.servers.community_map + '/users',
 
 	//
 	// querying methods

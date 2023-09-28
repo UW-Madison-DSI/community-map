@@ -20,5 +20,5 @@ export default NamedItems.extend({
 	//
 
 	model: Country,
-	url: config.servers.authentication + '/countries'
+	url: config.servers.community_map + '/countries'
 });
