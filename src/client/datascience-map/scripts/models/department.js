@@ -23,11 +23,8 @@ export default BaseModel.extend({
 	// ajax attributes
 	//
 
-	urlRoot: 'api/public/departments',
-
-	url: () => {
-		return this.urlRoot + '/' + this.id
-	},
+	idAttribute: 'id',
+	urlRoot: config.servers.academic + '/departments',
 
 	//
 	// attributes

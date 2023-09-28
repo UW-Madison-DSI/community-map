@@ -23,7 +23,7 @@ export default {
 		let labelViews = [];
 		let viewport = this.getParentViewById('viewport');
 		if (viewport) {
-			let labels = viewport.parent.labels.getLabels([this.model.getAffiliation()]);
+			let labels = viewport.parent.labels.getLabels([this.model.getAffiliationBaseName()]);
 			if (labels) {
 
 				// add lines from labels to center

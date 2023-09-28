@@ -333,47 +333,6 @@ export default CampusMapView.extend({
 		}
 	},
 
-	showDepartmentPeople: function(source, department, options) {
-		if (!directory[department]) {
-			new People().fetchByInstitutionUnit(department, {
-				data: {
-					community: defaults.community
-				},
-
-				// callbacks
-				//
-				success: (collection) => {
-					let people = collection.models;
-
-					// add affilations
-					//
-					new People().fetchByInstitutionUnitAffiliation(department, {
-						data: {
-							community: defaults.community
-						},
-
-						// callbacks
-						//
-						success: (collection) => {
-							people = people.concat(collection.models);
-							directory[department] = people;
-
-							// show results
-							//
-							this.showPeople(people, options);
-						}
-					});
-				}
-			});
-		} else {
-			let people = directory[department];
-
-			// show results
-			//
-			this.showPeople(people, options);
-		}
-	},
-
 	showPlaces(places) {
 		this.buildingsView.deselectAll();
 		this.buildingsView.select(places);
@@ -387,24 +346,25 @@ export default CampusMapView.extend({
 		this.parent.showPlaces(places);
 	},
 
-	showAll: function() {
-		let department = this.departments.findByName('Data Science');
-		if (!this.parent.options.person) {
-			this.showDepartmentPeople('academic_analytics', department, {
+	showAll: function(options) {
+		new People().fetch({
+			data: {
+				community: defaults.community
+			},
 
-				// callbacks
+			// callbacks
+			//
+			success: (collection) => {
+
+				// show all people
 				//
-				success: () => {
-					if (this.options.onstart) {
-						this.options.onstart();
-					}
+				this.showPeople(collection.models, options);
+
+				if (this.options.onstart) {
+					this.options.onstart();
 				}
-			});
-		} else {
-			if (this.options.onstart) {
-				this.options.onstart();
-			}		
-		}
+			}
+		});
 	},
 
 	//

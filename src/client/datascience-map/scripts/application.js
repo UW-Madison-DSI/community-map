@@ -195,12 +195,8 @@ export default Marionette.Application.extend({
 		return collection;
 	},
 
-	//
-	// getting methods
-	//
-
-	getQueryString: function() {
-
+	getChildView: function(name) {
+		return this.getView().getChildView(name);
 	},
 
 	//

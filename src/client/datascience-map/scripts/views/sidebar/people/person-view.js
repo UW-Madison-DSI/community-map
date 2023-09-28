@@ -255,11 +255,6 @@ export default BaseView.extend({
 	// mouse event handling methods
 	//
 
-	onClickTab: function(event) {
-		let className = $(event.target).closest('li').attr('class');
-		let info = className.replace('tab', '').replace('tooltip-trigger', '').replace('active', '').replace(/-/g, '_').trim();
-	},
-
 	onClickClose: function() {
 		let topView = this.getTopView();
 		let mainView = topView.getChildView('content');

@@ -32,7 +32,7 @@ export default BaseView.extend({
 			<% if (primary_affiliation) { %>
 			<div id="primary-affiliation">
 				<label>Primary Affiliation</label>
-				<%= primary_affiliation_name %>
+				<%= primary_affiliation %>
 			</div>
 			<% } %>
 
@@ -159,8 +159,7 @@ export default BaseView.extend({
 	templateContext: function() {
 		return {
 			degree_institution: this.model.get('degree_institution') || 'unknown',
-			primary_affiliation: this.model.get('primary_affiliation') || 'unknown',
-			primary_affiliation_name: this.toDepartmentName(this.model.get('primary_affiliation_name')) || 'unknown',
+			primary_affiliation: this.model.getPrimaryAffiliationName() || 'unknown',
 			appointment_type: this.model.get('appointment_type'),
 			research_terms: this.model.has('research_terms')? this.model.get('research_terms').join(', ') : '',
 			other_affiliations: this.model.getSecondaryAffiliations(),

@@ -72,7 +72,7 @@ export default BaseModel.extend({
 	// ajax attributes
 	//
 
-	urlRoot: config.servers.academic + '/people',
+	urlRoot: config.servers.community + '/users',
 
 	//
 	// querying methods
@@ -144,6 +144,10 @@ export default BaseModel.extend({
 		return names.join(' ');
 	},
 
+	//
+	// profile photo getting methods
+	//
+
 	getProfilePhotoUrl: function() {
 		if (this.get('has_profile_photo')) {
 			return this.url() + '/profile/photo';
@@ -156,48 +160,51 @@ export default BaseModel.extend({
 		}
 	},
 
+	//
+	// affiliation getting methods
+	//
+
 	getAffiliation: function() {
-		return this.get('primary_affiliation') || this.get('affiliations')[0];
+		let primary = this.getPrimaryAffiliation();
+		let secondary = this.getSecondaryAffiliations();
+		return primary || (secondary? secondary[0] : undefined);
+	},
+
+	getAffiliationName: function() {
+		let affiliation = this.getAffiliation();
+		return affiliation? affiliation.get('name') : undefined;
+	},
+
+	getAffiliationBaseName: function() {
+		let affiliation = this.getAffiliation();
+		return affiliation? affiliation.get('base_name') : undefined;
+	},
+
+	getPrimaryAffiliation: function() {
+		let id = this.get('primary_unit_affiliation_id');
+		let mapView = application.getChildView('content mainbar');
+		let departments = mapView.departments;
+		return departments.findWhere({ id: id });
+	},
+
+	getPrimaryAffiliationName: function() {
+		let primary = this.getPrimaryAffiliation();
+		return primary? primary.get('name') : undefined;
+	},
+
+	getPrimaryAffiliationBaseName: function() {
+		let primary = this.getPrimaryAffiliation();
+		return primary? primary.get('base_name') : undefined;
 	},
 
 	getSecondaryAffiliations() {
 		let affiliations = this.get('affiliations') || [];
-		return affiliations.remove(this.get('primary_affiliation'));
+		return affiliations.remove(this.getPrimaryAffiliationName());
 	},
 
 	//
 	// parsing methods
 	//
-
-	parsePrimaryAffiliation(response) {
-		if (response.primaryUnitAffiliation) {
-			return response.primaryUnitAffiliation.baseName;
-		} else if (response.otherPrimaryUnitAffiliation) {
-			return response.otherPrimaryUnitAffiliation;
-		} else if (response.unitName) {
-			return response.unitName;
-		}
-	},
-
-	parsePrimaryAffiliationName(response) {
-		if (response.primaryUnitAffiliation) {
-			return response.primaryUnitAffiliation.name;
-		} else if (response.otherPrimaryUnitAffiliation) {
-			return response.otherPrimaryUnitAffiliation;
-		} else if (response.unitName) {
-			return response.unitName;
-		}
-	},
-
-	parseAffiliations(response) {
-		let affiliations = [];
-		if (response.nonPrimaryUnitAffiliations) {
-			for (let i = 0; i < response.nonPrimaryUnitAffiliations.length; i++) {
-				affiliations.push(response.nonPrimaryUnitAffiliations[i].baseName);
-			}
-		}
-		return affiliations;
-	},
 
 	parseItems: function(data, ItemClass) {
 		if (data) {
@@ -212,57 +219,5 @@ export default BaseModel.extend({
 			}
 			return items;
 		}
-	},
-
-	parse: function(response) {
-		return {
-			id: response.id,
-			source: 'academic_analytics',
-			email: undefined,
-
-			// name info
-			//
-			title: response.title? response.title : undefined,
-			first_name: response.firstName? response.firstName : undefined,
-			last_name: response.lastName? response.lastName : undefined,
-			middle_name: response.middleName? response.middleName : undefined,
-
-			// affiliation info
-			//
-			primary_affiliation: this.parsePrimaryAffiliation(response),
-			primary_affiliation_name: this.parsePrimaryAffiliationName(response),
-			affiliations: this.parseAffiliations(response),
-			is_affiliate: response.isAffiliate == 1,
-			communities: response.communities,
-
-			// institution info
-			//
-			appointment_type: response.appointmentType,
-			building_number: response.buildingNumber,
-
-			// research info
-			//
-			research_summary: response.researchSummary,
-			research_interests: response.researchInterests,
-			research_tools: response.researchTools,
-			research_terms: response.researchTerms,
-
-			// academic info
-			//
-			degree_institution: response.degreeInstitutionName,
-			degree_year: response.degreeYear,
-			orcid_id: response.orcidId,
-
-			// personal info
-			//
-			has_profile_photo: response.hasProfilePhoto,
-			homepage: response.homepage,
-			social_url: response.socialUrl,
-			github_url: response.githubUrl,
-
-			// contact info
-			//
-			url: 'https://wisc.discovery.academicanalytics.com/scholar/stack/' + response.id + '/' + response.firstName + '-' + response.lastName
-		};
 	}
 });

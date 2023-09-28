@@ -300,7 +300,6 @@ export default ToolbarView.extend({
 		//
 		new People().fetchAll({
 			term: query,
-			institution_unit: 10000,
 			community: defaults.community,
 			exact: options.exact
 		}, {
@@ -359,7 +358,6 @@ export default ToolbarView.extend({
 
 		new People().fetchAll({
 			name: name,
-			institution_unit: 10000,
 			community: defaults.community
 		}, {
 

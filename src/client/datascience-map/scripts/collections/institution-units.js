@@ -25,7 +25,7 @@ export default BaseCollection.extend({
 	//
 
 	model: InstitutionUnit,
-	url: config.servers.academic + '/institution-units',
+	url: config.servers.community + '/institution-units',
 
 	//
 	// querying methods

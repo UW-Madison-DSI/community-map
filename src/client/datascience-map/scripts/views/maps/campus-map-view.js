@@ -80,6 +80,7 @@ export default BaseMapView.extend({
 			// callbacks
 			//
 			success: (collection) => {
+				this.departments = collection.models;
 
 				// link departments with buildings
 				//

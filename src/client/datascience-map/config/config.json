@@ -1,7 +1,8 @@
 {
 	"servers": {
-		"authentication": "http://localhost/authentication-server/public/api",
-		"academic": "http://localhost/academic-server/public",
+		"authentication": "http://localhost/community-server/public/api",
+		"community": "http://localhost/community-server/public/api",
+		"academic": "http://localhost/academic-server/public/api",
 		"campus_map": "http://localhost/campus-map-server/public"
 	}
 }

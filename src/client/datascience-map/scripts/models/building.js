@@ -25,11 +25,8 @@ export default BaseModel.extend({
 	// ajax attributes
 	//
 
-	urlRoot: '/buildings',
-
-	url: function() {
-		return config.servers.campus_map + this.urlRoot + '/' + this.id
-	},
+	idAttribute: 'id',
+	urlRoot: config.servers.campus_map + '/buildings',
 
 	//
 	// attributes

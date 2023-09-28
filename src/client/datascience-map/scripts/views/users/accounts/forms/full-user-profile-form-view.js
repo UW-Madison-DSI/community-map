@@ -197,7 +197,7 @@ export default FormView.extend({
 		<fieldset>
 			<legend>Academic</legend>
 
-			<div class="form-group" id="degree-institution-name">
+			<div class="form-group" id="degree-institution">
 				<label class="control-label">Degree Institution</label>
 				<div class="controls">
 					<div class="input-group">
@@ -476,8 +476,8 @@ export default FormView.extend({
 
 			// academic
 			//
-			case 'degree_institution_name':
-				return this.$el.find('#degree-institution-name input').val();
+			case 'degree_institution':
+				return this.$el.find('#degree-institution input').val();
 			case 'degree_year':
 				return this.$el.find('#degree-year input').val();
 			case 'orcid_id':
@@ -546,7 +546,7 @@ export default FormView.extend({
 
 			// academic
 			//
-			degree_institution_name: this.getValue('degree_institution_name'),
+			degree_institution: this.getValue('degree_institution'),
 			degree_year: this.getValue('degree_year'),
 			orcid_id: this.getValue('orcid_id'),
 
@@ -695,16 +695,11 @@ export default FormView.extend({
 				this.setTerms(value);
 				this.$el.find('#research-interests input').val(this.getOtherAttributes(value).join(', '));
 				break;
-			/*
-			case 'research_interests':
-				this.$el.find('#research-interests input').val(value.join(', '));
-				break;
-			*/
 
 			// academic
 			//
-			case 'degree_institution_name':
-				this.$el.find('#degree-institution-name input').val(value);
+			case 'degree_institution':
+				this.$el.find('#degree-institution input').val(value);
 				break;
 			case 'degree_year':
 				this.$el.find('#degree-year input').val(value);
@@ -807,7 +802,7 @@ export default FormView.extend({
 
 			// academic
 			//
-			degree_institution_name: this.model.get('degree_institution_name'),
+			degree_institution: this.model.get('degree_institution'),
 			degree_year: this.model.get('degree_year'),
 			orcid_id: this.model.get('orcid_id'),
 

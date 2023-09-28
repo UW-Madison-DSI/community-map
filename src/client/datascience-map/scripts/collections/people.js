@@ -27,6 +27,7 @@ export default BaseCollection.extend({
 	//
 
 	model: Person,
+	url: config.servers.community + '/users',
 
 	//
 	// sorting methods
@@ -119,35 +120,35 @@ export default BaseCollection.extend({
 
 	fetchAll(params, options) {
 		return this.fetch(_.extend({}, options, {
-			url: config.servers.academic + '/people?' + QueryString.encode(params),
+			url: config.servers.community + '/users?' + QueryString.encode(params),
 			parse: true
 		}));
 	},
 
 	fetchByName(name, options) {
 		return this.fetch(_.extend({}, options, {
-			url: config.servers.academic + '/people?name=' + encodeURIComponent(name),
+			url: config.servers.community + '/users?name=' + encodeURIComponent(name),
 			parse: true
 		}));
 	},
 
 	fetchByLabel(label, options) {
 		return this.fetch(_.extend({}, options, {
-			url: config.servers.academic + '/people?term=' + encodeURIComponent(label),
+			url: config.servers.community + '/users?term=' + encodeURIComponent(label),
 			parse: true
 		}));
 	},
 
 	fetchByInstitutionUnit(institutionUnit, options) {
 		return this.fetch(_.extend({}, options, {
-			url: config.servers.academic + '/institution-units/' + institutionUnit.get('id') + '/people',
+			url: config.servers.community + '/institution-units/' + institutionUnit.get('id') + '/people',
 			parse: true
 		}));
 	},
 
 	fetchByInstitutionUnitAffiliation(institutionUnit, options) {
 		return this.fetch(_.extend({}, options, {
-			url: config.servers.academic + '/institution-units/' + institutionUnit.get('id') + '/affiliations',
+			url: config.servers.community + '/institution-units/' + institutionUnit.get('id') + '/affiliations',
 			parse: true
 		}));
 	}

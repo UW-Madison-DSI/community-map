@@ -159,7 +159,7 @@ export default LabeledMarkerView.extend({
 			let buildingNumber = this.model.get('building_number');
 			return mapView.getBuildingLocation(buildingNumber);
 		} else {
-			let affiliation = this.model.getAffiliation();
+			let affiliation = this.model.getAffiliationBaseName();
 			return mapView.labelsView.getLocationOf([affiliation]);
 		}
 	},
@@ -288,7 +288,7 @@ export default LabeledMarkerView.extend({
 				let buildingNumber = person.get('building_number');
 				location = mapView.getBuildingLocation(buildingNumber);
 			} else {
-				let affiliation = person.getAffiliation();
+				let affiliation = person.getAffiliationBaseName();
 				let affiliations = affiliation? [ affiliation ] : undefined;
 				location = mapView.getLocationOf(affiliations);
 			}
