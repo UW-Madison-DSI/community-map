@@ -367,6 +367,16 @@ $welcome-panel-text-color: #303030;
 	}
 
 	//
+	// count bubbles
+	//
+
+	.tree .count {
+		margin-left: 10px;
+		padding-top: 2px;
+		flex-grow: 1;
+	}
+
+	//
 	// links
 	//
 

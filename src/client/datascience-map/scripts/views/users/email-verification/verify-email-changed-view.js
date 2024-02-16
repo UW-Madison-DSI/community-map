@@ -74,32 +74,6 @@ export default BaseView.extend({
 						Backbone.history.navigate('#home', {
 							trigger: true
 						});
-							
-						/*
-						if( application.session.user ){
-							application.session.user.set({ user_uid: 'current' });
-							application.session.user.fetch({ 
-
-								// callbacks
-								//
-								success: () => {
-
-									// go to home view
-									//
-									Backbone.history.navigate('#home', {
-										trigger: true
-									});
-								}
-							});
-						} else {
-
-							// go to home view
-							//
-							Backbone.history.navigate('#home', {
-								trigger: true
-							});
-						}
-						*/
 					}
 				});
 			},

@@ -41,7 +41,7 @@
 		<p>At the left of the screen you will see a series of checkboxes.  Expand or collapse the categories by clicking on the arrows to the left of the checkboxes.  Click the checkboxes next to the items of interest to you in order to view people who share similar interests.  You can select or deselect an entire group by clicking on the categories which are shown in bold. </p>
 
 		<div class="figure">
-			<img src="images/checkbox-filters.png" width="300px" />
+			<img src="images/screen-shots/checkbox-filters.png" width="300px" />
 			<div class="caption">The Checkbox Filters</div>
 		</div>
 	</li>
@@ -51,7 +51,7 @@
 		<p>At the top of the screen you will see a search bar.  You can type in either a <b>topic</b> or the <b>name</b> of a person that you are interested in. You don’t need to sign in to search the map.</p>
 
 		<div class="figure">
-			<img src="images/search-bar.png" width="500px" />
+			<img src="images/screen-shots/search-bar.png" width="500px" />
 			<div class="caption">The Search Bar</div>
 		</div>
 
@@ -59,14 +59,14 @@
 
 		<div class="row">
 			<div class="figure col-sm-8" style="float:none; margin:auto">
-				<a href="images/search-by-name.png" target="_blank" class="lightbox" title="Search By Name"><img src="images/search-by-name.png" /></a>
+				<a href="images/screen-shots/search-by-name.png" target="_blank" class="lightbox" title="Search By Name"><img src="images/screen-shots/search-by-name.png" /></a>
 				<div class="caption">Search By Name</div>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="figure col-sm-8" style="float:none; margin:auto">
-				<a href="images/search-by-topic.png" target="_blank" class="lightbox" title="Search By Topic"><img src="images/search-by-topic.png" /></a>
+				<a href="images/screen-shots/search-by-topic.png" target="_blank" class="lightbox" title="Search By Topic"><img src="images/screen-shots/search-by-topic.png" /></a>
 				<div class="caption">Search By Topic</div>
 			</div>
 		</div>
@@ -75,7 +75,7 @@
 
 		<div class="row">
 			<div class="figure col-sm-8" style="float:none; margin:auto">
-				<a href="images/profile.png" target="_blank" class="lightbox" title="A Person's Profile"><img src="images/profile.png" /></a>
+				<a href="images/screen-shots/profile.png" target="_blank" class="lightbox" title="A Person's Profile"><img src="images/screen-shots/profile.png" /></a>
 				<div class="caption">A Person's Profile</div>
 			</div>
 		</div>

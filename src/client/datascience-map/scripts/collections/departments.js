@@ -39,4 +39,11 @@ export default BaseCollection.extend({
 			}
 		}
 	}
+}, {
+
+	//
+	// static attributes
+	//
+
+	collection: null
 });

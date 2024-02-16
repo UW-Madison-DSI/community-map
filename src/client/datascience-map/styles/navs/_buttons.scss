@@ -25,7 +25,7 @@ $border-radius: 5px;
 
 .btn {
 	color: initial;
-	background-color: colors.$very-light-grey;
+	background-color: colors.$very-very-light-grey;
 	border-radius: $border-radius;
 	border-width: 1px;
 	border-style: solid;
@@ -38,7 +38,7 @@ $border-radius: 5px;
 	}
 
 	&:hover {
-		background: colors.$light-grey;
+		background: colors.$very-light-grey;
 	}
 
 	&.close, &.clear {

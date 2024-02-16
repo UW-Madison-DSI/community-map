@@ -14,6 +14,7 @@ import InstitutionUnits from '../../../../collections/institution-units.js';
 import Buildings from '../../../../collections/buildings.js';
 import BaseView from '../../../../views/base-view.js';
 import FullUserProfileFormView from '../../../../views/users/accounts/forms/full-user-profile-form-view.js';
+import QueryString from '../../../../utilities/web/query-string.js';
 
 export default BaseView.extend({
 
@@ -37,13 +38,20 @@ export default BaseView.extend({
 		</div>
 				
 		<div id="user-profile-form">
+			<div style="text-align:center; margin:50px">
+				<i class="fa fa-3x fa-spinner spinning" style="margin-right:10px"></i>
+				<br />
+				Loading...
+			</div>
 		</div>
 		
 		<br />
 
 		<div class="buttons">
 			<button id="save" class="btn btn-primary btn-lg"><i class="fa fa-save"></i>Save</button>
+			<% if (!sso) { %>
 			<button id="change-password" class="btn btn-lg"><i class="fa fa-lock"></i>Change Password</button>
+			<% } %>
 			<button id="delete-account" class="btn btn-lg"><i class="fa fa-trash"></i>Delete Account</button>
 			<button id="cancel" class="btn btn-lg"><i class="fa fa-times"></i>Cancel</button>
 		</div>
@@ -180,6 +188,12 @@ export default BaseView.extend({
 	// rendering methods
 	//
 
+	templateContext: function() {
+		return {
+			sso: config.sso != undefined
+		};
+	},
+
 	onRender: function() {
 		new InstitutionUnits().fetch({
 
@@ -197,7 +211,8 @@ export default BaseView.extend({
 						this.showChildView('form', new FullUserProfileFormView({
 							model: this.model,
 							departments: departments,
-							buildings: buildings
+							buildings: buildings,
+							community: QueryString.value('community') || defaults.community
 						}));
 					}
 				});

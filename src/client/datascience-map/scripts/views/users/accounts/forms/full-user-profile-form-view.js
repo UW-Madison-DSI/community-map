@@ -16,9 +16,10 @@
 \******************************************************************************/
 
 import FormView from '../../../../views/forms/form-view.js';
-import TreeView from '../../../../views/sidebar/trees/tree-view.js';
+import TreeView from '../../../../views/items/trees/tree-view.js';
 import '../../../../views/forms/validation/alphanumeric-rules.js';
 import '../../../../views/forms/validation/authentication-rules.js';
+import '../../../../../vendor/bootstrap/js/tab.js';
 
 export default FormView.extend({
 
@@ -107,7 +108,7 @@ export default FormView.extend({
 				</div>
 			</div>
 
-			<div class="form-group" id="is-affiliate">
+			<div class="form-group" id="is-affiliate" style="display:none">
 				<label class="control-label">DSI Affiliate</label>
 				<div class="controls">
 					<div class="checkbox">
@@ -116,22 +117,6 @@ export default FormView.extend({
 							Have you applied and been selected to participate in the <a href="https://datascience.wisc.edu/dsi-affiliates" target="_blank">Data Science Institute Affiliate Program</a>?
 						</label>
 					</div>
-				</div>
-			</div>
-
-			<div class="form-group" id="communities">
-				<label class="control-label">Communities</label>
-				<div class="controls">
-					<% for (i = 0; i < all_communities.length; i++) { %>
-					<% let community = all_communities[i]; %>
-					<% let communityName = community.replace(/-/g, ' ').toTitleCase(); %>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" value="<%= community %>"<% if (!communities || communities.includes(community)) { %> checked="checked" <% } %> />
-							<%= communityName %>
-						</label>
-					</div>
-					<% } %>
 				</div>
 			</div>
 
@@ -171,23 +156,60 @@ export default FormView.extend({
 				</div>
 			</div>
 
-			<div class="form-group" id="data-science-interests">
-				<label class="control-label">Your Attributes</label>
-				<div class="checkboxes col-sm-6 col-xs-12">
-					<p class="form-control-static">
-						Please select the items that apply to you:
-						<div class="terms-selector"></div>
-					</p>
+			<div class="form-group" id="communities">
+				<label class="control-label">Communities</label>
+				<div class="controls">
+					<% for (i = 0; i < defaults.communities.length; i++) { %>
+					<% let community = defaults.communities[i]; %>
+					<% let communityName = community.replace(/-/g, ' ').toTitleCase(); %>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="<%= community %>"<% if (!communities || communities.includes(community)) { %> checked="checked" <% } %> />
+							<%= communityName %>
+						</label>
+					</div>
+					<% } %>
 				</div>
 			</div>
 
 			<div class="form-group" id="research-interests">
+				<label class="control-label">Your Attributes</label>
+				<div class="checkboxes col-sm-6 col-xs-12">
+					<p class="form-control-static">
+						Please select the items that apply to you:
+
+						<ul class="nav nav-tabs" role="tablist">
+							<% for (let i = 0; i < defaults.communities.length; i++) { %>
+							<% let communityId = defaults.communities[i]; %>
+							<% let communityName = communityId.replace(/-/g, ' ').toTitleCase(); %>
+							<li role="presentation"<% if (communityId == community) { %> class="active"<% } %>>
+								<a role="tab" data-toggle="tab" href="<%= '#' + communityId %>-interests">
+									<label><%= communityName %></label>
+								</a>
+							</li>
+							<% } %>
+						</ul>
+
+						<div class="tab-content">
+							<% for (let i = 0; i < defaults.communities.length; i++) { %>
+							<% let communityId = defaults.communities[i]; %>
+							<div role="tabpanel" id="<%= communityId %>-interests" class="tab-pane<% if (communityId == community) { %> active<% } %>">
+								<div class="terms-selector"></div>
+							</div>
+							<% } %>
+						</div>
+
+					</p>
+				</div>
+			</div>
+
+			<div class="form-group" id="other-interests">
 				<label class="control-label">Other Attributes</label>
 				<div class="controls">
 					<div class="input-group">
 						<input type="text" class="form-control">
 						<div class="input-group-addon">
-							<i class="active fa fa-question-circle" data-toggle="popover" title="Other Interests" data-content="This is a comma separated list of items of interest to you."></i>
+							<i class="active fa fa-question-circle" data-toggle="popover" title="Other Attributes" data-content="This is a comma separated list of items of interest to you."></i>
 						</div>	
 					</div>
 				</div>
@@ -284,25 +306,51 @@ export default FormView.extend({
 			</div>
 		</div>
 
-		<fieldset>
+		<fieldset id="notifications">
 			<legend>Notifications</legend>
-
-			<% let keys = Object.keys(defaults.options); %>
-			<% for (let i = 0; i < keys.length; i++) { %>
-			<% let key = keys[i]; %>
-			<% let option = defaults.options[key]; %>
-			<div class="form-group option" id="<%= key %>">
-				<label class="control-label"><%= option.label %></label>
+			<div class="form-group">
+				<label class="control-label"></label>
 				<div class="controls">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" />
-							<%= option.description %>
-						</label>
+					<ul class="nav nav-tabs" role="tablist">
+						<% for (let i = 0; i < defaults.communities.length; i++) { %>
+						<% let communityId = defaults.communities[i]; %>
+						<% let communityName = communityId.replace(/-/g, ' ').toTitleCase(); %>
+						<li role="presentation"<% if (communityId == community) { %> class="active"<% } %>>
+							<a role="tab" data-toggle="tab" href="<%= '#' + communityId %>-options">
+								<label><%= communityName %></label>
+							</a>
+						</li>
+						<% } %>
+					</ul>
+				</div>
+
+				<div class="tab-content">
+					<% for (let i = 0; i < defaults.communities.length; i++) { %>
+					<% let communityId = defaults.communities[i]; %>
+					<div role="tabpanel" id="<%= communityId %>-options" class="tab-pane<% if (communityId == community) { %> active<% } %>">
+						<% let options = window.community_defaults[communityId].options; %>
+						<% if (options) { %>
+						<% let keys = Object.keys(options); %>
+						<% for (let i = 0; i < keys.length; i++) { %>
+						<% let key = keys[i]; %>
+						<% let option = options[key]; %>
+						<div class="form-group option" id="<%= key %>">
+							<label class="control-label"><%= option.label %></label>
+							<div class="controls">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" />
+										<%= option.description %>
+									</label>
+								</div>
+							</div>
+						</div>
+						<% } %>
+						<% } %>
 					</div>
+					<% } %>
 				</div>
 			</div>
-			<% } %>
 		</fieldset>
 
 		<br />
@@ -310,14 +358,10 @@ export default FormView.extend({
 		<span class="required"></span>Fields are required.
 	`),
 
-	regions: {
-		terms: '.terms-selector'
-	},
-
 	events: {
 		'change #department select': 'onChangeDepartment',
 		'click #all input[type="checkbox"]': 'onClickAll',
-		'click .topic input[type="checkbox"]': 'onClickTopic',
+		'click #communities input[type="checkbox"]': 'onClickCommunities',
 		'change input[type="file"]': 'onChangeFile',
 		'click .change-photo': 'onChangePhoto'
 	},
@@ -334,8 +378,15 @@ export default FormView.extend({
 	//
 	
 	initialize: function() {
-		this.terms = application.getCollection(defaults.terms);	
-		this.termsList = this.toList(defaults.terms);
+		this.termCollections = [];
+		this.termLists = [];
+		let keys = Object.keys(window.community_defaults);
+		for (let i = 0; i < keys.length; i++) {
+			let key = keys[i];
+			let terms = window.community_defaults[key].terms;
+			this.termCollections.push(application.getCollection(terms));
+			this.termLists.push(this.toList(terms));
+		}
 
 		// add custom form validation rules
 		//
@@ -380,8 +431,25 @@ export default FormView.extend({
 	// querying methods
 	//
 
+	isCommunitySelected: function(community) {
+		return this.$el.find('#communities input[value="' + community + '"]').is(':checked');
+	},
+
 	hasProfilePhoto: function() {
 		return this.$el.find('#profile-photo input').val() != '';
+	},
+
+	hasTerm: function(term) {
+		for (let i = 0; i < this.termLists.length; i++) {
+			let community = defaults.communities[i];
+			if (this.isCommunitySelected(community)) {
+				let termList = this.termLists[i];
+				if (termList.includes(term)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	},
 
 	//
@@ -390,14 +458,68 @@ export default FormView.extend({
 
 	getCommunities: function() {
 		var selected = [];
-		$('#communities input:checked').each(function() {
+		this.$el.find('#communities input[type="checkbox"]:checked').each(function() {
 			selected.push($(this).val());
 		});
 		return selected;
 	},
 
+	getAllCommunities: function() {
+		var communities = [];
+		this.$el.find('#communities input[type="checkbox"]').each(function() {
+			communities.push($(this).val());
+		});
+		return communities;
+	},
+
 	getTerms: function() {
-		return this.getChildView('terms').getValues();
+		let values = [];
+		let keys = this.getCommunities()
+		for (let i = 0; i < keys.length; i++) {
+			let key = keys[i];
+			let id = key.replace(/-/g, '_');
+			let listValues = this.getChildView(id).getValues();
+			values = values.concat(listValues);
+		}
+
+		let otherTerms = this.getOtherTerms();
+		if (otherTerms && otherTerms.length > 0) {
+			values = values.concat(otherTerms);
+		}
+
+		return values;
+	},
+
+	getAllTerms: function() {
+		let values = [];
+		let keys = this.getAllCommunities()
+		for (let i = 0; i < keys.length; i++) {
+			let key = keys[i];
+			let id = key.replace(/-/g, '_');
+			let listValues = this.getChildView(id).getValues();
+			values = values.concat(listValues);
+		}
+
+		let otherTerms = this.getOtherTerms();
+		if (otherTerms && otherTerms.length > 0) {
+			values = values.concat(otherTerms);
+		}
+
+		return values;
+	},
+
+	getOtherTerms: function() {
+		let values = [];
+		let value = this.$el.find('#other-interests input').val().trim();
+
+		if (value) {
+			values = value.split(',');
+			for (let i = 0; i < values.length; i++) {
+				values[i] = values[i].trim();
+			}
+		}
+
+		return values;
 	},
 
 	getTermList: function(string) {
@@ -470,9 +592,9 @@ export default FormView.extend({
 			case 'research_summary':
 				return this.$el.find('#research-summary textarea').val();
 			case 'research_terms':
-				return this.getTerms().concat(this.getValue('research_interests'));
-			case 'research_interests':
-				return this.getTermList(this.$el.find('#research-interests input').val());
+				return this.getTerms();
+			case 'other_terms':
+				return this.getOtherTerms();
 
 			// academic
 			//
@@ -502,10 +624,12 @@ export default FormView.extend({
 	},
 
 	getValues: function() {
+
+		// split names into first, middle, last
+		//
 		let name = this.getValue('name');
 		let names = name.split(' ');
 		let first_name, middle_name, last_name;
-
 		if (names.length == 1) {
 			last_name = names[length];
 		} else if (names.length == 2) {
@@ -577,7 +701,7 @@ export default FormView.extend({
 		let otherAttributes = [];
 		for (let i = 0; i < attributes.length; i++) {
 			let attribute = attributes[i];
-			if (!this.termsList.includes(attribute)) {
+			if (!this.hasTerm(attribute)) {
 				otherAttributes.push(attribute);
 			}
 		}
@@ -645,6 +769,14 @@ export default FormView.extend({
 		}
 	},
 
+	setCommunities: function(communities) {
+		this.$el.find('#communities input').prop('checked', false);
+		for (let i = 0; i < communities.length; i++) {
+			let community = communities[i];
+			this.$el.find('#communities input[value="' + community + '"]').prop('checked', true);
+		}
+	},
+
 	setValue: function(key, value) {
 		switch (key) {
 
@@ -685,15 +817,18 @@ export default FormView.extend({
 			case 'building_number':
 				this.$el.find('#building select').val(value);
 				break;
+			case 'communities':
+				this.setCommunities(value);
+				break;
 
 			// research
-			//	
+			//
 			case 'research_summary':
 				this.$el.find('#research-summary textarea').val(value);
 				break;
 			case 'research_terms':
 				this.setTerms(value);
-				this.$el.find('#research-interests input').val(this.getOtherAttributes(value).join(', '));
+				this.$el.find('#other-interests input').val(this.getOtherAttributes(value).join(', '));
 				break;
 
 			// academic
@@ -737,7 +872,12 @@ export default FormView.extend({
 	},
 
 	setTerms: function(terms) {
-		this.getChildView('terms').setValues(terms);
+		let keys = Object.keys(window.community_defaults);
+		for (let i = 0; i < keys.length; i++) {
+			let key = keys[i];
+			let id = key.replace(/-/g, '_');
+			this.getChildView(id).setValues(terms);
+		}
 	},
 
 	//
@@ -745,17 +885,24 @@ export default FormView.extend({
 	//
 
 	templateContext: function() {
-		let communities = this.model.get('communities');
+		let communities = this.model? this.model.get('communities') : [];
 		if (!communities || communities.length == 0) {
 			communities = [defaults.community];
 		}
+		let community = this.options.community || communities[0];
+
+		// add current community to user's current set if not already added
+		//
+		if (this.options.community && !communities.includes(this.options.community)) {
+			communities.push(this.options.community);
+		}
 
 		return {
-			name: this.model.getName(),
+			name: this.model? this.model.getName() : undefined,
 			departments: this.options.departments,
 			appointment_types: defaults.appointment_types,
+			community: community,
 			communities: communities,
-			all_communities: defaults.communities,
 			buildings: this.options.buildings,
 			interests: defaults.interests
 		}
@@ -769,12 +916,8 @@ export default FormView.extend({
 
 		// show child views
 		//
-		this.showChildView('terms', new TreeView({
-			collection: this.terms,
-			sortWithCollection: false,
-			expanded: defaults.expanded.terms
-		}));
-		this.$el.find('#data-science-interests input[type="checkbox"]').prop('checked', false);
+		this.showTermSelectors();
+		this.$el.find('#research-interests input[type="checkbox"]').prop('checked', false);
 
 		// initialize form
 		//
@@ -793,12 +936,12 @@ export default FormView.extend({
 			department: this.model.get('primary_unit_affiliation'),
 			appointment_type: this.model.get('appointment_type'),
 			building_number: this.model.get('building_number'),
+			communities: this.model.get('communities'),
 
 			// research
 			//
 			research_summary: this.model.get('research_summary'),
 			research_terms: this.model.get('research_terms'),
-			research_interests: this.model.get('research_interests'),
 
 			// academic
 			//
@@ -817,6 +960,25 @@ export default FormView.extend({
 			//
 			options: this.model.get('options')
 		});
+
+		this.update();
+	},
+
+	showTermSelectors: function() {
+
+		// show term selectors for each community
+		//
+		let keys = Object.keys(window.community_defaults);
+		for (let i = 0; i < keys.length; i++) {
+			let key = keys[i];
+			let id = key.replace(/-/g, '_');
+			this.addRegion(id, '#' + key + '-interests');
+			this.showChildView(id, new TreeView({
+				collection: this.termCollections[i],
+				sortWithCollection: false,
+				expanded: defaults.expanded.terms
+			}));
+		}
 	},
 
 	showOtherDepartment: function() {
@@ -825,6 +987,89 @@ export default FormView.extend({
 
 	hideOtherDepartment: function() {
 		this.$el.find('#other-department').hide();
+	},
+
+	updateTermPanels: function() {
+		let checkboxes = this.$el.find('#communities input[type="checkbox"]');
+		let tabs = this.$el.find('#research-interests li');
+		let panels = this.$el.find('#research-interests .tab-pane');
+		let communities = this.getCommunities();
+
+		for (let i = 0; i < checkboxes.length; i++) {
+			if ($(checkboxes[i]).is(':checked')) {
+				$(tabs[i]).removeClass('hidden');
+				$(panels[i]).removeClass('hidden');
+			} else {
+				$(tabs[i]).addClass('hidden');
+				$(panels[i]).addClass('hidden');
+			}
+		}
+
+		// if just one community, then make it active
+		//
+		if (communities.length == 1) {
+			for (let i = 0; i < checkboxes.length; i++) {
+				if ($(checkboxes[i]).is(':checked')) {
+					$(tabs[i]).addClass('active');
+					$(panels[i]).addClass('active');
+				} else {
+					$(tabs[i]).removeClass('active');
+					$(panels[i]).removeClass('active');
+				}
+			}
+		}
+
+		// show / hide research interests
+		//
+		if (communities.length != 0) {
+			this.$el.find('#research-interests').show();
+		} else {
+			this.$el.find('#research-interests').hide();
+		}
+	},
+
+	updateNotificationPanels: function() {
+		let checkboxes = this.$el.find('#communities input[type="checkbox"]');
+		let tabs = this.$el.find('#notifications li');
+		let panels = this.$el.find('#notifications .tab-pane');
+		let communities = this.getCommunities();
+
+		for (let i = 0; i < checkboxes.length; i++) {
+			if ($(checkboxes[i]).is(':checked')) {
+				$(tabs[i]).removeClass('hidden');
+				$(panels[i]).removeClass('hidden');
+			} else {
+				$(tabs[i]).addClass('hidden');
+				$(panels[i]).addClass('hidden');
+			}
+		}
+
+		// if just one community, then make it active
+		//
+		if (communities.length == 1) {
+			for (let i = 0; i < checkboxes.length; i++) {
+				if ($(checkboxes[i]).is(':checked')) {
+					$(tabs[i]).addClass('active');
+					$(panels[i]).addClass('active');
+				} else {
+					$(tabs[i]).removeClass('active');
+					$(panels[i]).removeClass('active');
+				}
+			}
+		}
+
+		// show / hide research interests
+		//
+		if (communities.length != 0) {
+			this.$el.find('#notifications').show();
+		} else {
+			this.$el.find('#notifications').hide();
+		}
+	},
+
+	update: function() {
+		this.updateTermPanels();
+		this.updateNotificationPanels();
 	},
 
 	//
@@ -846,6 +1091,12 @@ export default FormView.extend({
 		} else {
 			this.$el.find('#research-interests input[type="checkbox"]').prop('checked', false);
 		}
+	},
+
+	onClickCommunities: function() {
+		let terms = this.getAllTerms();
+		this.$el.find('#other-interests input').val(this.getOtherAttributes(terms).join(', '));
+		this.update();
 	},
 
 	onChangeFile: function() {

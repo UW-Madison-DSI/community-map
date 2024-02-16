@@ -48,7 +48,7 @@ export default Backbone.Model.extend({
 			id: 'current'
 		});
 
-		// fetch the user using the rws server session
+		// fetch the user
 		//
 		this.user.fetch({
 

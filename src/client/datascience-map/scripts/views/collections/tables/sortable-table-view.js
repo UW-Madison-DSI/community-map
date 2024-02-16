@@ -21,6 +21,48 @@ import '../../../../vendor/jquery/tablesorter/js/jquery.tablesorter.js';
 export default TableView.extend({
 
 	//
+	// sorting methods
+	//
+
+	getTableColumnIndex: function(className) {
+		let tableHeaders = this.$el.find('th');
+		for (let i = 0; i < tableHeaders.length; i++) {
+			let tableHeader = tableHeaders[i];
+			let tableHeaderClass = $(tableHeader).attr('class');
+			if (tableHeaderClass) {
+				let classNames = tableHeaderClass.split(' ');
+				if (classNames.includes(className)) {
+					return i;
+				}
+			}
+		}
+	},
+
+	setSortColumn: function(className, direction) {
+		let index = this.getTableColumnIndex(className);
+
+		// set sorting on specified column
+		//
+		if (index != undefined) {
+			if (!this.sorting) {
+				this.sorting = {};
+			}
+			switch (direction) {
+				case 'ascending':
+					this.sorting.sortList = [[index, 0]];
+					break;
+				case 'descending':
+					this.sorting.sortList = [[index, 1]];
+					break;
+			}
+		}
+
+		// apply table sorter plug-in
+		//
+		this.$el.tablesorter(this.sorting);
+	},
+
+	//
 	// rendering methods
 	//
 
@@ -32,6 +74,8 @@ export default TableView.extend({
 
 		// apply table sorter plug-in
 		//
-		this.$el.tablesorter(this.sorting);
+		if (this.sortBy) {
+			this.setSortColumn(this.sortBy[0], this.sortBy[1]);
+		}
 	}
 });

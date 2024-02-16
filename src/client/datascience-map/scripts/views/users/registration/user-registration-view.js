@@ -39,6 +39,7 @@ export default BaseView.extend({
 		</div>
 		
 		<div id="new-user-profile"></div>
+		<br />
 		
 		<div class="buttons">
 			<button id="submit" type="submit" class="btn btn-primary btn-lg"><i class="fa fa-check"></i>Submit</button>

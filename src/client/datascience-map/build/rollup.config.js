@@ -27,6 +27,6 @@ export default {
 		// vendor chunks
 		//
 		'jquery-tablesorter': ['../vendor/jquery/tablesorter/js/jquery.tablesorter.min.js'],
-		'splitjs': ['../vendor/split-js/split.js']
+		'splitjs': ['../vendor/splitjs/src/split.js']
 	}
 };

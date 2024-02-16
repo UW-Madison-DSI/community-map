@@ -37,8 +37,8 @@ export default {
 		return AddressBar.get('location').contains('?');
 	},
 
-	hasParam: function(name, options) {
-		return (this.getParam(name, options) != undefined);
+	has: function(key, options) {
+		return (this.value(key, options) != undefined);
 	},
 
 	//
@@ -56,7 +56,7 @@ export default {
 		}
 	},
 
-	getParam: function(name, options) {
+	value: function(key, options) {
 		let queryString;
 
 		// get query string
@@ -80,12 +80,12 @@ export default {
 			// split key value pair by first equal sign
 			//
 			let equalSign = term.indexOf('=');
-			let key = term.substr(0, equalSign);
+			let string = term.substr(0, equalSign);
 			let value = term.substr(equalSign + 1, term.length);
 
-			// check if key matches name
+			// check if key matches
 			//
-			if (key == name) {
+			if (key == string) {
 				return value;
 			}
 		}
@@ -93,9 +93,9 @@ export default {
 		return undefined;
 	},
 
-	getParams: function(name, options) {
+	values: function(key, options) {
 		let queryString;
-		let params = [];
+		let values = [];
 
 		// get query string
 		//
@@ -118,17 +118,17 @@ export default {
 			// split key value pair by first equal sign
 			//
 			let equalSign = term.indexOf('=');
-			let key = term.substr(0, equalSign);
+			let string = term.substr(0, equalSign);
 			let value = term.substr(equalSign + 1, term.length);
 
-			// check if key matches name
+			// check if key matches
 			//
-			if (key == name) {
-				params.push(value);
+			if (string == key) {
+				values.push(value);
 			}
 		} 
 		
-		return params;
+		return values;
 	},
 
 	//
@@ -150,10 +150,10 @@ export default {
 		AddressBar.set(address);
 	},
 
-	clearParam: function(key) {
-		let params = this.toObject();
-		delete params[key];
-		this.set(this.encode(params));
+	delete: function(key) {
+		let values = this.toObject();
+		delete values[key];
+		this.set(this.encode(values));
 	},
 
 	//
@@ -170,9 +170,9 @@ export default {
 		}
 	},
 
-	add: function(queryString, params) {
-		for (let key in params) {
-			let value = params[key];
+	add: function(queryString, data) {
+		for (let key in data) {
+			let value = data[key];
 			if (value) {
 				queryString = this.concat(queryString, key + '=' + value.toString());
 			}				

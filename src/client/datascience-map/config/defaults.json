@@ -1,5 +1,6 @@
 {
 	"application": {
+		"name": "Data Science @ UW Community Map",
 		"heading": "University of Wisconsin-Madison",
 		"title": "data science @ uw",
 		"subtitle": "community map",
@@ -13,7 +14,7 @@
 	},
 
 	"navbar": {
-		"icon": "images/uw-crest.png",
+		"icon": "images/logos/uw-crest.png",
 		"title": "data science @ uw",
 		"navs": {
 			"about": {
@@ -29,7 +30,7 @@
 			"communities": {
 				"text": "Communities",
 				"icon": "fa fa-users",
-				"href": "http://wwwtest.maps.datascience.wisc.edu"
+				"href": "/"
 			}
 		}
 	},
@@ -41,335 +42,13 @@
 		"Postdoc",
 		"Graduate Student",
 		"Undergraduate",
-		"Emeritus"
+		"Emeritus",
+		"Other"
 	],
-
-	"terms": {
-		"Data Science Focus": {
-			"Machine Learning & AI": [
-				"General machine learning",
-				"Generative AI",
-				"Deep learning",
-				"Reinforcement learning",
-				"Theory of machine learning",
-				"Probabilistic methods",
-				"Optimization",
-				"Computer vision",
-				"Robotics",
-				"Natural language processing",
-				"Symbolic AI"
-			],
-			"Data Science and Society": [
-				"Responsible data science",
-				"AI and society",
-				"Data science for social good",
-				"FAIR principles",
-				"CARE principles",
-				"Data privacy",
-				"Data soverignty",
-				"AI safety & alignment",
-				"AI ethics (FAccT)",
-				"Data science policy"
-			],
-			"Systems & Data Engineering": [
-				"Data management",
-				"Data wrangling",
-				"Data cleaning",
-				"Cloud computing",
-				"High-performance computing",
-				"High-througput computing",
-				"Edge computing",
-				"Map-Reduce",
-				"ML Ops",
-				"Dev Ops",
-				"Cybersecurity",
-				"Reproducibility",
-				"Systems and control"
-			], 
-			"Statistics": [
-				"Computational statistics",
-				"Probability theory",
-				"Causal inference",
-				"Bayesian statistics",
-				"Nonparametrics",
-				"High dimensional statistics",
-				"Compressed sensing",
-				"Biostatistics",
-				"Astrostatistics",
-				"Network analysis",
-				"Inverse problems",
-				"Agent based modeling",
-				"Uncertainty quantification"
-			], 
-			"Misc": [
-				"Human computer interaction",
-				"Digital humanities",
-				"Data visualization",
-				"Signal processing",
-				"Remote sensing / Geospatial",
-				"Data / business analytics",
-				"Digital journalism",
-				"Open science",
-				"Open access",
-				"Open source software",
-				"Big data",
-				"Ethnography of data science"
-			]
-		},
-
-		"Application Areas": {
-			"Natural Sciences": [
-				"Astronomy",
-				"Atmospheric and Oceanic Sciences",
-				"Biology",
-				"Botany",
-				"Chemistry",
-				"Communication Sciences and Disorders",
-				"Conservation Biology",
-				"Geoscience",
-				"Integrative Biology",
-				"Mathematics",
-				"Molecular Biology",
-				"Physics"
-			],
-			"Computer, Data & Information Sciences": [
-				"Statistics",
-				"Computer Science",
-				"iSchool"
-			],
-			"Social Sciences": [
-				"African American Studies",
-				"American Indian Studies",
-				"Anthropology",
-				"Asian American Studies",
-				"Chican@ and Latin@ Studies",
-				"Communication Arts",
-				"Criminal Justice Certificate",
-				"Economics",
-				"Geography",
-				"Honors",
-				"Journalism & Mass Communication",
-				"Public Affairs",
-				"Legal Studies",
-				"Planning and Landscape Architecture",
-				"Political Science",
-				"Psychology",
-				"Social Work",
-				"Sociology"
-			],
-			"Arts and Humanities": [
-				"African Cultural Studies",
-				"Art History",
-				"Asian Languages & Cultures",
-				"Classical and Ancient Near Eastern Studies",
-				"Creative Writing",
-				"English",
-				"French and Italian",
-				"Gender and Women’s Studies",
-				"German, Nordic, and Slavic+",
-				"History",
-				"Language Sciences",
-				"Medieval Studies",
-				"Music",
-				"Philosophy",
-				"Religious Studies",
-				"Spanish and Portuguese"
-			],
-	 		"Agriculture and Life Sciences": [
-				"Agricultural and Applied Economics",
-				"Agronomy",
-				"Animal and Dairy Sciences",
-				"Bacteriology",
-				"Biochemistry",
-				"Biological Systems Engineering",
-				"Community and Environmental Sociology",
-				"Entomology",
-				"Food Science",
-				"Forest and Wildlife Ecology",
-				"Genetics",
-				"Horticulture",
-				"Life Sciences Communication",
-				"Neutritional Sciences",
-				"Plant Pathology",
-				"Soil Science"
-			],
-	 		"Engineering": [
-				"Biomedical Engineering",
-				"Chemical & Biological Engineering",
-				"Civil & Environmental Engineering",
-				"Electrical & Computer Engineering",
-				"Engineering Physics",
-				"Industrial & Systems Engineering",
-				"Materials Science & Engineering",
-				"Mechanical Engineering"
-			],
-			"Law": null,
-			"Library Science": null,
-			"Business": [
-				"Accounting and Information Systems",
-				"Finance, Investment, and Banking",
-				"Buisness Communication",
-				"Management and Human Resources",
-				"Marketing",
-				"Operations and Information Management",
-				"Real Estate and Urban Land Economics",
-				"Risk and Insurance"
-			],
-	  		"Environmental Studies": null,
-	  		"Human Ecology": [
-				"Civil Society & Community Studies",
-				"Consumer Science",
-				"Design Studies",
-				"Human Development & Family Studies"
-			],
-	  		"Education": [
-				"Art",
-				"Counseling Psychology",
-				"Curriculum & Instruction",
-				"Dance",
-				"Eduational Leadership & Policy Studies",
-				"Learning Sciences",
-				"Educational Psychology",
-				"Kinesiology",
-				"Rehabilitation Psychology & Special Education",
-				"Theatre & Drama"
-			],
-	 		"Medicine and Public Health": [
-				"Biomolecular Chemistry",
-				"Biostatistics and Medical Informatics (BMI)",
-				"Cell and Regenerative Biology",
-				"Medical Genetics",
-				"Medical History and Bioethics",
-				"Medical Microbiology and Immunology",
-				"Medical Physics",
-				"Neuroscience",
-				"Oncology",
-				"Population Health Sciences"
-			],
-	 		"Nursing": null,
-	 		"Pharmacy": null
-		},
-
-		"Tools": {
-			"Languages": [
-				"Python",
-				"R",
-				"Julia",
-				"Scala",
-				"Javascript",
-				"Java",
-				"C/C++",
-				"Go",
-				"Swift",
-				"MATLAB",
-				"Mathematica",
-				"SAS",
-				"Stata",
-				"SQL"
-			],
-			"ML Frameworks": [
-				"Tensorflow",
-				"PyTorch",
-				"JAX",
-				"MXNet",
-				"Keras",
-				"Caffe",
-				"H20",
-				"scikit-learn",
-				"XGBoost"
-			],
-			"Common tools": {
-				"Jupyter": null,
-				"python-based": [
-					"Numpy",
-					"SciPy",
-					"Pandas",
-					"statsmodels",
-					"Matplotlib",
-					"Scikit-*", 
-					"xarray",
-					"dask",
-					"NetworkX"    
-				],
-				"R-based": [
-					"Shiny",
-					"ggplot2",
-					"data.table",
-					"dplyr",
-					"tidyr",
-					"plotly",
-					"knitr",
-					"mlr3"
-				],
-				"Nvivo": null,
-				"SPSS": null,
-				"Mplus": null,
-				"OpenRefine": null,
-				"OpenMP": null,
-				"Hadoop": null,
-				"Kubernetes": null,
-				"Docker": null,
-				"Slurm": null,
-				"HTCondor": null,
-				"Globus": null,
-				"GitHub": null,
-				"GitLab": null,
-				"Qualtrics": null,
-				"RedCAP": null,
-				"Conda": null
-			}
-		},
-
-		"Computing Resources": [
-			"CHTC",
-			"SSEC",
-			"SSCC",
-			"SMPH Silo",
-			"Statistical Computing Lab",
-			"Other departmental",
-			"Public cloud",
-			"Other off-campus",
-			"Personal / group"
-		],
-
-		"University Services": [
-			"Libraries",
-			"IT Support",
-			"Computing Support",
-			"Training",
-			"Facilitation",
-			"Software Development",
-			"Systems Integration",
-			"Data Science Consulting",
-			"Statistical Consulting",
-			"Communications",
-			"Events",
-			"Administrative Support",
-			"Project Management",
-			"Technical Writing",
-			"Compliance",
-			"Outreach"
-		]
-	},
 
 	"expanded": {
 		"terms": ["All", "Data Science Focus"],
 		"appointment_types": true
-	},
-
-	"options": {
-		"receive-newsletter": {
-			"label": "Newsletter",
-			"description": "I would like to receive the data science @ uw newsletter."
-		},
-		"receive-updates": {
-			"label": "Updates",
-			"description": "I would like to be informed of Data Science Institute events."
-		},
-		"lunch-random": {
-			"label": "lunch.random",
-			"description": "Sign up for lunch.random, our initiative that randomly pairs members of the data science at UW community for lunches to build connections and learn about each other's research."
-		}
 	},
 
 	"community": "data-science",
@@ -378,7 +57,14 @@
 		"genomics"
 	],
 
+	"map": {
+		"latitude": 43.0740,
+		"longitude": 89.406,
+		"zoom_level": 16
+	},
+
 	"sidebar": {
+		"logo": "images/logos/uw-crest.png",
 		"show_interests": true,
 		"show_appointments": true,
 		"show_affiliates": true,
@@ -400,5 +86,36 @@
 		"Conception": "Kyle Cranmer",
 		"Design / Implementation": "Abe Megahed",
 		"Editing": "Cris Carusi"
+	},
+
+	"welcome": {
+		"icon": "fa fa-smile",
+		"title": "Welcome!",
+		"message": "Welcome to the Data Science Map. We encourage you to set up your profile to make it easier for others to find you.  To edit your profile, just click the 'Edit My Profile' button at the top left. We hope you enjoy using the Data Science Map."
+	},
+
+	"footer": {
+		"logo": "images/logos/uw-logo-white.png",
+		"links": {
+			"privacy": {
+				"text": "Privacy",
+				"href": "#privacy"
+			},
+			"cookies": {
+				"text": "Cookies",
+				"href": "#cookies"
+			},
+			"contact": {
+				"text": "Contact",
+				"href": "#contact"
+			},
+			"privacy": {
+				"text": "Privacy",
+				"href": "#privacy"
+			},
+			"credits": {
+				"text": "Credits"
+			}
+		}
 	}
 }

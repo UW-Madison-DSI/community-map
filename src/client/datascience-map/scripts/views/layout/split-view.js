@@ -17,8 +17,8 @@
 
 import BaseView from '../../views/base-view.js';
 import Browser from '../../utilities/web/browser.js';
+import Split from '../../../vendor/splitjs/src/split.js';
 import '../../utilities/scripting/array-utils.js';
-import '../../../vendor/split-js/split.js';
 
 export default BaseView.extend({
 
@@ -50,7 +50,7 @@ export default BaseView.extend({
 	//
 	sizes: [33, 67],
 	gutter_size: 10,
-	mobile_gutter_size: 20,
+	mobile_gutter_size: 0,
 	prevSizes: [],
 	minSizes: 0,
 	orientation: 'horizontal',
@@ -361,9 +361,11 @@ export default BaseView.extend({
 
 		// set min sizes
 		//
+		/*
 		if (this.minSizes) {
 			this.setMinSizes(this.minSizes);
 		}
+		*/
 	},
 
 	update: function() {

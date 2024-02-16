@@ -15,7 +15,6 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import Person from '../models/person.js';
 import MainSplitView from '../views/main-split-view.js';
 import PeopleMapView from '../views/maps/people-map-view.js';
 
@@ -28,9 +27,9 @@ export default MainSplitView.extend({
 	getMainBarView: function() {
 		return new PeopleMapView({
 			el: this.$el.find('.mainbar')[0],
-			latitude: 43.0740,
-			longitude: 89.406,
-			zoom_level: 16,
+			latitude: defaults.map.latitude,
+			longitude: defaults.map.longitude,
+			zoom_level: defaults.map.zoom_level,
 			grid: null,
 			map_kind: 'map',
 			parent: this,
@@ -53,20 +52,11 @@ export default MainSplitView.extend({
 		//
 		application.reset();
 
-		// show person
+		// show person's profile view
 		//
-		new Person({
-			id: this.options.person.get('id')
-		}).fetch({
-
-			// callbacks
-			//
-			success: (model) => {
-				this.showPerson(model, {
-					editable: false,
-					zoom_to: true
-				});
-			}
+		this.showPerson(this.model, {
+			editable: false,
+			zoom_to: true
 		});
 	}
 });

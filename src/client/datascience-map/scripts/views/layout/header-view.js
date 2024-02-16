@@ -107,11 +107,15 @@ export default BaseView.extend({
 
 	onClickBrand: function() {
 
-		// go to welcome view
+		// go to main view
 		//
 		Backbone.history.navigate('#', {
 			trigger: true
 		});
+
+		// force page reload
+		//
+		window.top.frames.location.reload();
 	},
 
 	onClickMap: function() {
@@ -145,14 +149,24 @@ export default BaseView.extend({
 	},
 
 	onClickSignIn: function() {
-		import(
-			'../../views/users/authentication/dialogs/sign-in-dialog-view.js'
-		).then((SignInDialogView) => {
+		if (config.sso) {
 
-			// show sign in dialog
+			// use single sign in
 			//
-			application.show(new SignInDialogView.default());
-		});
+			window.location = config.sso.login;
+		} else {
+
+			// use local sign in
+			//
+			import(
+				'../../views/users/authentication/dialogs/sign-in-dialog-view.js'
+			).then((SignInDialogView) => {
+
+				// show sign in dialog
+				//
+				application.show(new SignInDialogView.default());
+			});
+		}
 	},
 
 	onClickSignUp: function() {
@@ -162,6 +176,13 @@ export default BaseView.extend({
 	},
 
 	onClickSignOut: function() {
-		application.logout();
+		if (config.sso) {
+			window.location = config.sso.logout;
+		} else {
+
+			// use local sign out
+			//
+			application.logout();
+		}
 	}
 });

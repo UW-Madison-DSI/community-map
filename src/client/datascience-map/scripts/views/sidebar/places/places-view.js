@@ -15,8 +15,8 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
-import ItemsView from '../../../views/sidebar/items-view.js';
-import PlacesListView from '../../../views/sidebar/places/lists/places-list-view.js';
+import ItemsView from '../../../views/items/items-view.js';
+import PlacesListView from '../../../views/items/places/places-list-view.js';
 
 export default ItemsView.extend({
 

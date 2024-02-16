@@ -50,4 +50,11 @@ export default BaseCollection.extend({
 			parse: true
 		}));
 	}
+}, {
+
+	//
+	// static attributes
+	//
+
+	collection: null
 });

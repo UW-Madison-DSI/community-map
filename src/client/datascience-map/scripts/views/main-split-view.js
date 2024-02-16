@@ -67,9 +67,9 @@ export default SplitView.extend({
 	getMainBarView: function() {
 		return new PeopleMapView({
 			el: this.$el.find('.mainbar')[0],
-			latitude: 43.0740,
-			longitude: 89.406,
-			zoom_level: 16,
+			latitude: defaults.map.latitude,
+			longitude: defaults.map.longitude,
+			zoom_level: defaults.map.zoom_level,
 			grid: null,
 			map_kind: 'map',
 			parent: this,
@@ -88,6 +88,10 @@ export default SplitView.extend({
 			//
 			onclick: (filters) => this.onClickCheckbox(filters)
 		});
+	},
+
+	getInitialSideBarSize: function() {
+		return 60;
 	},
 
 	//
@@ -154,7 +158,8 @@ export default SplitView.extend({
 
 		// set url
 		//
-		AddressBar.set(location.origin + location.pathname + '#users/' + person.get('id'));
+		let url = location.origin + location.pathname + '#users/' + person.get('id');
+		AddressBar.set(url + (options.community? '?community=' + options.community : ''));
 
 		// open sidebar if mobile
 		//
@@ -243,7 +248,7 @@ export default SplitView.extend({
 		// show affiliates only
 		//
 		/*
-		if (QueryString.hasParam('affiliates') && QueryString.getParam('affiliates')) {
+		if (QueryString.has('affiliates') && QueryString.value('affiliates')) {
 			this.filter(null, null, true);
 		}
 		*/

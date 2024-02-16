@@ -129,14 +129,14 @@ body:not(.binary) {
 // mobile styles
 //
 
-/*
 body[device="phone"] {
-	.gutter.gutter-vertical {
-		padding: 2px;
 
-		.handle {
-			width: 90%;
-		}
+	//
+	// disable draggable splitter
+	//
+
+	.gutter.gutter-vertical {
+		height: 0;
+		pointer-events: none;
 	}
 }
-*/

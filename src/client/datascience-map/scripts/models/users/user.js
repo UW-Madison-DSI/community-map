@@ -45,18 +45,6 @@ export default Timestamped.extend({
 	// querying methods
 	//
 
-	hasName: function() {
-		return this.has('first_name') || this.has('last_name');
-	},
-
-	hasFullName: function() {
-		return this.has('first_name') && this.has('last_name');
-	},
-
-	getFullName: function() {
-		return this.hasName()? this.get('first_name') + ' ' + this.get('last_name') : '';
-	},
-
 	isOwnerOf: function(project) {
 		return this.get('user_uid') ===  project.get('projectOwnerUid');
 	},
@@ -85,12 +73,28 @@ export default Timestamped.extend({
 		return this.isSameAs(application.session.user);
 	},
 
+	isAdmin: function() {
+		return this.get('is_admin');
+	},
+
+	hasName: function() {
+		return this.has('first_name') || this.has('last_name');
+	},
+
+	hasFullName: function() {
+		return this.has('first_name') && this.has('last_name');
+	},
+
 	hasSshAccess: function() {
 		return this.get('ssh_access_flag') == '1';
 	},
 
+	hasLoggedIn: function() {
+		return this.has('last_login');
+	},
+
 	//
-	// status methods
+	// getting methods
 	//
 
 	getName: function() {
@@ -107,6 +111,14 @@ export default Timestamped.extend({
 		return names.join(' ');
 	},
 
+	getFullName: function() {
+		return this.hasName()? this.get('first_name') + ' ' + this.get('last_name') : '';
+	},
+
+	getUrl: function() {
+		return '#users/' + this.get('id');
+	},
+
 	getStatus: function() {
 		let status;
 		if (this.isPending()) {
@@ -118,6 +130,10 @@ export default Timestamped.extend({
 		}
 		return status;
 	},
+
+	//
+	// setting methods
+	//
 
 	setStatus: function(status) {
 		switch (status) {
@@ -160,28 +176,10 @@ export default Timestamped.extend({
 		}
 	},
 
-	//
-	// admin methods
-	//
-
-	isAdmin: function() {
-		return this.get('admin_flag') == 1;
-	},
-
-	isOwner: function() {
-		return this.get('owner_flag') == 1;
-	},
-
 	setAdmin: function(isAdmin) {
-		if (isAdmin) {
-			this.set({
-				'admin_flag': 1
-			});
-		} else {
-			this.set({
-				'admin_flag': 0
-			});
-		}
+		this.set({
+			'is_admin': isAdmin
+		});
 	},
 
 	//
@@ -237,5 +235,24 @@ export default Timestamped.extend({
 				'password_reset_id': options.password_reset_id
 			}
 		}));
+	},
+
+	//
+	// parsing (Backbone) methods
+	//
+
+	parse: function(response) {
+
+		// call superclass method
+		//
+		let data = Timestamped.prototype.parse.call(this, response);
+
+		// parse attributes
+		//
+		if (data.last_login) {
+			data.last_login = new Date(data.last_login);
+		}
+
+		return data;
 	}
 });

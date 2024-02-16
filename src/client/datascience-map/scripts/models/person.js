@@ -16,6 +16,7 @@
 \******************************************************************************/
 
 import BaseModel from '../models/base-model.js';
+import InstitutionUnits from '../collections/institution-units.js';
 import '../utilities/scripting/string-utils.js';
 
 export default BaseModel.extend({
@@ -144,6 +145,10 @@ export default BaseModel.extend({
 		return names.join(' ');
 	},
 
+	getUrl: function() {
+		return '#users/' + this.get('id');
+	},
+
 	//
 	// profile photo getting methods
 	//
@@ -182,8 +187,7 @@ export default BaseModel.extend({
 
 	getPrimaryAffiliation: function() {
 		let id = this.get('primary_unit_affiliation_id');
-		let mapView = application.getChildView('content mainbar');
-		let departments = mapView.departments;
+		let departments = InstitutionUnits.collection;
 		return departments.findWhere({ id: id });
 	},
 
@@ -203,7 +207,7 @@ export default BaseModel.extend({
 	},
 
 	//
-	// parsing methods
+	// parsing (Backbone) methods
 	//
 
 	parseItems: function(data, ItemClass) {

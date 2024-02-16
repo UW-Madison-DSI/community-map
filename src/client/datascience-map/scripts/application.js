@@ -27,7 +27,6 @@ import NotifyDialogView from './views/dialogs/notify-dialog-view.js';
 import StatusDialogView from './views/dialogs/status-dialog-view.js';
 import ConfirmDialogView from './views/dialogs/confirm-dialog-view.js';
 import DownloadDialogView from './views/dialogs/download-dialog-view.js';
-import PeopleMapView from './views/maps/people-map-view.js';
 import PersonMarkerView from './views/maps/overlays/people/person-marker-view.js';
 import Browser from './utilities/web/browser.js';
 import './utilities/time/date-format.js';
@@ -315,7 +314,6 @@ export default Marionette.Application.extend({
 	},
 
 	reset: function() {
-		PeopleMapView.reset();
 		PersonMarkerView.reset();
 	},
 

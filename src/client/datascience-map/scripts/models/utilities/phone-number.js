@@ -25,7 +25,21 @@ export default BaseModel.extend({
 	},
 
 	//
-	// query methods
+	// constructor
+	//
+
+	initialize: function(attributes) {
+		if (attributes) {
+			this.set({
+				'country-code': attributes['country-code'],
+				'area-code': attributes['area-code'],
+				'phone-number': attributes['phone-number']
+			});
+		}
+	},
+
+	//
+	// querying methods
 	//
 
 	hasAttributes: function() {
@@ -38,18 +52,8 @@ export default BaseModel.extend({
 	},
 
 	//
-	// overridden Backbone methods
+	// parsing methods
 	//
-
-	initialize: function(attributes) {
-		if (attributes) {
-			this.set({
-				'country-code': attributes['country-code'],
-				'area-code': attributes['area-code'],
-				'phone-number': attributes['phone-number']
-			});
-		}
-	},
 
 	toString: function() {
 		if (this.has('country-code') || this.has('area-code')) {

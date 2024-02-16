@@ -18,6 +18,7 @@
 import Person from '../models/person.js';
 import MainSplitView from '../views/main-split-view.js';
 import PeopleMapView from '../views/maps/people-map-view.js';
+import QueryString from '../utilities/web/query-string.js';
 
 export default MainSplitView.extend({
 
@@ -28,9 +29,9 @@ export default MainSplitView.extend({
 	getMainBarView: function() {
 		return new PeopleMapView({
 			el: this.$el.find('.mainbar')[0],
-			latitude: 43.0740,
-			longitude: 89.406,
-			zoom_level: 16,
+			latitude: defaults.map.latitude,
+			longitude: defaults.map.longitude,
+			zoom_level: defaults.map.zoom_level,
 			grid: null,
 			map_kind: 'map',
 			parent: this,
@@ -64,7 +65,8 @@ export default MainSplitView.extend({
 			success: (model) => {
 				this.showPerson(model, {
 					editable: true,
-					zoom_to: true
+					zoom_to: true,
+					community: QueryString.value('community')
 				});
 			}
 		});

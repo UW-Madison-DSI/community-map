@@ -49,6 +49,10 @@ export default BaseModel.extend({
 		thumbnail: undefined
 	},
 
+	//
+	// getting methods
+	//
+
 	getCenter: function(coordinates) {
 		let bounds = new Bounds2();
 		for (let i = 0; i < coordinates.length; i++) {
@@ -63,32 +67,5 @@ export default BaseModel.extend({
 	getLatLng: function() {
 		let latlng = this.get('latlng');
 		return new Vector2(latlng[0], latlng[1]);
-
-		/*
-		let geojson = this.get('geojson');
-		if (geojson) {
-			switch (geojson.type) {
-				case 'Polygon':
-					return this.getCenter(geojson.coordinates[0]);
-			}
-		}
-		*/
-	},
-
-	//
-	// ajax methods
-	//
-
-	/*
-	parse: function(attributes) {
-
-		// parse coordinates
-		//
-		if (attributes.geojson) {
-			attributes.geojson = JSON.parse(attributes.geojson);
-		}
-
-		return attributes;
 	}
-	*/
 });

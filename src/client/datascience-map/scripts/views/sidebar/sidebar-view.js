@@ -16,7 +16,7 @@
 \******************************************************************************/
 
 import BaseView from '../../views/base-view.js';
-import TreeView from '../../views/sidebar/trees/tree-view.js';
+import TreeView from '../../views/items/trees/tree-view.js';
 import FooterView from '../../views/layout/footer-view.js';
 import QueryString from '../../utilities/web/query-string.js';
 
@@ -29,7 +29,7 @@ export default BaseView.extend({
 	className: 'welcome panel',
 
 	template: _.template(`
-		<img class="logo hidden-xs" src="images/uw-crest.png" />
+		<img class="logo hidden-xs" src="<%= defaults.sidebar.logo %>" />
 
 		<h1 id="title"><%= defaults.application.title %></h1>
 		<h1 id="subtitle"><%= defaults.application.subtitle %></h1>
@@ -114,7 +114,7 @@ export default BaseView.extend({
 
 		// create filter collections
 		//
-		this.terms = application.getCollection(defaults.terms);
+		this.terms = defaults.community? application.getCollection(window.community_defaults[defaults.community].terms) : [];
 		this.appointments = application.getCollection(defaults.appointment_types);
 	},
 
@@ -170,13 +170,13 @@ export default BaseView.extend({
 	//
 
 	getSelectedTerms: function() {
-		if (!this.getChildView('terms').isAllSelected()) {
+		if (this.hasChildView('terms') && !this.getChildView('terms').isAllSelected()) {
 			return this.getChildView('terms').getValues();
 		}
 	},
 
 	getSelectedAppointments: function() {
-		if (!this.getChildView('appointments').isAllSelected()) {
+		if (this.hasChildView('appointments') && !this.getChildView('appointments').isAllSelected()) {
 			return this.getChildView('appointments').getValues();
 		}
 	},
@@ -191,7 +191,7 @@ export default BaseView.extend({
 
 	templateContext: function() {
 		return {
-			affiliates: QueryString.getParam('affiliates'),
+			affiliates: QueryString.value('affiliates'),
 			show_interests: true,
 			show_appointments: true,
 			show_affiliates: true,

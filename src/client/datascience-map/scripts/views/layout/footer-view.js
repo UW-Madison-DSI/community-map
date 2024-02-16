@@ -21,7 +21,7 @@ export default BaseView.extend({
 
 	template: _.template(`
 		<div class="container">
-			<a href="<%= defaults.application.organization.url%>" target="_blank"><img class="logo" src="images/uw-logo-white.png" /></a>
+			<a href="<%= defaults.application.organization.url%>" target="_blank"><img class="logo" src="<%= defaults.footer.logo %>" /></a>
 			<p>
 				Copyright &copy; <%= defaults.application.year %>
 				<% if (defaults.application.department) { %>
@@ -31,10 +31,23 @@ export default BaseView.extend({
 				<a href="<%= defaults.application.organization.url %>" target="_blank"><%= defaults.application.organization.name %></a>
 				<% } %>
 				<br />
-				<a href="#privacy">Privacy</a> |
-				<a href="#cookies">Cookies</a> |
-				<a href="#contact" id="contact">Contact</a> |
-				<a id="credits">Credits</a>
+
+				<% if (defaults.footer.links) { %>
+				<% let keys = Object.keys(defaults.footer.links); %>
+				<% for (i = 0; i < keys.length; i++) { %>
+				<% let id = keys[i]; %>
+				<% let text = defaults.footer.links[id].text; %>
+				<% let href = defaults.footer.links[id].href; %>
+
+				<% if (href) { %>
+				<a id="<%= id %>" href="<%= href %>"><%= text %></a>
+				<% } else { %>
+				<a id="<%= id %>"><%= text %></a>
+				<% } %>
+
+				<% if (i != keys.length - 1) { %> | <% } %>
+				<% } %>
+				<% } %>
 			</p>
 		</div>
 	`),

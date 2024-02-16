@@ -80,7 +80,10 @@ export default BaseMapView.extend({
 			// callbacks
 			//
 			success: (collection) => {
-				this.departments = collection.models;
+
+				// cache collection
+				//
+				Departments.collection = collection;
 
 				// link departments with buildings
 				//
@@ -118,7 +121,10 @@ export default BaseMapView.extend({
 			// callbacks
 			//
 			success: (collection) => {
-				this.departments = collection;
+
+				// cache collection
+				//
+				InstitutionUnits.collection = collection;
 
 				// link departments with buildings
 				//

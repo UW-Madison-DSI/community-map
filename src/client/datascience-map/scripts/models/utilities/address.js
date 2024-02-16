@@ -41,7 +41,7 @@ export default BaseModel.extend({
 	},
 
 	//
-	// overridden Backbone methods
+	// parsing methods
 	//
 
 	toString: function() {

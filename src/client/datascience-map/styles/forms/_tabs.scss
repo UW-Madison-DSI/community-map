@@ -17,6 +17,12 @@
 // colors
 //
 
+$tab-color: transparent;
+$tab-text-color: colors.$medium-grey;
+
+$active-tab-color: colors.$very-very-very-light-grey;
+$active-tab-text-color: branding.$primary-color;
+
 $border-color: branding.$primary-color;
 
 //
@@ -34,9 +40,12 @@ $border-color: branding.$primary-color;
 		position: relative;
 
 		> a {
-			width: 50px;
 			text-align: center;
-			padding: 10px 0;
+			padding: 10px;
+			white-space: nowrap;
+			color: $tab-text-color;
+			background-color: $tab-color;
+			border: none !important;
 
 			i {
 				font-size: 20px;
@@ -44,9 +53,9 @@ $border-color: branding.$primary-color;
 		}
 
 		&.active {
-			> a, > a:hover {
-				background: colors.$very-light-grey;
-				border-color: transparent;
+			> a, > a:focus, > a:hover {
+				color: $active-tab-text-color;
+				background-color: $active-tab-color;
 			}
 
 			.badge {

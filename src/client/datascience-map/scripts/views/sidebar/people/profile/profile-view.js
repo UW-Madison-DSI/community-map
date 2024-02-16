@@ -39,7 +39,7 @@ export default BaseView.extend({
 			<% if (appointment_type) { %>
 			<div id="appointment-type">
 				<label>Appointment Type</label>
-				<%= appointment_type.toTitleCase() %>
+				<%= appointment_type.toTitleCase() %><% if (is_affiliate) { %>, Data Science Institute Affiliate<% } %>
 			</div>
 			<% } %>
 
@@ -161,6 +161,7 @@ export default BaseView.extend({
 			degree_institution: this.model.get('degree_institution') || 'unknown',
 			primary_affiliation: this.model.getPrimaryAffiliationName() || 'unknown',
 			appointment_type: this.model.get('appointment_type'),
+			is_affiliate: this.model.isAffiliate(),
 			research_terms: this.model.has('research_terms')? this.model.get('research_terms').join(', ') : '',
 			other_affiliations: this.model.getSecondaryAffiliations(),
 			communities: this.toNames(this.model.get('communities')),

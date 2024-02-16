@@ -132,12 +132,12 @@ export default FormView.extend({
 			
 			// callbacks
 			//
-			success: () => {
+			success: (data) => {
 
 				// perform callback
 				//
 				if (options && options.success) {
-					options.success();
+					options.success(data);
 				}
 			},
 

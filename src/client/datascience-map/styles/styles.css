@@ -375,7 +375,7 @@
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|        Copyright (C) 2016-2019, Megahed Labs LLC, www.sharedigm.com          |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 .modal {
   pointer-events: none;
@@ -557,7 +557,7 @@ body[device=phone] .modal-dialog .modal-content .modal-footer {
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|        Copyright (C) 2016-2019, Megahed Labs LLC, www.sharedigm.com          |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 .modal.opening {
   -webkit-animation: opening 0.5s;
@@ -731,7 +731,7 @@ body[device=phone] .modal-dialog .modal-content .modal-footer {
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|        Copyright (C) 2016-2019, Megahed Labs LLC, www.sharedigm.com          |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 input {
   outline: none;
@@ -830,8 +830,9 @@ label.error {
   font-weight: bold;
   color: #c2002f;
   padding-top: 0;
-  background: url(../images/forms/error.png) 5px 0px no-repeat;
   padding-left: 30px;
+  background: url(../images/forms/error.png) 5px 0px no-repeat;
+  background-position-y: 5px;
 }
 
 label.error:empty {
@@ -1020,16 +1021,19 @@ body[device=phone] .form-group > div {
   position: relative;
 }
 .nav-tabs > li > a {
-  width: 50px;
   text-align: center;
-  padding: 10px 0;
+  padding: 10px;
+  white-space: nowrap;
+  color: #808080;
+  background-color: transparent;
+  border: none !important;
 }
 .nav-tabs > li > a i {
   font-size: 20px;
 }
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover {
-  background: #f0f0f0;
-  border-color: transparent;
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  color: #c5050c;
+  background-color: #e6e6e6;
 }
 .nav-tabs > li.active .badge {
   background: #f7060f;
@@ -1106,7 +1110,7 @@ body[device=phone] .form-group > div {
   */
 }
 .items ol li:hover, .items ul:not(.nav-tabs) li:hover {
-  background-color: #f0f0f0;
+  background-color: #b3b3b3;
 }
 .items ol li .icon, .items ul:not(.nav-tabs) li .icon {
   margin-right: 5px;
@@ -1139,7 +1143,7 @@ body[device=phone] .form-group > div {
 .items table th {
   padding: 5px 10px;
   padding-right: 20px;
-  background: #f0f0f0;
+  background: #b3b3b3;
   white-space: nowrap !important;
 }
 .items table tr {
@@ -1150,7 +1154,7 @@ body[device=phone] .form-group > div {
   */
 }
 .items table tr:hover {
-  background-color: #f0f0f0;
+  background-color: #b3b3b3;
 }
 .items table tr td {
   vertical-align: top;
@@ -1732,6 +1736,48 @@ table.tablesorter-default {
 
 /******************************************************************************\
 |                                                                              |
+|                                _mainbar.scss                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+.mainbar .content {
+  max-height: 100%;
+}
+.mainbar .content .users-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  margin: 10px;
+  margin-right: 0;
+}
+.mainbar .content .users-list table {
+  width: 100%;
+  overflow: auto;
+  border-collapse: separate;
+  padding-right: 10px;
+}
+.mainbar .content .users-list table thead {
+  position: sticky;
+  top: 0;
+}
+.mainbar .content .users-list table tr td {
+  border: 1px solid #e6e6e6;
+}
+
+.affiliates-only table.people tbody tr:not(.affiliate) {
+  display: none;
+}
+
+/******************************************************************************\
+|                                                                              |
 |                                   _maps.scss                                 |
 |                                                                              |
 |******************************************************************************|
@@ -1741,10 +1787,6 @@ table.tablesorter-default {
 |******************************************************************************|
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
-#background {
-  background: #f0f0f0;
-}
-
 #viewport #tiles {
   opacity: 0.5;
 }
@@ -1848,7 +1890,7 @@ table.tablesorter-default {
   background: white;
 }
 .sidebar button:hover, .sidebar button:active {
-  background: #f0f0f0;
+  background: #b3b3b3;
 }
 .sidebar .expander button {
   background: none;
@@ -2053,6 +2095,11 @@ table.tablesorter-default {
 .sidebar .info.panel .info.panel a {
   color: grey;
 }
+.sidebar .tree .count {
+  margin-left: 10px;
+  padding-top: 2px;
+  flex-grow: 1;
+}
 .sidebar a {
   color: #c5050c;
   cursor: pointer;
@@ -2167,17 +2214,27 @@ body:not(.binary) .desktop.app .contents.split-view > .split.mainbar::after {
   box-shadow: none;
 }
 
-/*
-body[device="phone"] {
-	.gutter.gutter-vertical {
-		padding: 2px;
-
-		.handle {
-			width: 90%;
-		}
-	}
+body[device=phone] .gutter.gutter-vertical {
+  height: 0;
+  pointer-events: none;
 }
-*/
+
+/******************************************************************************\
+|                                                                              |
+|                                _tables.scss                                  |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+table th, table td {
+  padding: 5px 10px;
+  min-width: 100px;
+}
+
 /******************************************************************************\
 |                                                                              |
 |                                  _index.scss                                 |
@@ -2416,7 +2473,7 @@ body[device="phone"] {
 \******************************************************************************/
 .btn {
   color: initial;
-  background-color: #f0f0f0;
+  background-color: #cdcdcd;
   border-radius: 5px;
   border-width: 1px;
   border-style: solid;
@@ -2428,7 +2485,7 @@ body[device="phone"] {
   margin-right: 5px;
 }
 .btn:hover {
-  background: #e0e0e0;
+  background: #b3b3b3;
 }
 .btn.close:hover, .btn.clear:hover {
   color: crimson;

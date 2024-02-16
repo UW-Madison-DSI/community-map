@@ -19,6 +19,7 @@ import '../../../../vendor/bootstrap/js/tab.js';
 import BaseView from '../../../views/base-view.js';
 import ProfileView from '../../../views/sidebar/people/profile/profile-view.js';
 import AddressBar from '../../../utilities/web/address-bar.js';
+import QueryString from '../../../utilities/web/query-string.js';
 
 export default BaseView.extend({
 
@@ -67,8 +68,10 @@ export default BaseView.extend({
 					<% if (last_name) { %><span class="last-name"><%= last_name %></span><% } %>
 				</div>
 
-				<% if (title) { %>
-				<div class="subtitle"><%= title %></div>
+				<% if (title || is_affiliate) { %>
+				<div class="subtitle">
+					<% if (title) { %><%= title.toTitleCase() %><% } %><% if (title && is_affiliate) { %>, <% } %><% if (is_affiliate) { %>Affiliate<% } %>
+				</div>
 				<% } %>
 			</div>
 
@@ -203,6 +206,7 @@ export default BaseView.extend({
 		return {
 			profile_photo_url: this.model.getProfilePhotoUrl(),
 			other_affiliations: this.model.getSecondaryAffiliations(),
+			is_affiliate: this.model.isAffiliate(),
 			editable: this.options.editable,
 			closable: !mainView.savedPeople != undefined && !this.options.editable
 		};
@@ -290,10 +294,11 @@ export default BaseView.extend({
 	},
 
 	onClickEditPerson: function() {
+		let queryString = QueryString.get();
 
 		// go to edit my profile view
 		//
-		Backbone.history.navigate("#my-profile/edit", {
+		Backbone.history.navigate("#my-profile/edit" + (queryString? '?' + queryString : ''), {
 			trigger: true
 		});
 	},

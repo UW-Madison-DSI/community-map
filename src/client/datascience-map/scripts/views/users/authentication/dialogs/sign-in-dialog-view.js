@@ -11,6 +11,7 @@
 |     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
+import User from '../../../../models/users/user.js';
 import DialogView from '../../../../views/dialogs/dialog-view.js';
 import SignInFormView from '../../../../views/users/authentication/forms/sign-in-form-view.js';
 
@@ -84,6 +85,14 @@ export default DialogView.extend({
 
 	onSignIn: function() {
 		
+		// check if first time sign-in
+		//
+		if (!application.session.user.hasLoggedIn()) {
+			if (defaults.welcome) {
+				application.showNotifyDialog(defaults.welcome);
+			}
+		}
+
 		// get user information
 		//
 		application.session.getUser({
@@ -110,7 +119,8 @@ export default DialogView.extend({
 
 			// callbacks
 			//
-			success: () => {
+			success: (data) => {
+				application.session.user = new User(data);
 				this.onSignIn();
 			}
 		});

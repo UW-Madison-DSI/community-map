@@ -90,12 +90,42 @@ export default Backbone.Router.extend({
 
 			// go to welcome view
 			//
+			/*
 			Backbone.history.navigate('', {
 				trigger: true
 			});
 			return;
-		}
+			*/
+			application.showNotifyDialog({
+				title: 'No Account',
+				message: "You do not have a " + (defaults.application.name || '') + " account yet.  Please click the 'Add Me' button to create a new account."
+			});
 
+			this.showWelcome();
+		} else {
+			if (application.session.user.isAdmin()) {
+				this.showAdminView();
+			} else {
+				this.showHomeView();
+			}
+		}
+	},
+
+	showAdminView: function() {
+		import(
+			'./views/admin/admin-view.js'
+		).then((AdminView) => {
+
+			// show home view
+			//
+			application.show(new AdminView.default(), {
+				nav: 'home',
+				full_screen: true
+			});
+		});
+	},
+
+	showHomeView: function() {
 		import(
 			'./views/home-view.js'
 		).then((HomeView) => {
@@ -270,6 +300,17 @@ export default Backbone.Router.extend({
 			'./views/users/accounts/edit/edit-my-profile-view.js'
 		).then((EditMyProfileView) => {
 
+			// check if user is signed in
+			//
+			if (!application.session.user) {
+
+				// go to welcome view
+				//
+				Backbone.history.navigate("#", {
+					trigger: true
+				});
+			}
+
 			// show edit my profile view
 			//
 			application.show(new EditMyProfileView.default(), {
@@ -288,14 +329,31 @@ export default Backbone.Router.extend({
 			import('./views/person-view.js'),
 		]).then(([Person, PersonView]) => {
 
-			// show home view
+			// show person
 			//
-			application.show(new PersonView.default({
-				person: new Person.default({
-					id: id
-				})
-			}), {
-				full_screen: true
+			new Person.default({
+				id: id
+			}).fetch({
+
+				// callbacks
+				//
+				success: (model) => {
+					if (model.isAffiliate() && !defaults.community) {
+
+						// redirect to data science map
+						//
+						window.location = window.location.origin + window.location.pathname + 'data-science/' + window.location.hash;
+						return;
+					}
+
+					// show person's profile view
+					//
+					application.show(new PersonView.default({
+						model: model
+					}), {
+						full_screen: true
+					});
+				}
 			});
 		});
 	},

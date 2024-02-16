@@ -29,12 +29,6 @@ import ViewBarView from '../../views/toolbars/view-bar-view.js';
 import MapBarView from '../../views/toolbars/map-bar-view.js';
 import OptionsBarView from '../../views/toolbars/options-bar-view.js';
 
-//
-// local variables
-//
-
-let directory = [];
-
 export default CampusMapView.extend({
 
 	//
@@ -138,7 +132,7 @@ export default CampusMapView.extend({
 
 		// show all if no search
 		//
-		if (!QueryString.hasParam('query') && window.location.hash != '#home') {
+		if (!QueryString.has('query') && window.location.hash != '#home') {
 			this.showAll();
 		}
 	},
@@ -322,7 +316,7 @@ export default CampusMapView.extend({
 
 		// apply affiliates filter
 		//
-		if (QueryString.hasParam('affiliates') && QueryString.getParam('affiliates')) {
+		if (QueryString.has('affiliates') && QueryString.value('affiliates')) {
 			this.peopleView.filter(null, null, true);
 		}
 
@@ -443,14 +437,5 @@ export default CampusMapView.extend({
 
 	hideUnselectedPeople: function() {
 		this.viewport.$el.addClass('hide-unselected-people');
-	}
-}, {
-
-	//
-	// cache clearing method
-	//
-
-	reset: function() {
-		directory = [];
 	}
 });

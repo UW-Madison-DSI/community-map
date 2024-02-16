@@ -12,6 +12,7 @@
 
 import BaseView from '../../../views/base-view.js';
 import UserProfileFormView from '../../../views/users/accounts/forms/user-profile-form-view.js';
+import QueryString from '../../../utilities/web/query-string.js';
 
 export default BaseView.extend({
 
@@ -34,7 +35,9 @@ export default BaseView.extend({
 		
 		<div class="buttons">
 			<button id="edit" class="btn btn-primary btn-lg"><i class="fa fa-pencil"></i>Edit Profile</button>
+			<% if (!sso) { %>
 			<button id="change-password" class="btn btn-lg"><i class="fa fa-lock"></i>Change Password</button>
+			<% } %>
 			<button id="delete-account" class="btn btn-lg"><i class="fa fa-trash"></i>Delete Account</button>
 		</div>
 	`),
@@ -142,6 +145,12 @@ export default BaseView.extend({
 	// rendering methods
 	//
 
+	templateContext: function() {
+		return {
+			sso: config.sso != undefined
+		};
+	},
+
 	onRender: function() {
 
 		// display child views
@@ -188,10 +197,11 @@ export default BaseView.extend({
 	//
 
 	onClickEdit: function() {
+		let queryString = QueryString.get();
 
 		// go to edit my profile view
 		//
-		Backbone.history.navigate("#my-profile/edit", {
+		Backbone.history.navigate("#my-profile/edit" + (queryString? '?' + queryString : ''), {
 			trigger: true
 		});
 	},

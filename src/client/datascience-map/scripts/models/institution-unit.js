@@ -41,7 +41,7 @@ export default BaseModel.extend({
 	},
 
 	//
-	// parsing methods
+	// parsing (Backbone) methods
 	//
 
 	parse: function(response) {

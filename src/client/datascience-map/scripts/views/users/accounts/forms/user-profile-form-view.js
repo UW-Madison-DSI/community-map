@@ -66,7 +66,7 @@ export default FormView.extend({
 		<fieldset>
 			<legend>Dates</legend>
 	
-			<% if (model.hasCreateDate()) { %>
+			<% if (create_date) { %>
 			<div class="form-group">
 				<label class="form-label">Creation date</label>
 				<div class="controls">
@@ -75,7 +75,7 @@ export default FormView.extend({
 			</div>
 			<% } %>
 	
-			<% if (model.hasUpdateDate()) { %>
+			<% if (update_date) { %>
 			<div class="form-group">
 				<label class="form-label">Last modified date</label>
 				<div class="controls">
@@ -93,7 +93,6 @@ export default FormView.extend({
 
 	templateContext: function() {
 		return {
-			model: this.model,
 			create_date: this.model.hasCreateDate()? this.model.getCreateDate() : undefined,
 			update_date: this.model.hasUpdateDate()? this.model.getUpdateDate() : undefined
 		};
