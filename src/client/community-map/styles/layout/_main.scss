@@ -1,0 +1,93 @@
+/******************************************************************************\
+|                                                                              |
+|                                  _main.scss                                  |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@use "../colors/branding";
+
+//
+// variables
+//
+
+$grip-image: url('../images/splitters/grip.png');
+$grip-horizontal-image: url('../images/splitters/horizontal-grip.png');
+$grip-vertical-image: url('../images/splitters/vertical-grip.png');
+
+//
+// colors
+//
+
+$toolbar-color: branding.$primary-color;
+
+//
+// styles
+//
+
+.split-view {
+	.gutter {
+		background-color: lighten(lightgrey, 10%);
+		border-color: lightgrey;
+
+		.handle {
+			background-image: $grip-image;
+		}
+
+		&.gutter-horizontal {
+			.handle {
+				background-image: $grip-horizontal-image;
+			}
+		}
+
+		&.gutter-vertical {
+			.handle {
+				background-image: $grip-vertical-image;
+			}
+		}
+	}
+}
+
+#map {
+	width: 100%;
+	height: 100%;
+}
+
+table.tablesorter-default {
+	font: inherit;
+}
+
+//
+// sidebar expander
+//
+
+.toolbar {
+	background-color: $toolbar-color;
+
+	.buttons {
+		#show-filters {
+			background-color: $toolbar-color;
+
+			i {
+				color: white;
+			}
+		}
+
+		#show-filters:not(.selected) {
+			.fa-caret-up {
+				display: none;
+			}
+		}
+
+		#show-filters.selected {
+			.fa-caret-down {
+				display: none;
+			}
+		}
+	}
+}

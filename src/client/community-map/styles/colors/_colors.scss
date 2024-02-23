@@ -1,0 +1,37 @@
+/******************************************************************************\
+|                                                                              |
+|                                 _colors.scss                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@use "branding";
+
+//
+// colors
+//
+
+$medium-grey: #808080;
+$ultra-dark-grey: darken($medium-grey, 45%);
+$very-very-very-dark-grey: darken($medium-grey, 40%);
+$very-very-dark-grey: darken($medium-grey, 30%);
+$very-dark-grey: darken($medium-grey, 20%);
+$dark-grey: darken($medium-grey, 10%);
+$light-grey: lighten($medium-grey, 10%);
+$very-light-grey: lighten($medium-grey, 20%);
+$very-very-light-grey: lighten($medium-grey, 30%);
+$very-very-very-light-grey: lighten($medium-grey, 40%);
+$ultra-light-grey: lighten($medium-grey, 45%);
+$steel-grey: #dadfe1;
+
+// highlighting colors
+//
+$select-color: branding.$light-color;
+$highlight-color: $select-color;
+$select-fill: lighten($select-color, 33%);
+$highlight-fill: lighten($highlight-color, 33%);

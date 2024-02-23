@@ -1,0 +1,64 @@
+/******************************************************************************\
+|                                                                              |
+|                               _search-bar.scss                               |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@use "../toolbars/toolbars";
+
+//
+// styles
+//
+
+#search-bar {
+	margin: 10px;
+
+	input {
+		background: #e7eaee;
+		font-size: 20px;
+		width: 100%;
+		opacity: 1;
+		margin: auto;
+		margin-right: 5px;
+		padding: 0 10px;
+		border-radius: calc(toolbars.$button-size / 2);
+	}
+
+	select {
+		text-align: center;
+		margin: 0 5px;
+		font-weight: bold;
+	}
+}
+
+#source-selector {
+	position: absolute;
+	top: 10px;
+	display: flex;
+	right: 10px;
+
+	.title {
+		margin: 0 5px;
+		line-height: toolbars.$button-size;
+
+		i {
+			margin-right: 5px;
+		}
+	}
+}
+
+//
+// desktop styles
+//
+
+@media (min-width: 768px) {
+	#search-bar {
+		width: 75%;
+	}
+}

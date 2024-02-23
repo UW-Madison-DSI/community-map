@@ -1,0 +1,153 @@
+/******************************************************************************\
+|                                                                              |
+|                                _navbars.scss                                 |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@use "../colors/branding";
+@use "../bootstrap/variables";
+
+//
+// colors
+//
+
+$background-color: branding.$primary-color;
+$border-color: $background-color;
+
+//
+// styles
+//
+
+.navbar {
+	height: 40px;
+	min-height: 40px;
+	background-color: $background-color;
+	border-color: $border-color;
+	white-space: nowrap;
+
+	.container {
+		display: flex;
+		width: 100%;
+		height: 40px;
+		overflow: hidden;
+
+		.navbar-brand {
+			height: 40px;
+			padding: 10px;
+			color: white;
+			flex-shrink: 0;
+
+			.logo {
+				height: 20px;
+				float: left;
+				margin-right: 5px;
+			}
+		}
+
+		.navbar-nav {
+			display: flex;
+			margin: 0 auto;
+
+			> li {
+				> a {
+					padding: 10px;
+					color: lightgrey;
+					cursor: pointer;
+
+					&:hover {
+						color: white;
+					}
+				}
+
+				&.active {
+					> a {
+						color: white;
+						background-color: branding.$dark-color;
+					}
+				}
+			}
+		}
+
+		.title-bar {
+			flex-grow: 1;
+
+			> li {
+				width: 100%;
+				text-align: center;
+			}
+		}
+
+		.navbar-right {
+			display: flex;
+			float: right;
+			margin: 0;
+			border-color: #9b0000;
+			box-shadow: none;
+
+			button {
+				margin: 2px;
+
+				+ button {
+					margin-left: 5px;
+				}
+			}
+		}
+	}
+}
+
+//
+// large styles
+//
+
+@media (min-width: variables.$screen-lg-min) {
+	#home {
+		margin-right: 10px;
+	}
+
+	.navbar {
+		.container {
+			.navbar-right {
+				margin-left: 200px;
+			}
+		}
+	}
+}
+
+@media (max-width: variables.$screen-sm-min) {
+	.navbar {
+		.container {
+			.navbar-right {
+				margin-left: auto;
+			}
+		}
+	}
+}
+
+//
+// extra small styles
+//
+
+@media (max-width: variables.$screen-xs-min) {
+	.navbar {
+		.container {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			.navbar-brand {
+				padding: 10px 0;
+			}
+
+			.navbar-nav {
+				> li:not(.communities) {
+					display: none;
+				}
+			}
+		}
+	}
+}
