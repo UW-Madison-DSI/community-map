@@ -976,7 +976,7 @@ export default FormView.extend({
 			this.showChildView(id, new TreeView({
 				collection: this.termCollections[i],
 				sortWithCollection: false,
-				expanded: defaults.expanded.terms
+				expanded: defaults.sidebar.interests.expanded
 			}));
 		}
 	},

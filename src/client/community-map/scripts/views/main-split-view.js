@@ -247,11 +247,9 @@ export default SplitView.extend({
 
 		// show affiliates only
 		//
-		/*
-		if (QueryString.has('affiliates') && QueryString.value('affiliates')) {
+		if (defaults.sidebar.affiliates && defaults.sidebar.affiliates.checked) {
 			this.filter(null, null, true);
 		}
-		*/
 
 		// show people counts
 		//

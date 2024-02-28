@@ -57,29 +57,29 @@ export default BaseView.extend({
 		</div>
 		<% } %>
 
-		<% if (!defaults.sidebar || defaults.sidebar.show_interests) { %>
+		<% if (!defaults.sidebar || defaults.sidebar.interests) { %>
 		<hr />
 		<div class="interests panel">
-			Select the items of interest to you:
+			<%= defaults.sidebar.interests.label %>
 			<br /><br />
 			<div id="terms"></div>
 		</div>
 		<% } %>
 
-		<% if (!defaults.sidebar || defaults.sidebar.show_appointments) { %>
+		<% if (!defaults.sidebar || defaults.sidebar.appointments) { %>
 		<hr />
 		<div class="appointments panel">
-			Select the appointment types of interest to you:
+			<%= defaults.sidebar.appointments.label %>
 			<br /><br />
 			<div id="appointments"></div>
 		</div>
 		<% } %>
 
-		<% if (!defaults.sidebar || defaults.sidebar.show_affiliates) { %>
+		<% if (!defaults.sidebar || defaults.sidebar.affiliates) { %>
 		<hr />
 		<div class="affiliates panel" style="display:flex">
-			<input type="checkbox"<% if (affiliates) { %> checked<% } %> style="margin-top:5px; margin-bottom:auto;" />
-			<div style="margin-left:10px">Show members of the <a href="https://datascience.wisc.edu/dsi-affiliates" target="_blank">Data Science Institute Affiliates</a> program. </div>
+			<input type="checkbox"<% if (defaults.sidebar.affiliates.checked) { %> checked<% } %> style="margin-top:5px; margin-bottom:auto;" />
+			<div style="margin-left:10px"><%= defaults.sidebar.affiliates.label %></div>
 			<span class="count" style="float:right"><div class="badge">0</div></span>
 		</div>
 		<% } %>
@@ -191,21 +191,18 @@ export default BaseView.extend({
 
 	templateContext: function() {
 		return {
-			affiliates: QueryString.value('affiliates'),
-			show_interests: true,
-			show_appointments: true,
-			show_affiliates: true,
-			show_collaborations: true
+			affiliates: QueryString.value('affiliates')
 		}
 	},
 
 	onRender: function() {
-		if (!defaults.sidebar || defaults.sidebar.show_interests) {
+		if (!defaults.sidebar || defaults.sidebar.interests) {
 			this.showTerms();
 		}
-		if (!defaults.sidebar || defaults.sidebar.show_appointments) {
+		if (!defaults.sidebar || defaults.sidebar.appointments) {
 			this.showAppointmentTypes();
 		}
+
 		this.showFooter();
 	},
 
@@ -213,7 +210,7 @@ export default BaseView.extend({
 		this.showChildView('terms', new TreeView({
 			collection: this.terms,
 			sortWithCollection: false,
-			expanded: defaults.expanded.terms,
+			expanded: defaults.sidebar.interests.expanded,
 			checked: true,
 
 			// callbacks
@@ -227,7 +224,7 @@ export default BaseView.extend({
 		this.showChildView('appointments', new TreeView({
 			collection: this.appointments,
 			sortWithCollection: false,
-			expanded: defaults.expanded.appointment_types,
+			expanded: defaults.sidebar.appointments.expanded,
 			checked: true,
 
 			// callbacks
@@ -235,6 +232,22 @@ export default BaseView.extend({
 			count: (appointment) => this.numPeopleWithAppointment(appointment),
 			onclick: () => this.onClickCheckbox()
 		}));
+	},
+
+	showAffiliates: function(showAffiliates) {
+		let params = QueryString.toObject();
+		params['affiliates'] = showAffiliates;
+		QueryString.set(QueryString.encode(params));
+
+		// perform callback
+		//
+		if (this.options.onclick) {
+			this.options.onclick({
+				terms: this.getSelectedTerms(),
+				appointments: this.getSelectedAppointments(),
+				affiliates: showAffiliates
+			});
+		}
 	},
 
 	showPeopleCounts: function(people) {
@@ -260,19 +273,6 @@ export default BaseView.extend({
 	//
 
 	onClickCheckbox: function() {
-		let showAffiliates = this.getShowAffiliates();
-		let params = QueryString.toObject();
-		params['affiliates'] = showAffiliates;
-		QueryString.set(QueryString.encode(params));
-
-		// perform callback
-		//
-		if (this.options.onclick) {
-			this.options.onclick({
-				terms: this.getSelectedTerms(),
-				appointments: this.getSelectedAppointments(),
-				affiliates: showAffiliates
-			});
-		}
+		this.showAffiliates(this.getShowAffiliates());
 	}
 });

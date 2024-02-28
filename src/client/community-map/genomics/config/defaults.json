@@ -48,11 +48,6 @@
 		"Editing": "Cris Carusi"
 	},
 
-	"expanded": {
-		"terms": ["All", "Data Science Focus"],
-		"appointment_types": true
-	},
-
 	"footer": {
 		"logo": "images/logos/uw-logo-white.png",
 		"links": {
@@ -113,9 +108,14 @@
 
 	"sidebar": {
 		"logo": "images/logos/uw-crest.png",
-		"show_interests": true,
-		"show_appointments": true,
-		"show_affiliates": false
+		"interests": {
+			"label": "Select the genomics items of interest to you:",
+			"expanded": ["All"]
+		},
+		"appointments": {
+			"label": "Select the appointment types of interest to you:",
+			"expanded": true
+		}
 	},
 
 	"welcome": {

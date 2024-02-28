@@ -91,6 +91,39 @@ export default CollectionView.extend(_.extend({}, SVGCollectionRenderable, {
 		}
 	},
 
+	filterByTerms: function(terms) {
+		for (let i = 0; i < this.children.length; i++) {
+			let childView = this.children.findByIndex(i);
+			if ((childView.model.hasTerms(terms) !== false)) {
+				childView.$el.show();
+			} else {
+				childView.$el.hide();
+			}
+		}
+	},
+
+	filterByAppointments: function(appointments) {
+		for (let i = 0; i < this.children.length; i++) {
+			let childView = this.children.findByIndex(i);
+			if ((childView.model.hasAppointments(appointments) !== false)) {
+				childView.$el.show();
+			} else {
+				childView.$el.hide();
+			}
+		}
+	},
+
+	filterByAffiliates: function(affiliates) {
+		for (let i = 0; i < this.children.length; i++) {
+			let childView = this.children.findByIndex(i);
+			if (affiliates? childView.model.get('is_affiliate') : true) {
+				childView.$el.show();
+			} else {
+				childView.$el.hide();
+			}
+		}
+	},
+
 	unfilter: function() {
 		for (let i = 0; i < this.children.length; i++) {
 			let childView = this.children.findByIndex(i);

@@ -47,11 +47,6 @@
 		"Editing": "Cris Carusi"
 	},
 
-	"expanded": {
-		"terms": ["All", "Data Science Focus"],
-		"appointment_types": true
-	},
-
 	"footer": {
 		"logo": "images/logos/uw-logo-white.png",
 		"links": {
@@ -127,9 +122,10 @@
 
 	"sidebar": {
 		"logo": "images/logos/uw-crest.png",
-		"show_interests": false,
-		"show_appointments": true,
-		"show_affiliates": false
+		"appointments": {
+			"label": "Select the appointment types of interest to you:",
+			"expanded": true
+		}
 	},
 
 	"welcome": {

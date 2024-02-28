@@ -49,11 +49,6 @@
 		"Editing": "Cris Carusi"
 	},
 
-	"expanded": {
-		"terms": ["All", "Data Science Focus"],
-		"appointment_types": true
-	},
-
 	"footer": {
 		"logo": "images/logos/uw-logo-white.png",
 		"links": {
@@ -114,9 +109,18 @@
 
 	"sidebar": {
 		"logo": "images/logos/uw-crest.png",
-		"show_interests": true,
-		"show_appointments": true,
-		"show_affiliates": true,
+		"interests": {
+			"label": "Select the data science items of interest to you:",
+			"expanded": ["All", "Data Science Focus"]
+		},
+		"appointments": {
+			"label": "Select the appointment types of interest to you:",
+			"expanded": true
+		},
+		"affiliates": {
+			"label": "Show members of the <a href=\"https://datascience.wisc.edu/dsi-affiliates\" target=\"_blank\">Data Science Institute Affiliates</a> program. ",
+			"checked": false
+		},
 		"message": "Would you like collaborate on your data science project?  Connect with us through our <a href=\"https://datascience.wisc.edu/institute/pathways-to-collaboration/\" target=\"_blank\">Data Science Services</a> program."
 	},
 

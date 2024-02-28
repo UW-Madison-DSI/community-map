@@ -155,7 +155,7 @@ export default BaseView.extend({
 		this.showChildView('appointments', new TreeView({
 			collection: this.appointments,
 			sortWithCollection: false,
-			expanded: defaults.expanded.appointment_types,
+			expanded: defaults.sidebar.appointments.expanded,
 			checked: true,
 
 			// callbacks
