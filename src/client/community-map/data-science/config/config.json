@@ -1,7 +1,7 @@
 {
 	"servers": {
-		"community_map": "http://localhost/community-map-server/public/api",
-		"campus_map": "http://localhost/campus-map-server/public"
+		"community_map": "apis/community-map/public/api",
+		"campus_map": "apis/campus-map/public/api"
 	},
 	
 	"sso": {

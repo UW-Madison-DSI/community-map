@@ -46,7 +46,7 @@ Provides the ability to create accounts, sign in, and manage user accounts.
 
 ## Installation
 
-Instructions coming soon.
+See [INSTALL.md](INSTALL.md) for detailed installation instructions.
 
 <!-- LICENSE -->
 ## License
