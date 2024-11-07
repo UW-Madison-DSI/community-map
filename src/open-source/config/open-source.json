@@ -1,31 +1,31 @@
 {
 	"terms":  {
-		"Open Source Focus": {
-			"Open Source Sharing": [
-				"Licensing",
-				"Intellectual Property",
-				"Documentation",
-				"Citation",
-				"Metadata"
-			],
-			"Open Source Software": [
+		"Open Source": {
+			"Software": [
 				"Software Development",
 				"Software Storage",
 				"Software Packages",
 				"Software Versioning",
 				"Software Publication"
 			],
-			"Open Source Hardware": [
+			"Hardware": [
 				"Hardware Design",
 				"Hardware Description Language"
 			],
-			"Open Source Community": [
+			"Maintainership": [
+				"Licensing",
+				"Intellectual Property",
+				"Documentation",
+				"Citation",
+				"Metadata"
+			],
+			"Community": [
 				"Project Management",
 				"Contribution Mechanism",
 				"Community Development",
 				"Training and Education"
 			],
-			"Open Source Culture": [
+			"Practices": [
 				"FAIR Principles",
 				"CARE Principles",
 				"Data visualization",
