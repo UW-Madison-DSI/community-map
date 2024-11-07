@@ -7,7 +7,7 @@
 |        This defines a model of an international phone number.                |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import BaseModel from '../base-model.js';

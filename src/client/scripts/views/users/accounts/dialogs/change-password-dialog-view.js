@@ -7,7 +7,7 @@
 |        This defines a view for changing the user's password.                 |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import ChangePasswordFormView from '../../../../views/users/accounts/forms/change-password-form-view.js';

@@ -7,7 +7,7 @@
 |        This file defines a collection of named items.                        |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import BaseCollection from '../../collections/base-collection.js';

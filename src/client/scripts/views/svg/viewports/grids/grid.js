@@ -7,7 +7,7 @@
 |        This is a utility to draw a grid of regularly spaced lines.           |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import Bounds from '../../../../utilities/bounds/bounds.js';

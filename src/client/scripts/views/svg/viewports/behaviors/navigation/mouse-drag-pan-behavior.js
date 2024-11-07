@@ -7,7 +7,7 @@
 |        This is a definition of a viewport's mouse interaction behavior.      |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import MouseDragBehavior from '../../../../../views/svg/viewports/behaviors/mouse/mouse-drag-behavior.js';

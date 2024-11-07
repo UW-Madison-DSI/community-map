@@ -7,7 +7,7 @@
 |        This defines a behavior for showing labels.                           |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import Vector2 from '../../../../utilities/math/vector2.js';

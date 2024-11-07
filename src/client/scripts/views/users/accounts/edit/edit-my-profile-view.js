@@ -7,7 +7,7 @@
 |        This defines a view for editing the user's profile information.       |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import InstitutionUnits from '../../../../collections/institution-units.js';

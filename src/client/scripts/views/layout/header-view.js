@@ -7,7 +7,7 @@
 |        This defines the application header and associated content.           |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import BaseView from '../../views/base-view.js';

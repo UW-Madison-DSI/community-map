@@ -8,7 +8,7 @@
 |        modal sign in dialog box.                                             |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import User from '../../../../models/users/user.js';

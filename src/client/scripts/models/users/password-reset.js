@@ -7,7 +7,7 @@
 |        This defines a model of password reset event.                         |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import Timestamped from '../../models/utilities/timestamped.js';

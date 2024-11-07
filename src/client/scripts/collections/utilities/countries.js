@@ -7,7 +7,7 @@
 |        This file defines a collection of countries.                          |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import Country from '../../models/utilities/country.js';

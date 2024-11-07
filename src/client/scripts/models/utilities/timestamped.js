@@ -7,7 +7,7 @@
 |        This defines a model of a base time stamped base model.               |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import BaseModel from '../../models/base-model.js';

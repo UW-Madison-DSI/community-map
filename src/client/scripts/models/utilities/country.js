@@ -7,7 +7,7 @@
 |        This defines an instance of model of a country.                       |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import BaseModel from '../base-model.js';

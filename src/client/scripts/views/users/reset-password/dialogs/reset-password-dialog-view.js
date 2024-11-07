@@ -7,7 +7,7 @@
 |        This defines an dialog box that is used to reset a password.          |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import PasswordReset from '../../../../models/users/password-reset.js';

@@ -8,7 +8,7 @@
 |        prompt the user for confirmation to proceed with some action.         |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import DialogView from '../../views/dialogs/dialog-view.js';

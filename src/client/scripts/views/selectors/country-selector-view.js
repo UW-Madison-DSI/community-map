@@ -7,7 +7,7 @@
 |        This defines the view for selecting a country from a list.            |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import Country from '../../models/utilities/country.js';

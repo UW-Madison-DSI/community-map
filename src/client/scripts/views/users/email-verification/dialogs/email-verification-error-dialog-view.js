@@ -8,7 +8,7 @@
 |        unverified email address tries to login.                              |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 import EmailVerification from '../../../../models/users/email-verification.js';
