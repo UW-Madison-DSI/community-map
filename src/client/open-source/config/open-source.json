@@ -1,0 +1,216 @@
+{
+	"terms":  {
+		"Open Source Focus": {
+			"Open Source Sharing": [
+				"Licensing",
+				"Intellectual Property",
+				"Documentation",
+				"Citation",
+				"Metadata"
+			],
+			"Open Source Software": [
+				"Software Development",
+				"Software Storage",
+				"Software Packages",
+				"Software Versioning",
+				"Software Publication"
+			],
+			"Open Source Hardware": [
+				"Hardware Design",
+				"Hardware Description Language"
+			],
+			"Open Source Community": [
+				"Project Management",
+				"Contribution Mechanism",
+				"Community Development",
+				"Training and Education"
+			],
+			"Open Source Culture": [
+				"FAIR Principles",
+				"CARE Principles",
+				"Data visualization",
+				"Open Science",
+				"Sustainability",
+				"Ethics and Privacy",
+				"Policy",
+				"Diversity Equity and Inclusion"
+			]
+		},
+
+		"Application Areas": {
+			"Natural Sciences": [
+				"Astronomy",
+				"Atmospheric and Oceanic Sciences",
+				"Biology",
+				"Botany",
+				"Chemistry",
+				"Communication Sciences and Disorders",
+				"Conservation Biology",
+				"Geoscience",
+				"Integrative Biology",
+				"Mathematics",
+				"Molecular Biology",
+				"Physics"
+			],
+			"Computer, Data & Information Sciences": [
+				"Statistics",
+				"Computer Science",
+				"iSchool"
+			],
+			"Social Sciences": [
+				"African American Studies",
+				"American Indian Studies",
+				"Anthropology",
+				"Asian American Studies",
+				"Chican@ and Latin@ Studies",
+				"Communication Arts",
+				"Criminal Justice Certificate",
+				"Economics",
+				"Geography",
+				"Honors",
+				"Journalism & Mass Communication",
+				"Public Affairs",
+				"Legal Studies",
+				"Planning and Landscape Architecture",
+				"Political Science",
+				"Psychology",
+				"Social Work",
+				"Sociology"
+			],
+			"Arts and Humanities": [
+				"African Cultural Studies",
+				"Art History",
+				"Asian Languages & Cultures",
+				"Classical and Ancient Near Eastern Studies",
+				"Creative Writing",
+				"English",
+				"French and Italian",
+				"Gender and Women’s Studies",
+				"German, Nordic, and Slavic+",
+				"History",
+				"Language Sciences",
+				"Medieval Studies",
+				"Music",
+				"Philosophy",
+				"Religious Studies",
+				"Spanish and Portuguese"
+			],
+	 		"Agriculture and Life Sciences": [
+				"Agricultural and Applied Economics",
+				"Agronomy",
+				"Animal and Dairy Sciences",
+				"Bacteriology",
+				"Biochemistry",
+				"Biological Systems Engineering",
+				"Community and Environmental Sociology",
+				"Entomology",
+				"Food Science",
+				"Forest and Wildlife Ecology",
+				"Genetics",
+				"Horticulture",
+				"Life Sciences Communication",
+				"Neutritional Sciences",
+				"Plant Pathology",
+				"Soil Science"
+			],
+	 		"Engineering": [
+				"Biomedical Engineering",
+				"Chemical & Biological Engineering",
+				"Civil & Environmental Engineering",
+				"Electrical & Computer Engineering",
+				"Engineering Physics",
+				"Industrial & Systems Engineering",
+				"Materials Science & Engineering",
+				"Mechanical Engineering"
+			],
+			"Law": null,
+			"Library Science": null,
+			"Business": [
+				"Accounting and Information Systems",
+				"Finance, Investment, and Banking",
+				"Buisness Communication",
+				"Management and Human Resources",
+				"Marketing",
+				"Operations and Information Management",
+				"Real Estate and Urban Land Economics",
+				"Risk and Insurance"
+			],
+	  		"Environmental Studies": null,
+	  		"Human Ecology": [
+				"Civil Society & Community Studies",
+				"Consumer Science",
+				"Design Studies",
+				"Human Development & Family Studies"
+			],
+	  		"Education": [
+				"Art",
+				"Counseling Psychology",
+				"Curriculum & Instruction",
+				"Dance",
+				"Eduational Leadership & Policy Studies",
+				"Learning Sciences",
+				"Educational Psychology",
+				"Kinesiology",
+				"Rehabilitation Psychology & Special Education",
+				"Theatre & Drama"
+			],
+	 		"Medicine and Public Health": [
+				"Biomolecular Chemistry",
+				"Biostatistics and Medical Informatics (BMI)",
+				"Cell and Regenerative Biology",
+				"Medical Genetics",
+				"Medical History and Bioethics",
+				"Medical Microbiology and Immunology",
+				"Medical Physics",
+				"Neuroscience",
+				"Oncology",
+				"Population Health Sciences"
+			],
+	 		"Nursing": null,
+	 		"Pharmacy": null
+		},
+
+		"Tools": [
+			"Git",
+			"GitHub",
+			"GitLab",
+			"Gitea",
+			"CVS",
+			"BitBucket",
+			"Launchpad",
+			"SourceForge"
+		],
+
+		"Languages": [
+			"Python",
+			"R",
+			"Julia",
+			"Scala",
+			"Javascript",
+			"Java",
+			"C/C++",
+			"Go",
+			"Swift",
+			"MATLAB",
+			"Mathematica",
+			"SAS",
+			"Stata",
+			"SQL"
+		],
+
+		"Misc": [
+			"Industry",
+			"Entrepreneurship",
+			"Government",
+			"Research",
+			"Social Good / Non-profit"
+		]
+	},
+
+	"options": {
+		"receive-ospo-updates": {
+			"label": "Updates",
+			"description": "I would like to be informed of Open Source Program Office news and events."
+		}
+	}
+}

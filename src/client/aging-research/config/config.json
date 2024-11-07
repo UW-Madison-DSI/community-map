@@ -1,0 +1,13 @@
+{
+	"servers": {
+		"community_map": "http://localhost/community-map-server/public/api",
+		"campus_map": "http://localhost/campus-map-server/public"
+	},
+
+	"sso": {
+		"login": "/Shibboleth.sso/Login?target=https://wwwtest.maps.datascience.wisc.edu/institute-on-aging/home.php",
+		"logout": "/Shibboleth.sso/Logout?return=https://login.wisc.edu/logout"
+	},
+
+	"non_sso": true
+}

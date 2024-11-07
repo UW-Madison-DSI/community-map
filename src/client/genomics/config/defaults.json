@@ -1,0 +1,126 @@
+{
+	"application": {
+		"name": "Genomics @ UW Community Map",
+		"heading": "University of Wisconsin-Madison",
+		"title": "genomics @ uw",
+		"subtitle": "community map",
+		"tagline": "Connecting UW–Madison researchers, scientists, and the people who support their work.",
+		"subheading": "Brought to you by the <br /><a href=\"https://dsi.wisc.edu\" target=\"_blank\">UW–Madison Data Science Institute</a> <br /> Powered by American Family Insurance <br /><br /> <b><a href=\"#register\">Add yourself to the map!</a></b>",
+		"year": "2023",
+		"organization": {
+			"name": "University of Wisconsin–Madison Data Science Institute",
+			"url": "http://dsi.wisc.edu"
+		}
+	},
+
+	"appointment_types": [
+		"Faculty",
+		"Academic Staff",
+		"University Staff",
+		"Postdoc",
+		"Graduate Student",
+		"Undergraduate",
+		"Emeritus"
+	],
+
+	"community": "genomics",
+	"communities": [
+		"data-science",
+		"genomics",
+		"open-source",
+		"sustainability"
+	],
+
+	"contact": {
+		"subjects": [
+			"Partnering with DSI",
+			"Question",
+			"Comment",
+			"Feature Request",
+			"Bug Report",
+			"Other"
+		]
+	},
+
+	"credits": {
+		"Conception": "Kyle Cranmer",
+		"Design / Implementation": "Abe Megahed",
+		"Editing": "Cris Carusi"
+	},
+
+	"footer": {
+		"logo": "images/logos/uw-logo-white.png",
+		"links": {
+			"privacy": {
+				"text": "Privacy",
+				"href": "#privacy"
+			},
+			"cookies": {
+				"text": "Cookies",
+				"href": "#cookies"
+			},
+			"contact": {
+				"text": "Contact",
+				"href": "#contact"
+			},
+			"privacy": {
+				"text": "Privacy",
+				"href": "#privacy"
+			},
+			"credits": {
+				"text": "Credits"
+			}
+		}
+	},
+
+	"map": {
+		"latitude": 43.0740,
+		"longitude": 89.406,
+		"zoom_level": 16
+	},
+
+	"messages": {
+		"sign_up_with": "If you are a UW affiliate, please sign up with your UW NetID.  Otherwise, sign up with a username of your choice.",
+		"sign_in_with": "If you created your map account with your UW NetID, please select that option.  Otherwise, sign in with the username that you chose when creating your map account."
+	},
+
+	"navbar": {
+		"icon": "images/logos/uw-crest.png",
+		"title": "genomics @ uw",
+		"navs": {
+			"about": {
+				"text": "About",
+				"icon": "fa fa-info-circle",
+				"href": "#about"
+			},
+			"help": {
+				"text": "Help",
+				"icon": "fa fa-question-circle",
+				"href": "#help"
+			},
+			"communities": {
+				"text": "Communities",
+				"icon": "fa fa-users",
+				"href": "../"
+			}
+		}
+	},
+
+	"sidebar": {
+		"logo": "images/logos/uw-crest.png",
+		"interests": {
+			"label": "Select the genomics items of interest to you:",
+			"expanded": ["All"]
+		},
+		"appointments": {
+			"label": "Select the appointment types of interest to you:",
+			"expanded": true
+		}
+	},
+
+	"welcome": {
+		"icon": "fa fa-smile",
+		"title": "Welcome!",
+		"message": "Welcome to the Genomics Map. We encourage you to set up your profile to make it easier for others to find you.  To edit your profile, just click the 'Edit My Profile' button at the top left. We hope you enjoy using the Genomics Map."
+	}
+}

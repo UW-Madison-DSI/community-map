@@ -1,0 +1,35 @@
+{
+	"terms": {
+		"Energy Focus": [
+			"Coal",
+			"Natural gas",
+			"Petroleum",
+			"Hydroelectric",
+			"Nuclear",
+			"Wind",
+			"Solar"
+		],
+		"Research Areas": [
+			"Electricity Systems",
+			"Transportation and Fuels",
+			"Sustainability and Society",
+			"UW Madison Energy Research Centers"
+		],
+		"Education": [
+			"KidWind Challenge",
+			"Energy Transitions Oral History Project",
+			"Energy and Climate Justice"
+		]
+	},
+
+	"options": {
+		"receive-energy-newsletter": {
+			"label": "Newsletter",
+			"description": "I would like to receive the Wisconsin Energy Institute newsletter."
+		},
+		"receive-energy-updates": {
+			"label": "Updates",
+			"description": "I would like to be added to the Wisconsin Energy Institute email list."
+		}
+	}
+}

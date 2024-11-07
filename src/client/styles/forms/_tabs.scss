@@ -1,0 +1,89 @@
+/******************************************************************************\
+|                                                                              |
+|                                  _tabs.scss                                  |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@use "../colors/colors";
+@use "../colors/branding";
+
+//
+// colors
+//
+
+$tab-color: transparent;
+$tab-text-color: colors.$medium-grey;
+
+$active-tab-color: colors.$very-very-very-light-grey;
+$active-tab-text-color: branding.$primary-color;
+
+$border-color: branding.$primary-color;
+
+//
+// styles
+//
+
+.nav-tabs {
+	border-bottom: 2px solid $border-color;
+	margin-bottom: 10px;
+
+	> li {
+		margin-bottom: 0;
+		margin-top: 10px;
+		margin-left: 5px;
+		position: relative;
+
+		> a {
+			text-align: center;
+			padding: 10px;
+			white-space: nowrap;
+			color: $tab-text-color;
+			background-color: $tab-color;
+			border: none !important;
+
+			i {
+				font-size: 20px;
+			}
+		}
+
+		&.active {
+			> a, > a:focus, > a:hover {
+				color: $active-tab-text-color;
+				background-color: $active-tab-color;
+			}
+
+			.badge {
+				background: colors.$select-color;
+			}
+		}
+
+		&:not(.active) {
+			> a {
+				i {
+					color: lighten(grey, 20%);
+				}
+
+				&:hover {
+					border-color: transparent;
+
+					i {
+						color: grey;
+					}
+				}
+			}
+		}
+
+		.badge {
+			position: absolute;
+			top: 1px;
+			right: 3px;
+			pointer-events: none;
+		}
+	}
+}

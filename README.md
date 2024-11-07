@@ -8,7 +8,7 @@
 
 The Community Map is a an interactive web-based map that allows exploration of the community of faculty, staff, and students at the University of Wisconsin-Madison.  It allows for searching for people by name or by topic / area of expertise.
 
-![Screen Shot](images/datascience-map.png)
+![Screen Shot](images/datascience-community-map.png)
 
 ## Requirements
 

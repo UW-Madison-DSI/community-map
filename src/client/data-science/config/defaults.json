@@ -1,0 +1,132 @@
+{
+	"application": {
+		"name": "Data Science @ UW Community Map",
+		"heading": "University of Wisconsin-Madison",
+		"title": "data science @ uw",
+		"subtitle": "community map",
+		"tagline": "Connecting UW–Madison researchers, scientists, and the people who support their work.",
+		"subheading": "Brought to you by the <br /><a href=\"https://dsi.wisc.edu\" target=\"_blank\">UW–Madison Data Science Institute</a> <br /> Powered by American Family Insurance <br /><br /> <b><a href=\"#register\">Add yourself to the map!</a></b>",
+		"year": "2023",
+		"organization": {
+			"name": "University of Wisconsin–Madison Data Science Institute",
+			"url": "http://dsi.wisc.edu"
+		}
+	},
+
+	"appointment_types": [
+		"Faculty",
+		"Academic Staff",
+		"University Staff",
+		"Postdoc",
+		"Graduate Student",
+		"Undergraduate",
+		"Emeritus",
+		"Other"
+	],
+
+	"community": "data-science",
+	"communities": [
+		"data-science",
+		"genomics",
+		"open-source",
+		"sustainability"
+	],
+
+	"contact": {
+		"subjects": [
+			"Partnering with DSI",
+			"Question",
+			"Comment",
+			"Feature Request",
+			"Bug Report",
+			"Other"
+		]
+	},
+
+	"credits": {
+		"Conception": "Kyle Cranmer",
+		"Design / Implementation": "Abe Megahed",
+		"Editing": "Cris Carusi"
+	},
+
+	"footer": {
+		"logo": "images/logos/uw-logo-white.png",
+		"links": {
+			"privacy": {
+				"text": "Privacy",
+				"href": "#privacy"
+			},
+			"cookies": {
+				"text": "Cookies",
+				"href": "#cookies"
+			},
+			"contact": {
+				"text": "Contact",
+				"href": "#contact"
+			},
+			"privacy": {
+				"text": "Privacy",
+				"href": "#privacy"
+			},
+			"credits": {
+				"text": "Credits"
+			}
+		}
+	},
+
+	"map": {
+		"latitude": 43.0740,
+		"longitude": 89.406,
+		"zoom_level": 16
+	},
+
+	"messages": {
+		"sign_up_with": "If you are a UW affiliate, please sign up with your UW NetID.  Otherwise, sign up with a username of your choice.",
+		"sign_in_with": "If you created your map account with your UW NetID, please select that option.  Otherwise, sign in with the username that you chose when creating your map account."
+	},
+
+	"navbar": {
+		"icon": "images/logos/uw-crest.png",
+		"title": "data science @ uw",
+		"navs": {
+			"about": {
+				"text": "About",
+				"icon": "fa fa-info-circle",
+				"href": "#about"
+			},
+			"help": {
+				"text": "Help",
+				"icon": "fa fa-question-circle",
+				"href": "#help"
+			},
+			"communities": {
+				"text": "Communities",
+				"icon": "fa fa-users",
+				"href": "../"
+			}
+		}
+	},
+
+	"sidebar": {
+		"logo": "images/logos/uw-crest.png",
+		"interests": {
+			"label": "Select the data science items of interest to you:",
+			"expanded": ["All", "Data Science Focus"]
+		},
+		"appointments": {
+			"label": "Select the appointment types of interest to you:",
+			"expanded": true
+		},
+		"affiliates": {
+			"label": "Show members of the <a href=\"https://dsi.wisc.edu/dsi-affiliates\" target=\"_blank\">Data Science Institute Affiliates</a> program. ",
+			"checked": false
+		},
+		"message": "Would you like collaborate on your data science project?  Connect with us through our <a href=\"https://dsi.wisc.edu/institute/pathways-to-collaboration/\" target=\"_blank\">Data Science Services</a> program."
+	},
+
+	"welcome": {
+		"icon": "fa fa-smile",
+		"title": "Welcome!",
+		"message": "Welcome to the Data Science Map. We encourage you to set up your profile to make it easier for others to find you.  To edit your profile, just click the 'Edit My Profile' button at the top left. We hope you enjoy using the Data Science Map."
+	}
+}

@@ -1,0 +1,41 @@
+/******************************************************************************\
+|                                                                              |
+|                                _labels.scss                                  |
+|                                                                              |
+|******************************************************************************|
+|                                                                              |
+|        This defines the dom and svg visual styles for this application.      |
+|                                                                              |
+|******************************************************************************|
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
+\******************************************************************************/
+
+@use "../colors/colors";
+
+//
+// styles
+//
+
+text.label {
+	font-weight: bold;
+	text-anchor: middle;
+	cursor: default;
+
+	&:hover {
+		fill: colors.$select-color;
+	}
+}
+
+text.label.hidden {
+	display: none;
+}
+
+//
+// hiding methods
+//
+
+.hide-labels {
+	.label:not(.selected) {
+		display: none !important;
+	}
+}

@@ -1,0 +1,176 @@
+{
+	"terms": {
+		"Biological":  {
+			"Body System": [
+				"Brain", 
+				"Cardiovascular & Pulmonary Systems", 
+				"Endocrine System", 
+				"Hearing", 
+				"Hormones", 
+				"Immune System", 
+				"Lipids", 
+				"Metabolism", 
+				"Musculoskeletal Systems", 
+				"Prostate", 
+				"Urinary Tract", 
+				"Vision", 
+				"Other"
+			],
+			"Care Type": [
+				"Acute Care", 
+				"Clinical Practice", 
+				"Community / Home Care", 
+				"Family Medicine", 
+				"Health Promotion / Wellness", 
+				"Health Services", 
+				"Hospital Care", 
+				"Long-Term Care", 
+				"Nursing", 
+				"Preventive Medicine", 
+				"Rehabilitation", 
+				"Other Care"
+			],
+			"Disability": [
+				"Functional Disability", 
+				"Falls", 
+				"Frailty", 
+				"Pain", 
+				"Other Disability"
+			],
+			"Disease": [
+				"Allergies", 
+				"Alzheimers & Dementia", 
+				"Arthritis", 
+				"Asthma", 
+				"Cancer", 
+				"Cardiometabolic Risk", 
+				"Cardiovascular Disease", 
+				"Chronic Conditions", 
+				"Diabetes", 
+				"Epidemiology", 
+				"Hypertension", 
+				"Infections", 
+				"Neurodegenerative Diseases", 
+				"Obesity", 
+				"Osteoporosis", 
+				"Parkinson's Disease", 
+				"Stroke", 
+				"Other Disease"
+			],
+			"Health Behaviors": [
+				"Diet", 
+				"Exercise", 
+				"Leisure", 
+				"Stress", 
+				"Other Behavior"
+			],
+			"Research Area": [
+				"Animal Models", 
+				"Biomarkers", 
+				"Biosciences", 
+				"Cognitive Function", 
+				"Drugs", 
+				"Genetics", 
+				"Geriatrics", 
+				"Orthopedics", 
+				"Kinesiology", 
+				"Neuropsychology", 
+				"Neuroscience", 
+				"Nutrition", 
+				"Menopause", 
+				"Mortality", 
+				"Rheumatology", 
+				"Sleep", 
+				"Thermogenesis",
+				"Other Research"
+			]
+		},
+		"Psychological":  [
+			"Affect/Emotion",
+			"Attitude toward Aging",
+			"Behavior",
+			"Bereavement",
+			"Decision Making",
+			"Life Satisfaction",
+			"Mental Health",
+			"Personality",
+			"Psychological Well-being",
+			"Psychophysiology",
+			"Purpose in Life",
+			"Resilience",
+			"Sense of Control",
+			"Therapy",
+			"Religion & Spirituality",
+			"Other Psychological Factors"
+		],
+		"Social": {
+			"Culture/Country": null,
+			"Government": null,
+			"Historical Context": null,
+			"Inequality": [
+				"Discrimination", 
+				"Geographic Disparities", 
+				"Health Inequities", 
+				"Minority Aging", 
+				"Socioeconomic Status", 
+				"Social Determinants of Health", 
+				"Other Inequalities"
+			],
+			"Media": null,
+			"Neighborhoods": [
+				"Aging in Place", 
+				"Housing", 
+				"Relocation", 
+				"Rural Issues", 
+				"Other Neighborhood Factors"
+			],
+			"Non-normative Parenting": null,
+			"Occupation & Employment": null,
+			"Policy": null,
+			"Relationships": [
+				"Caregiving", 
+				"Family", 
+				"Intergenerational Relationships", 
+				"Marriage", 
+				"Sexuality", "Social Support", 
+				"Other Relationships"
+			],
+			"Social Development": null,
+			"Social Genomics": null,
+			"Social Services": null,
+			"Social Work": null,
+			"Transportation Safety": null,
+			"Veterans": null,
+			"Women's Issues": null,
+			"Other Social Factors": null
+		},
+		"Life Course": {
+			"Early Life Conditions": null,
+			"Midlife": null,
+			"Aging": null,
+			"Death & Dying": null,
+			"Developmental Change": null,
+			"Life Events": [
+				"Retirement", 
+				"Widowhood", 
+				"Other Life Events"
+			],
+			"Other Life Course Factors": null
+		},
+		"Demographics": [
+			"Demography",
+			"Education",
+			"Gender",
+			"Income",
+			"Race & Ethnicity",
+			"Other Demographics"
+		]
+	},
+
+	"options": {
+		"receive-updates": {
+			"label": "Updates",
+			"description": "I would like to be informed of Institute on Aging events."
+		}
+	}
+}
