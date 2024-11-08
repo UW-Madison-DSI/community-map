@@ -13,7 +13,7 @@
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 namespace App\Casts;
@@ -33,7 +33,7 @@ class Terms implements CastsAttributes
      */
     public function get($model, $key, $value, $attributes)
     {        
-        if ($value) {
+        if ($value && is_string($value)) {
             return explode(',', $value);
         } else {
             return [];
@@ -51,6 +51,10 @@ class Terms implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes)
     {
-        return implode(',', $value);
+        if ($value && is_array($value)) {
+            return implode(',', $value);
+        } else {
+            return [];
+        }
     }
 }

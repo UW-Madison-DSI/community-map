@@ -13,7 +13,7 @@
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
+|            Copyright (C) 2016-2020, Sharedigm, www.sharedigm.com             |
 \******************************************************************************/
 
 namespace App\Utilities\Filters;

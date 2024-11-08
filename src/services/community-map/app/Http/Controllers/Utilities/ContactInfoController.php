@@ -60,40 +60,42 @@ class ContactInfoController extends Controller
 		foreach ($userAccounts as $userAccount) {
 			$user = User::find($userAccount->id);
 
-			array_push($userData, [
+			if ($user) {
+				array_push($userData, [
 
-				// contact info
-				//
-				'first_name' => $user->first_name,
-				'last_name' => $user->last_name,
-				'username' => $userAccount->username,
-				'email_address' => $userAccount->email,
-				'communities' => $user->communities,
+					// contact info
+					//
+					'first_name' => $user->first_name,
+					'last_name' => $user->last_name,
+					'username' => $userAccount->username,
+					'email_address' => $userAccount->email,
+					'communities' => $user->communities,
 
-				// research info
-				//
-				'research_summary' => $user? $user->research_summary : null,
-				'research_terms' => $user? $user->research_terms : null,
-				'research_interests' => $user? $user->research_interests : null,
+					// research info
+					//
+					'research_summary' => $user? $user->research_summary : null,
+					'research_terms' => $user? $user->research_terms : null,
+					'research_interests' => $user? $user->research_interests : null,
 
-				// academic info
-				//
-				'degree_institution_name' => $user? $user->degree_institution_name : null,
-				'degree_year' => $user? $user->degree_year : null,
-				'orcid_id' => $user? $user->orcid_id : null,
+					// academic info
+					//
+					'degree_institution' => $user? $user->degree_institution : null,
+					'degree_year' => $user? $user->degree_year : null,
+					'orcid_id' => $user? $user->orcid_id : null,
 
-				// personal info
-				//
-				'homepage' => $user? $user->homepage : null,
-				'social_url' => $user? $user->social_url : null,
-				'github_url' => $user? $user->github_url : null
-			]);
+					// personal info
+					//
+					'homepage' => $user? $user->homepage : null,
+					'social_url' => $user? $user->social_url : null,
+					'github_url' => $user? $user->github_url : null
+				]);
+			}
 		}
 
 		// sort user data by last name ascending
 		//
 		usort($userData, function($a, $b) {
-    		return $a['lastName'] > $b['lastName'] ? 1 : -1;
+    		return $a['last_name'] > $b['last_name'] ? 1 : -1;
 		});
 
 		// format data as a CSV
@@ -162,7 +164,6 @@ class ContactInfoController extends Controller
 						// research info
 						//
 						$row['Research summary'] = $user['research_summary'];
-						$row['Research terms'] = $user['research_terms'];
 						$row['Research interests'] = $user['research_interests'];
 
 						// academic info
@@ -194,7 +195,6 @@ class ContactInfoController extends Controller
 							// research info
 							//
 							$row['Research summary'],
-							$row['Research terms']? implode(', ', $row['research terms']) : '',
 							$row['Research interests']? implode(', ', $row['Research interests']) : '',
 
 							// academic info
@@ -205,9 +205,9 @@ class ContactInfoController extends Controller
 
 							// personal info
 							//
-							$row['homepage'],
+							$row['Homepage'],
 							$row['Social url'],
-							$row['Github url'],
+							$row['GitHub url'],
 
 							// label
 							//

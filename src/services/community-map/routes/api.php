@@ -47,6 +47,7 @@ Route::get('users/{id}/logged_in', [SessionController::class, 'isLoggedIn']);
 //
 Route::post('users', [UserController::class, 'postCreate']);
 Route::get('users', [UserController::class, 'getAll']);
+Route::get('users/self', [UserController::class, 'getSelf']);
 Route::get('users/current', [UserController::class, 'getCurrent']);
 Route::get('users/{id}', [UserController::class, 'getIndex']);
 Route::put('users/{id}', [UserController::class, 'updateIndex']);

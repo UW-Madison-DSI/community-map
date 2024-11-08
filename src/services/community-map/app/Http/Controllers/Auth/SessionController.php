@@ -13,11 +13,12 @@
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 namespace App\Http\Controllers\Auth;
 
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
@@ -49,7 +50,8 @@ class SessionController extends Controller
 		$userAccount = UserAccount::where('username', '=', $username)->first();
 		if ($userAccount) {
 			if (Password::isValid($password, $userAccount->password)) {
-				
+				$user = $userAccount->user->toArray();
+
 				// check for user associated with this account
 				//
 				if (!$userAccount->hasBeenVerified()) {
@@ -58,6 +60,11 @@ class SessionController extends Controller
 				if (!$userAccount->isEnabled()) {
 					return response("User has not been approved.", 401);
 				}
+
+				// update last login
+				//
+				$userAccount->last_login = new DateTime();
+				$userAccount->save();
 
 				// create new session
 				//
@@ -70,7 +77,7 @@ class SessionController extends Controller
 					'timestamp' => time()
 				]);
 
-				return $userAccount->user;
+				return $user;
 			} else {
 				return response("Incorrect username or password.", 401);
 			}

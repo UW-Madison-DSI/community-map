@@ -13,7 +13,7 @@
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 namespace App\Models\Users;
@@ -148,7 +148,10 @@ class User extends TimeStamped
 		//
 		'username',
 		'email',
+		'is_admin',
+		'is_sso',
 		'options',
+		'last_login',
 
 		// timestamps
 		//
@@ -168,7 +171,10 @@ class User extends TimeStamped
 		'has_profile_photo',
 		'username',
 		'email',
-		'options'
+		'is_admin',
+		'is_sso',
+		'options',
+		'last_login'
 	];
 
 	/**
@@ -180,6 +186,7 @@ class User extends TimeStamped
 		'id' => 'integer',
 		'primary_unit_affiliation_id' => 'integer',
 		'is_affiliate' => 'boolean',
+		'is_admin' => 'boolean',
 		'degree_year' => 'integer',
 		'research_terms' => Terms::class,
 		'research_interests' => Terms::class,
@@ -205,7 +212,7 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getUsernameAttribute(): string {
-		return $this->isCurrent() && $this->account? $this->account->username : '';
+		return $this->account? $this->account->username : '';
 	}
 
 	/**
@@ -213,9 +220,26 @@ class User extends TimeStamped
 	 *
 	 * @return string
 	 */
-	public function getEmailAttribute(): string {
-		// return $this->isCurrent() && $this->account? $this->account->email : '';
-		return $this->account? $this->account->email : '';
+	public function getEmailAttribute(): ?string {
+		return $this->account? $this->account->email : null;
+	}
+
+	/**
+	 * Get this user's is admin attribute.
+	 *
+	 * @return string
+	 */
+	public function getIsAdminAttribute(): bool {
+		return $this->account? $this->account->isAdmin(): false;
+	}
+
+	/**
+	 * Get this user's is sso attribute.
+	 *
+	 * @return string
+	 */
+	public function getIsSsoAttribute(): bool {
+		return config('app.sso_username') && array_key_exists(config('app.sso_username'), $_SERVER);
 	}
 
 	/**
@@ -224,7 +248,16 @@ class User extends TimeStamped
 	 * @return string
 	 */
 	public function getOptionsAttribute(): array {
-		return $this->isCurrent() && $this->account? $this->account->options : [];
+		return $this->account? $this->account->options : [];
+	}
+
+	/**
+	 * Get this user's last login attribute.
+	 *
+	 * @return string
+	 */
+	public function getLastLoginAttribute() {
+		return $this->account? $this->account->last_login : null;
 	}
 
 	//
@@ -268,7 +301,7 @@ class User extends TimeStamped
 	 * @return bool
 	 */
 	public function isAdmin(): bool {
-		return $this->account? $this->account->isAdmin() : false;
+		return $this->is_admin;
 	}
 
 	/**

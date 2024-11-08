@@ -13,7 +13,7 @@
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 namespace App\Http\Controllers\Users;
@@ -51,16 +51,29 @@ class UserController extends Controller
 	 */
 	public function postCreate(Request $request) {
 
+		// parse params
+		//
+		$username = $request->input('username');
+		$password = $request->input('password');
+		$email = $request->input('email');
+		$options = $request->input('options');
+
+		// check params
+		//
+		if (!$username) {
+			return response('No username provided.', 400);
+		}
+
 		// create new user account
 		//
 		$userAccount = new UserAccount([
 			'id' => User::max('id') + 1,
-			'username' => $request->input('username'),
-			'password' => $request->input('password'),
+			'username' => $username,
+			'password' => $password,
 			'enabled_flag' => 1,
-			'email' => $request->input('email'),
+			'email' => $email,
 			'email_verified_flag' => 0,
-			'options' => $request->input('options'),
+			'options' => $options,
 			'admin_flag' => 0,
 		]);
 
@@ -87,7 +100,7 @@ class UserController extends Controller
 			'other_primary_unit_affiliation' => $request->input('primary_unit_affiliation'),
 			'non_primary_unitAffiliationIds' => $request->input('non_primary_unit_affiliation_ids'),
 			'is_affiliate' => $request->input('is_affiliate') == true,
-			'communities' => explode(', ', $request->input('communities')),
+			'communities' => $request->input('communities'),
 
 			// academic info
 			//
@@ -98,8 +111,8 @@ class UserController extends Controller
 			// research info
 			//
 			'research_summary' => $request->input('research_summary'),
-			'research_terms' => explode(', ', $request->input('research_terms')),
-			'research_interests' => explode(', ', $request->input('research_interests')),
+			'research_terms' => $request->input('research_terms'),
+			'research_interests' => $request->input('research_interests'),
 
 			// personal info
 			//
@@ -135,11 +148,54 @@ class UserController extends Controller
 	 * @param string $id - the id of the user to get
 	 * @return App\Models\Users\User
 	 */
-	public function getCurrent() {
-		
-		// find user by id
+	public function getSelf() {
+
+		// find user by session
 		//
 		$user = User::find(Session::get('user_id'));
+
+		// check for user
+		//
+		if (!$user) {
+			return response('No session.', 200);
+		}
+
+		return $user;
+	}
+
+	/**
+	 * Get the current user.
+	 *
+	 * @param string $id - the id of the user to get
+	 * @return App\Models\Users\User
+	 */
+	public function getCurrent() {
+
+		// find current user
+		//
+		if (config('app.sso_username') && $_SERVER[config('app.sso_username')]) {
+
+			// find user by Shibboleth id
+			//
+			$username = $_SERVER[config('app.sso_username')];		
+			$userAccount = $username? UserAccount::where('username', '=', $username)->first() : null;
+			$user = $userAccount? User::find($userAccount->id) : null;	
+
+			// update user's email using SSO information
+			//
+			if ($userAccount && !$userAccount->email) {
+				$userAccount->email = $_SERVER[config('app.sso_email')];
+				$userAccount->save();
+			}
+		} else {
+
+			// find user by session
+			//
+			$user = User::find(Session::get('user_id'));
+		}
+
+		// check for user
+		//
 		if (!$user) {
 			return response('No session.', 200);
 		}
@@ -227,10 +283,16 @@ class UserController extends Controller
 	 * @return App\Models\Users\User[]
 	 */
 	public function getAll(Request $request) {
-		
+		$currentUser = User::current();
+		$isAdmin = $currentUser && $currentUser->isAdmin();
+
 		// create query
 		//
-		$query = Person::orderBy('last_name', 'DESC');
+		if ($isAdmin) {
+			$query = User::orderBy('last_name', 'DESC');
+		} else {
+			$query = Person::orderBy('last_name', 'DESC');
+		}
 
 		// add filters
 		//
@@ -243,7 +305,9 @@ class UserController extends Controller
 
 		// execute query
 		//
-		return $query->get();
+		return $query->get()->filter(function($item) {
+			return !$item->isAdmin();
+		});
 	}
 
 	//
@@ -460,6 +524,14 @@ class UserController extends Controller
 	 */
 	public function updateAll(Request $request) {
 
+		// check to make sure that current user is an admin
+		//
+		$currentUser = User::current();
+		$isAdmin = $currentUser && $currentUser->isAdmin();
+		if ($isAdmin) {
+			return;
+		}
+
 		// get params
 		//
 		$input = $request->all();
@@ -470,6 +542,7 @@ class UserController extends Controller
 		for ($i = 0; $i < sizeOf($input); $i++) {
 			UsersController::updateIndex($item[$i]['id']);	
 		}
+
 		return $collection;
 	}
 

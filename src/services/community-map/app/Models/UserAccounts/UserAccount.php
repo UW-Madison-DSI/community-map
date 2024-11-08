@@ -15,7 +15,7 @@
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 namespace App\Models\UserAccounts;
@@ -85,7 +85,13 @@ class UserAccount extends TimeStamped
 		//
 		'enabled_flag',
 		'email_verified_flag',
-		'admin_flag'
+		'admin_flag',
+
+		// timestamps
+		//
+		'last_login',
+		'created_at',
+		'updated_at'
 	];
 
 	/**
@@ -107,6 +113,7 @@ class UserAccount extends TimeStamped
 
 		// timestamps
 		//
+		'last_login',
 		'created_at',
 		'updated_at'
 	];

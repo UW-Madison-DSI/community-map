@@ -13,7 +13,7 @@
 |        'LICENSE.txt', which is part of this source code distribution.        |
 |                                                                              |
 |******************************************************************************|
-|     Copyright (C) 2024, Data Science Institute, University of Wisconsin      |
+|     Copyright (C) 2022, Data Science Institute, University of Wisconsin      |
 \******************************************************************************/
 
 namespace App\Models\Users;
@@ -154,6 +154,7 @@ class Person extends BaseModel
 
 		// account info
 		//
+		'is_admin',
 		'has_profile_photo'
 	];
 
@@ -185,6 +186,15 @@ class Person extends BaseModel
 		return $this->profile_photo != null;
 	}
 
+	/**
+	 * Get this user's is admin attribute.
+	 *
+	 * @return string
+	 */
+	public function getIsAdminAttribute(): bool {
+		return $this->account? $this->account->isAdmin(): false;
+	}
+
 	//
 	// querying methods
 	//
@@ -199,12 +209,34 @@ class Person extends BaseModel
 	}
 
 	/**
+	 * Whether or not this users is an administrator.
+	 *
+	 * @return bool
+	 */
+	public function isAdmin(): bool {
+		return $this->is_admin;
+	}
+
+	/**
 	 * Whether or not this user is currently logged in.
 	 *
 	 * @return bool
 	 */
 	public function isOnline(): bool {
 		return UserSession::where('user_id', '=', $this->id)->exists();
+	}
+
+	//
+	// relationship methods
+	//
+
+	/**
+	 * Get this users's relationship to its account.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\Relation
+	 */
+	public function account() {
+		return $this->hasOne('App\Models\UserAccounts\UserAccount', 'id');
 	}
 
 	//
