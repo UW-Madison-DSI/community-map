@@ -10,19 +10,28 @@ The Community Map is a an interactive web-based map that allows exploration of t
 
 ![Screen Shot](images/datascience-community-map.png)
 
-## Requirements
+# Applications / Uses
 
-### 1. PHP 8.0+
+The Community Map can be customized for your own needs and can be used for the following purposes:
 
-The data science map uses Laravel9 which relies upon PHP 8.0 or later. 
+- Connecting with other people with shared interests.
+- Introducing yourself and your work to a community of like-minded people.
+- Learning about activities and other people in your sphere of interest.
+- Learning about the trends and interests of a community.
 
-### 2. Web Server
+# Installation
 
-This map application requires Apache or another similar web server.
+## Docker Installation
 
-### 2. SQL Database
+A docker installation is provided to make getting started quick and easy.  To run the application using Docker, simply type:
 
-The data science map uses SQL for storing user, authentication, and academic information.
+```
+docker compose up
+```
+
+## Manual Installation
+
+If you would like more control over the installation process, you can follow a [manual installation process](INSTALL.MD).
 
 ## Architecture
 
@@ -43,10 +52,6 @@ Provides information about the academic community at the UW Madison.
 Provides the ability to create accounts, sign in, and manage user accounts.
 
 - Campus map server
-
-## Installation
-
-See [INSTALL.md](INSTALL.md) for detailed installation instructions.
 
 <!-- LICENSE -->
 ## License

@@ -4,7 +4,7 @@
   </div>
 </p>
 
-# Community Map Installation
+# Community Map Manual Installation
 
 The following are instructions for installing the software on your own web server.
 
@@ -28,17 +28,7 @@ The data science map uses SQL for storing user, authentication, and academic inf
 
 ## Move or Copy the Files
 
-First, take a look in this repository's "src/client" folder.  There, you should see two subfolders:
-
-1) datascience_map
-This is the client software for a map which addresses a single community.
-
-2) community_map
-This is an example of a configuration for a multi-community map. Community maps may include a number of additional sub-communities.
-
-For simplicity, we're going to start with the installation for the single community map.
-
-Move or copy the files located in "/src/client/dastascience_map" directory to the document root of your web server.
+Move or copy the files located in "src/" directory into the document root of your web server.
 
 ## Set Storage Permissions
 
@@ -50,21 +40,9 @@ chmod -R 755 /var/www/html
 
 ```
 
-# Install the Server Code
+## View the Client
 
-Next, we will install the code for the back end API services that the client uses.  This code is located in this repository in the "src/server" directory.
-
-1) campus_map
-This server is responsible for the data for the base map - buildings, parking lots, etc.
-
-2) community_map
-This server is responsible for the data for the community of people that inhabit the map.
-
-Create an "api" directory inside of your document root where you copied the client files.   Move or copy the "campus_map" and "community_map" server directories inside of this "api" directory.
-
-## Test the Code Installation
-
-Once you have copied the files into your web server's document root folder, verify that your web server can access the files. 
+Once you have copied the files into your web server's document root folder, verify that your web server can access the files by typing "localhost" into your web browser.  You should see the user interface and map.
 
 # Set Up The Database
 
@@ -72,11 +50,7 @@ The community map uses a standard SQL database. To set up your database, perform
 
 ## Locate the SQL Database Files
 
-Inside of the /database directory, you should see the following two SQL files:
-
-- campus_map_structure.sql
-- campus_map_content.sql
-- community_map_structure.sql
+Inside of the /databases directory, you should see the two subdirectories containing SQL database files.
 
 ## Create a New Database
 
@@ -89,31 +63,38 @@ Using a database editor of your choice, create a two new databases:
 
 Next, create the required database tables. To do this, open your new database and execute the SQL script: "structure.sql".   You should see a list of tables that have been created.
 1. Create "campus_map" database.
-2. Run "campus_map_structure.sql" and to create the campus map tables.
+2. Run the .SQL file "database/campus_map/_structure.sql".
 3. Create "community_map" database.
-4. Run "community_map_structure.sql" to create the community map tables.
+2. Run the .SQL file "database/community_map/_structure.sql".
 
 ## Initialize the Database
 
-Next, we'll initialize the database with the data that it needs to display the map.
+Next, we'll initialize the database with the data describing the campus and community.
 
 1. Open the "campus_map" database.
-2. Run "campus_map_content.sql" to populate this database with the campus buildings.
+2. Run the .SQL files in the "database/campus_map" (except for "_structure.sql") to populate this database with the campus buildings.
+1. Open the "community_map" database.
+2. Run the .SQL files in the "database/community_map" (except for "_structure.sql") to populate this database with the community members.
 
 # Configure the Client Software
 
-The client is the "front end" or "user interface" portion of the software that the user interacts with.  The client needs to be able to talk to the "back end" where data is stored and managed.  In order for the client to be able to talk to the server, the client may need to be configured.   The client configuration is stored in the file "config/config.json".
+The client is the "front end" or "user interface" portion of the software that the user interacts with.  The client needs to be able to talk to the "back end" where data is stored and managed.  Make sure that the servers defined in the file "config/config.json" are pointing to the directory where your web application is located.
 
 ```
 "servers": {
-    "authentication": "/services/public/api",
-    "web": "/services/public/api"
+    "authentication": "/services/public",
+    "web": "/services/public"
   }
 ```
 
-# Configure the Server Software
+# Configure the Servers
 
-To configure the server software, go to the "services" folder where you copied the web server files. Inside of this directory your should see a file called ".env.example". Copy this file to ".env" and open it in your text editor.
+To configure the server software, go to the "services" folder where you copied the web server files. Inside of this directory you will find two servers:
+
+- campus-map
+- community-map
+
+Inside of each of these directories, your will see a file called ".env". This defines the server configuration for each of your back end web servers.
 
 ## Configure the App
 
