@@ -23,7 +23,7 @@ The Community Map can be customized for your own needs and can be used for the f
 
 ## Docker Installation
 
-A docker installation is provided to make getting started quick and easy.  To run the application using Docker, simply type:
+A docker installation is provided to make getting started quick and easy.  To run the application using Docker, simply navigate to the root level of the application and type:
 
 ```
 docker compose up
