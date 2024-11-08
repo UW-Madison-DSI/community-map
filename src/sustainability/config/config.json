@@ -1,0 +1,13 @@
+{
+	"servers": {
+		"community_map": "/services/community-map/public",
+		"campus_map": "/services/campus-map/public"
+	},
+	
+	"sso (disabled)": {
+		"login": "/Shibboleth.sso/Login?target=https://wwwtest.maps.datascience.wisc.edu/home",
+		"logout": "/Shibboleth.sso/Logout?return=https://login.wisc.edu/logout"
+	},
+
+	"non_sso": true
+}
