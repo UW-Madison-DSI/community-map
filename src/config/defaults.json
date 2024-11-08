@@ -126,6 +126,10 @@
 		"appointments": {
 			"label": "Select the appointment types of interest to you:",
 			"expanded": true
+		},
+		"affiliates": {
+			"label": "Show members of the <a href=\"https://dsi.wisc.edu/dsi-affiliates\" target=\"_blank\">Data Science Institute Affiliates</a> program. ",
+			"checked": false
 		}
 	},
 
