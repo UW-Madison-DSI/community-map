@@ -2521,6 +2521,10 @@ table th, table td {
 .btn#close {
   width: 30px;
   height: 30px;
+  padding: 0;
+}
+.btn#close i {
+  margin: 0;
 }
 
 button label {

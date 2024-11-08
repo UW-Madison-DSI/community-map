@@ -71,6 +71,11 @@ $border-radius: 5px;
 .btn#close {
 	width: 30px;
 	height: 30px;
+	padding: 0;
+
+	i {
+		margin: 0;
+	}
 }
 
 button label {
