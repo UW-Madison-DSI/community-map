@@ -439,10 +439,19 @@ export default ToolbarView.extend({
 	},
 
 	clear: function() {
+
+		// clear search bar input
+		//
 		this.$el.find('input').val('');
+
+		// reset view
+		//
 		this.parent.clear();
 		this.parent.showAll();
 		this.parent.labelsView.deselectAll();
+
+		// clear query from query string
+		//
 		QueryString.delete('query');
 	},
 
