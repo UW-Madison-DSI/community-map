@@ -443,7 +443,7 @@ export default ToolbarView.extend({
 		this.parent.clear();
 		this.parent.showAll();
 		this.parent.labelsView.deselectAll();
-		QueryString.clearValue('query');
+		QueryString.delete('query');
 	},
 
 	//
