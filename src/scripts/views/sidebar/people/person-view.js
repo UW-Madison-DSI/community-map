@@ -238,6 +238,13 @@ export default BaseView.extend({
 		this.addTooltips();
 	},
 
+	onAttach: function() {
+
+		// scroll to top
+		//
+		this.$el.parent()[0].scrollTop = 0;
+	},
+
 	showProfile: function() {
 		this.showChildView('details', new ProfileView({
 			model: this.model,

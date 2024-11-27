@@ -43,19 +43,13 @@ export default SplitView.extend({
 
 		// set defaults
 		//
-		if (!this.selectedTerms) {
-			this.selectedTerms = defaults.sidebar.interests.selected;
-		}
-		if (!this.expandedTerms) {
+		if (this.expandedTerms == undefined && defaults.sidebar.interests) {
 			this.expandedTerms = defaults.sidebar.interests.expanded;
 		}
-		if (!this.selectedAppointments) {
-			this.selectedAppointments = defaults.sidebar.appointments.selected;
-		}
-		if (!this.expandedTerms) {
+		if (this.expandedAppointments == undefined && defaults.sidebar.appointments) {
 			this.expandedAppointments = defaults.sidebar.appointments.expanded;
 		}
-		if (QueryString.value('affiliates') || defaults.sidebar.affiliates.checked) {
+		if (QueryString.value('affiliates') || (defaults.sidebar.affiliates && defaults.sidebar.affiliates.checked)) {
 			this.showAffiliates = true;
 		}
 	},
