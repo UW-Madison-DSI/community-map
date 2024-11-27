@@ -35,7 +35,7 @@ export default CollectionView.extend({
 				<i class="collapse fa fa-caret-down"</div></i>
 				<i class="expand fa fa-caret-right"</div></i>
 			</div>
-			<span class="select"><input type="checkbox"<% if (checked) { %> checked<% } %> /></span>
+			<span class="select"><input type="checkbox"<% if (selected) { %> checked<% } %> /></span>
 			<span class="name"><%= name %></span>
 			<span class="count"><div class="badge"><%= count %></div></span>
 		</div>
@@ -89,10 +89,35 @@ export default CollectionView.extend({
 	// getting methods
 	//
 
-	getValues: function() {
+	getSelected: function() {
 		let names = [];
-		this.$el.find('input:checked').each(function() {
-			let name = $(this).closest('.item').find('.name').text();
+		if (this.$el.hasClass('root')) {
+			if (this.$el.find('> .item input').is(':checked')) {
+				let name = this.$el.find('> .item .name').text();
+				names.push(name);
+			}
+		}
+		this.$el.find('.select').each(function() {
+			if ($(this).find('input').is(':checked')) {
+				let name = $(this).find('+ .name').text();
+				if (name != 'All') {
+					names.push(name);
+				}
+			}
+		});
+		return names;
+	},
+
+	getExpanded: function() {
+		let names = [];
+		if (this.$el.hasClass('root')) {
+			if (this.$el.hasClass('expanded')) {
+				let name = this.$el.find('> .item .name').text();
+				names.push(name);
+			}
+		}
+		this.$el.find('.tree.expanded').each(function() {
+			let name = $(this).find('> .item .name').text();
 			if (name != 'All') {
 				names.push(name);
 			}
@@ -219,10 +244,18 @@ export default CollectionView.extend({
 	//
 
 	templateContext: function() {
+		let name = this.model? this.model.get('name'): 'All';
+		let selected = this.options.selected == true;
+		let count = this.model? this.model.get('count') : 0;
+
+		if (!selected && this.options.selected && this.options.selected.length > 0) {
+			selected = this.options.selected.includes(name);
+		}
+
 		return {
-			name: this.model? this.model.get('name'): 'All',
-			count: this.model? this.model.get('count') : '',
-			checked: this.options.checked
+			name: name,
+			count: count,
+			selected: selected
 		};
 	},
 
@@ -236,7 +269,7 @@ export default CollectionView.extend({
 			this.$el.find('> .item:first-child').addClass('first');
 		}
 
-		// decide whether to expand tree
+		// expand tree
 		//
 		let category = this.options.parent? this.model.get('name') : 'All';
 		if (this.options.expanded) {
@@ -247,6 +280,19 @@ export default CollectionView.extend({
 			}
 		}
 
+		/*
+		// decide whether to expand tree
+		//
+		let category = this.options.parent? this.model.get('name') : 'All';
+		if (this.options.expanded) {
+			if (this.options.expanded.length > 0) {
+				expand = this.options.expanded.includes(category);
+			} else {
+				expand = this.options.expanded === true;
+			}
+		}
+		*/
+
 		// set initial state
 		//
 		if (expand) {
@@ -255,13 +301,27 @@ export default CollectionView.extend({
 	},
 
 	buildChildView: function (child) {
+		let selected = this.options.selected;
+		let expanded = this.options.expanded;
+
+		/*
+		// check if tree view is included in checked, expanded arrays
+		//
+		if (checked.length > 0) {
+			checked = checked.includes(child.get('name'));
+		}
+		if (expanded.length > 0) {
+			expanded = expanded.includes(child.get('name'));
+		}
+		*/
+
 		if (!child.has('collection')) {
 			return new LeafView({
 				model: child,
 
 				// options
 				//
-				checked: this.options.checked,
+				selected: selected,
 				parent: this,
 
 				// callbacks
@@ -271,12 +331,12 @@ export default CollectionView.extend({
 		} else {
 			return new this.constructor({
 				model: child,
+				collection: child.get('collection'),
 
 				// options
 				//
-				collection: child.get('collection'),
-				expanded: this.options.expanded,
-				checked: this.options.checked,
+				selected: selected,
+				expanded: expanded,
 				parent: this,
 
 				// callbacks
@@ -288,8 +348,15 @@ export default CollectionView.extend({
 
 	childViewOptions: function() {
 		return {
-			onclick: this.options.onclick,
-			checked: this.options.checked
+
+			// options
+			//
+			selected: this.options.selected,
+			expanded: this.options.expanded,
+
+			// callbacks
+			//
+			onclick: this.options.onclick
 		};
 	},
 

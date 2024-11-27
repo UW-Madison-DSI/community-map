@@ -156,7 +156,7 @@ export default BaseView.extend({
 			collection: this.appointments,
 			sortWithCollection: false,
 			expanded: defaults.sidebar.appointments.expanded,
-			checked: true,
+			selected: true,
 
 			// callbacks
 			//

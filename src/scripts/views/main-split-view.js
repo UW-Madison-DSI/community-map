@@ -23,6 +23,7 @@ import PlacesView from '../views/sidebar/places/places-view.js';
 import PeopleMapView from '../views/maps/people-map-view.js';
 import Browser from '../utilities/web/browser.js';
 import AddressBar from '../utilities/web/address-bar.js';
+import QueryString from '../utilities/web/query-string.js';
 
 export default SplitView.extend({
 
@@ -33,6 +34,31 @@ export default SplitView.extend({
 	orientation: $(window).width() < 640? 'vertical': 'horizontal',
 	flipped: false,
 	sizes: $(window).width() < 640? [0, 100] : [35, 65],
+
+	//
+	// constructor
+	//
+
+	initialize: function() {
+
+		// set defaults
+		//
+		if (!this.selectedTerms) {
+			this.selectedTerms = defaults.sidebar.interests.selected;
+		}
+		if (!this.expandedTerms) {
+			this.expandedTerms = defaults.sidebar.interests.expanded;
+		}
+		if (!this.selectedAppointments) {
+			this.selectedAppointments = defaults.sidebar.appointments.selected;
+		}
+		if (!this.expandedTerms) {
+			this.expandedAppointments = defaults.sidebar.appointments.expanded;
+		}
+		if (QueryString.value('affiliates') || defaults.sidebar.affiliates.checked) {
+			this.showAffiliates = true;
+		}
+	},
 
 	//
 	// querying methods
@@ -56,13 +82,21 @@ export default SplitView.extend({
 		}
 	},
 
-	getSelectedInterests: function() {
-		return this.getChildView('sidebar').getSelectedInterests();
+	getSelectedTerms: function() {
+		return this.getChildView('sidebar').getSelectedTerms();
 	},
 
-	getSelectedTools: function() {
-		return this.getChildView('sidebar').getSelectedTools();
+	getSelectedAppointments: function() {
+		return this.getChildView('sidebar').getSelectedAppointments();
 	},
+
+	getShowAffiliates: function() {
+		return this.getChildView('sidebar').getShowAffiliates();
+	},
+
+	//
+	// view getting methods
+	//
 
 	getMainBarView: function() {
 		return new PeopleMapView({
@@ -83,6 +117,14 @@ export default SplitView.extend({
 
 	getSideBarView: function() {
 		return new SideBarView({
+
+			// options
+			//
+			selectedTerms: this.selectedTerms,
+			expandedTerms: this.expandedTerms,
+			selectedAppointments: this.selectedAppointments,
+			expandedAppointments: this.expandedAppointments,
+			showAffiliates: this.showAffiliates,
 
 			// callbacks
 			//
@@ -149,6 +191,25 @@ export default SplitView.extend({
 
 	showPerson: function(person, options) {
 		let mapView = this.getChildView('mainbar');
+		let sidebarView = this.getChildView('sidebar');
+
+		// save sidebar state
+		//
+		if (sidebarView.getSelectedTerms) {
+			this.selectedTerms = sidebarView.getSelectedTerms();
+		}
+		if (sidebarView.getExpandedTerms) {
+			this.expandedTerms = sidebarView.getExpandedTerms();
+		}
+		if (sidebarView.getSelectedAppointments) {
+			this.selectedAppointments = sidebarView.getSelectedAppointments();
+		}
+		if (sidebarView.getExpandedAppointments) {
+			this.expandedAppointments = sidebarView.getExpandedAppointments();
+		}
+		if (sidebarView.getShowAffiliates) {
+			this.showAffiliates = sidebarView.getShowAffiliates();
+		}
 
 		// hide search bar
 		//
@@ -221,6 +282,13 @@ export default SplitView.extend({
 		// show sidebar
 		//
 		this.getChildView('sidebar').showPeopleCounts(people);
+
+		// apply initial filtering
+		//
+		let terms = this.getSelectedTerms();
+		let appointments = this.getSelectedAppointments();
+		let affiliates = this.getShowAffiliates();
+		this.filter(terms, appointments, affiliates);
 	},
 
 	showPlace: function(place, options) {
@@ -244,12 +312,6 @@ export default SplitView.extend({
 	//
 
 	onStart: function() {
-
-		// show affiliates only
-		//
-		if (defaults.sidebar.affiliates && defaults.sidebar.affiliates.checked) {
-			this.filter(null, null, true);
-		}
 
 		// show people counts
 		//

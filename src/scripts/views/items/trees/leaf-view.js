@@ -27,7 +27,7 @@ export default ListItemView.extend({
 	className: 'item',
 
 	template: _.template(`
-		<span class="select"><input type="checkbox"<% if (checked) { %> checked<% } %> /></span>
+		<span class="select"><input type="checkbox"<% if (selected) { %> checked<% } %> /></span>
 		<span class="name"><%= name %></span>
 		<span class="count"><div class="badge"><%= count %></div></span>
 	`),
@@ -82,10 +82,18 @@ export default ListItemView.extend({
 	//
 
 	templateContext: function() {
+		let selected = this.options.selected == true;
+		let name = this.model.get('name');
+		let count = this.model.get('count');
+
+		if (!selected && this.options.selected && this.options.selected.length > 0) {
+			selected = this.options.selected.includes(name);
+		}
+
 		return {
-			name: this.model.get('name'),
-			count: this.model.get('count'),
-			checked: this.options.checked
+			name: name,
+			count: count,
+			selected: selected
 		}
 	},
 

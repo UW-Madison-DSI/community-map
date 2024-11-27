@@ -78,7 +78,7 @@ export default BaseView.extend({
 		<% if (!defaults.sidebar || defaults.sidebar.affiliates) { %>
 		<hr />
 		<div class="affiliates panel" style="display:flex">
-			<input type="checkbox"<% if (defaults.sidebar.affiliates.checked) { %> checked<% } %> style="margin-top:5px; margin-bottom:auto;" />
+			<input type="checkbox"<% if (show_affiliates) { %> checked<% } %> style="margin-top:5px; margin-bottom:auto;" />
 			<div style="margin-left:10px"><%= defaults.sidebar.affiliates.label %></div>
 			<span class="count" style="float:right"><div class="badge">0</div></span>
 		</div>
@@ -171,13 +171,25 @@ export default BaseView.extend({
 
 	getSelectedTerms: function() {
 		if (this.hasChildView('terms') && !this.getChildView('terms').isAllSelected()) {
-			return this.getChildView('terms').getValues();
+			return this.getChildView('terms').getSelected();
+		}
+	},
+
+	getExpandedTerms: function() {
+		if (this.hasChildView('terms')) {
+			return this.getChildView('terms').getExpanded();
 		}
 	},
 
 	getSelectedAppointments: function() {
 		if (this.hasChildView('appointments') && !this.getChildView('appointments').isAllSelected()) {
-			return this.getChildView('appointments').getValues();
+			return this.getChildView('appointments').getSelected();
+		}
+	},
+
+	getExpandedAppointments: function() {
+		if (this.hasChildView('appointments')) {
+			return this.getChildView('appointments').getExpanded();
 		}
 	},
 
@@ -191,7 +203,7 @@ export default BaseView.extend({
 
 	templateContext: function() {
 		return {
-			affiliates: QueryString.value('affiliates')
+			show_affiliates: this.options.showAffiliates
 		}
 	},
 
@@ -209,9 +221,12 @@ export default BaseView.extend({
 	showTerms: function() {
 		this.showChildView('terms', new TreeView({
 			collection: this.terms,
+
+			// options
+			//
+			selected: this.options.selectedTerms || true,
+			expanded: this.options.expandedTerms,
 			sortWithCollection: false,
-			expanded: defaults.sidebar.interests.expanded,
-			checked: true,
 
 			// callbacks
 			//
@@ -223,9 +238,12 @@ export default BaseView.extend({
 	showAppointmentTypes: function() {
 		this.showChildView('appointments', new TreeView({
 			collection: this.appointments,
+
+			// options
+			//
+			selected: this.options.selectedAppointments || true,
+			expanded: this.options.expandedAppointments,
 			sortWithCollection: false,
-			expanded: defaults.sidebar.appointments.expanded,
-			checked: true,
 
 			// callbacks
 			//
